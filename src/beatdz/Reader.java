@@ -3,6 +3,7 @@ package beatdz;import beatdz.*;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 public class Reader {
    public DataInputStream dis = null;
@@ -25,19 +26,21 @@ public class Reader {
 
    public byte[] read() throws java.io.IOException {
       byte[] var1 = new byte[this.dis.readInt()];
-      this.dis.read(var1);
+      this.dis.readFully(var1);
       return var1;
    }
 
    public byte[] read(byte[] var1, int var2, int var3)  throws java.io.IOException{
-      this.dis.read(var1, var2, var3);
+      this.dis.readFully(var1, var2, var3);
       return var1;
    }
 
    public byte[] readFully()  throws java.io.IOException{
-      byte[] var1 = new byte[this.dis.available()];
-      this.dis.read(var1);
-      return var1;
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      byte[] buffer = new byte[4096];
+      int count;
+      while ((count = this.dis.read(buffer)) != -1) output.write(buffer, 0, count);
+      return output.toByteArray();
    }
 
    public String readUTF() throws java.io.IOException {

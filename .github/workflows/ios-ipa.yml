@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           chmod +x gradlew
-          ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:createIPA --console=plain --stacktrace 2>&1 | tee ios-build.log
+          ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:verifyAssetStreams :ios:createIPA --console=plain --stacktrace 2>&1 | tee ios-build.log
       - name: Validate IPA contents
         run: |
           python3 - <<'PY'

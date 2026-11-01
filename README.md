@@ -6,7 +6,7 @@ Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung n�
 
 Mở tab **Actions → Build iOS IPA → lần chạy thành công → Artifacts → LangLa-iOS-unsigned**. Giải nén artifact để lấy `.ipa`. Đây là IPA arm64 **chưa ký**, cần ký lại bằng công cụ sideload và Apple ID/chứng chỉ của bạn trước khi cài lên iPhone. Không phải bản đã ký để phát hành App Store.
 
-Workflow chạy khi push lên `main`, hoặc bấm **Run workflow** trong Actions. Dùng macOS 15, Xcode 16.4, JDK 17 và RoboVM 2.3.26.
+Workflow chạy khi push lên `main`, hoặc bấm **Run workflow** trong Actions. Dùng macOS 15, Xcode mặc định trên runner, JDK 17 và RoboVM 2.3.26.
 
 Build thủ công trên Mac:
 
@@ -24,5 +24,9 @@ chmod +x gradlew
 - Kiểm tra giải mã trước khi ghi cache ảnh tải lẻ.
 - Tiền tố giải nén thuộc từng archive, tránh lẫn icon giữa các luồng; archive hỏng không được đánh dấu cài thành công.
 - iOS đóng gói tài nguyên trực tiếp, không cần Android SDK.
+- Sửa tên file icon bị thừa `.png` và 9 icon sai kích thước; kiểm tra 21 ảnh trong asset catalog trước khi build.
+- Đọc stream đầy đủ dù dữ liệu trả theo từng phần; dữ liệu nén bị cắt không còn gây vòng lặp vô hạn.
 
 `ios/tests/AssetHttpTest.java` kiểm tra file 61 MB, phản hồi bị cắt, HTTP 404 và giới hạn retry. Kiểm tra Java/IPA không thay thế thử giao diện và đăng nhập trên iPhone thật. Tài nguyên tải thêm phụ thuộc hosting trong `src/beatdz/NetworkConfig.java`.
+
+Kiểm tra hosting ngày 01/11/2026: 17 URL trong manifest trả HTTP 200 với dung lượng đúng; giải nén 16 ZIP và giải mã thành công 3.616 ảnh ở 4 mức zoom. Công cụ kiểm tra: `ios/tests/AssetHostingAudit.java`. `:ios:verifyAssetStreams` kiểm tra đọc từng byte, stream không báo độ dài và dữ liệu nén bị cắt.

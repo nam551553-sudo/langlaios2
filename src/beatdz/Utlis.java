@@ -1331,6 +1331,9 @@ public class Utlis {
         try {
             while (!var2.finished()) {
                 int var4 = var2.inflate(var3);
+                if (var4 == 0 && !var2.finished()) {
+                    throw new java.util.zip.DataFormatException("Incomplete compressed asset");
+                }
                 var1.write(var3, 0, var4);
             }
 
@@ -1338,6 +1341,7 @@ public class Utlis {
             return var13;
         } catch (Exception var11) {
         } finally {
+            var2.end();
             try {
                 var1.close();
             } catch (Exception var10) {

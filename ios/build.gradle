@@ -4,6 +4,7 @@ sourceSets.main.java {
     srcDirs = ['src', '../src']
     exclude 'com/beatdz/langlalau/**'
 }
+sourceSets.test.java.srcDirs = ['tests']
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
@@ -22,3 +23,9 @@ tasks.register('syncGameAssets', Sync) {
     into layout.buildDirectory.dir('game-assets')
 }
 tasks.named('classes') { dependsOn 'syncGameAssets' }
+
+tasks.register('verifyAssetStreams', JavaExec) {
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'AssetReaderTest'
+}
