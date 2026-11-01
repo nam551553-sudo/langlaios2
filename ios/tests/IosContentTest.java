@@ -24,6 +24,7 @@ public class IosContentTest {
         mConfig.gI().writeByte(18, (byte)2);
         Path cache = sandbox.resolve(Binary.a);
         Files.createDirectories(cache);
+        Binary.writeInt("arr_ios_zoom3_cache", 3);
         for (String name : new String[]{"char_icon_31000.beatdz", "client_icon_31000.beatdz", "arr_check_4.beatdz", "arr_acc.beatdz", "arr_config.beatdz"}) {
             Files.write(cache.resolve(name), new byte[]{1,2,3});
         }
@@ -38,9 +39,9 @@ public class IosContentTest {
         check(Files.exists(cache.resolve("char_icon_31000.beatdz")), "Cache migration repeated");
         for (int[] size : new int[][]{{568,320},{844,390},{1920,1080},{2732,2048}}) {
             canvas.width = size[0]; canvas.height = size[1]; canvas.setZoomLevel();
-            check(DataCenter.gI().zoomLevel == 3 && DataCenter.gI().zoomLevelScreen == 3, "iOS zoom: " + Arrays.toString(size));
+            check(DataCenter.gI().zoomLevel == 2 && DataCenter.gI().zoomLevelScreen == 2, "iOS zoom: " + Arrays.toString(size));
             for (String asset : new String[]{"iconChar", "iconClient", "iconTree", "mapmini.zip", "iconCharNew2.zip"}) {
-                check(DataCenter.a(asset) + 1 == 3, "Wrong iOS resource zoom: " + asset);
+                check(DataCenter.a(asset) + 1 == 2, "Wrong iOS resource zoom: " + asset);
             }
         }
         Map<Integer,List<int[]>> frames = new LinkedHashMap<>();
@@ -76,7 +77,7 @@ public class IosContentTest {
         }
         controller.a(new Message((byte)-126, bytes.toByteArray()));
         check(data.F.length == 23 && data.G.length == 23, "Repeated SQL packet duplicated parts");
-        System.out.println("PASS: iOS zoom3 on 4 screen sizes, one-time image cache migration preserving account/settings, 23 SQL costumes / 644 source frames / 33 engine poses, repeated packet");
+        System.out.println("PASS: iOS zoom2 on 4 screen sizes, upgrade cache migration preserving account/settings, 23 SQL costumes / 644 source frames / 33 engine poses, repeated packet");
     }
     private static void check(boolean value, String message) { if (!value) throw new AssertionError(message); }
     private static class TestCanvas extends Canvas {

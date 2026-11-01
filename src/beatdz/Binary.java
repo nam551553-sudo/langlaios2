@@ -20,9 +20,9 @@ public class Binary {
     public static String a = "LangLaZ/";
 
     public static String c = "1.1.2_16";
-    /** Refresh resolution-dependent resources once when upgrading to the iOS zoom3 build. */
-    public static void prepareIosZoom3Cache() {
-        if (readInt("arr_ios_zoom3_cache") == 3) return;
+    /** Refresh resolution-dependent resources once whenever the iOS asset zoom changes. */
+    public static void prepareIosImageCache() {
+        if (readInt("arr_ios_asset_zoom") == AppBranding.IOS_ZOOM) return;
         try {
             String[] prefixes = {"char_", "client_", "tree_", "font_", "mapmini_", "mapsmall_", "mapscale_", "arr_check_"};
             for (FileHandle file : Utlis.external(a).list()) {
@@ -33,7 +33,7 @@ public class Binary {
                     }
                 }
             }
-            writeInt("arr_ios_zoom3_cache", 3);
+            writeInt("arr_ios_asset_zoom", AppBranding.IOS_ZOOM);
         } catch (Exception failure) {
             Utlis.println(failure);
         }

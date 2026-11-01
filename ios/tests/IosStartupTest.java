@@ -52,7 +52,7 @@ public class IosStartupTest {
         }
         com.tgame.model.Caption.loadVN();
         DataCenter data = DataCenter.gI();
-        data.widthScreen=640; data.heightScreen=360; data.zoomLevel=3; data.zoomLevelScreen=3;
+        data.widthScreen=640; data.heightScreen=360; data.zoomLevel=2; data.zoomLevelScreen=2;
         mConfig.gI().writeByte(18,(byte)2);
         // No cached metadata and an unavailable website must still allow the login form.
         CheckVersionScreen screen = new CheckVersionScreen(); data.currentScreen = screen;
@@ -78,6 +78,19 @@ public class IosStartupTest {
             warm.b(); Thread.sleep(10);
         }
         check(data.currentScreen instanceof LoginPCScreen,"Warm iOS launch did not reach login");
+        for (int[] size : new int[][]{{568,320},{844,390},{1883,875},{1920,1080}}) {
+            data.widthScreen = size[0] / 2; data.heightScreen = size[1] / 2;
+            LoginPCScreen resized = new LoginPCScreen();
+            LangLa_dz enter = null;
+            for (Object widget : resized.cG) {
+                if (widget instanceof LangLa_dz && ((LangLa_dz)widget).b == 1001) enter = (LangLa_dz)widget;
+            }
+            check(enter != null, "Login button missing");
+            check(enter.cx >= 0 && enter.cx + enter.width <= resized.width, "Login button clipped horizontally");
+            check(enter.cy >= 0 && enter.cy + enter.height <= resized.height - 24, "Login button clipped by screen/home indicator");
+            check(resized.a.cy >= 0 && resized.b.cy + resized.b.height <= enter.cy, "Login fields overlap button");
+        }
+        System.out.println("PASS: login button fits 4 landscape screen sizes at zoom2, including screenshot aspect ratio and home-indicator margin");
         System.out.println("PASS: cold iOS loading screen reaches actual username/password form without web; corrupt cache recovers; metadata and UI ready");
     }
     private static void check(boolean value,String message) { if (!value) throw new AssertionError(message); }

@@ -48,6 +48,10 @@ public class LoginPCScreen extends ScreenLogin {
         this.o();
         this.g = this.width / 2;
         this.h = this.height / 2;
+        if (Gdx.app.getType() == ApplicationType.iOS) {
+            // Leave room for the login button and the iPhone home indicator.
+            this.h = Math.max(32, Math.min(this.h, this.height - 123));
+        }
         this.j = this.g - 50;
         this.k = this.h - 25;
         this.a = new LangLa_mh(this, this.j, this.h - 27 + 25, 122, Caption.qR[1], this, -11, 0);

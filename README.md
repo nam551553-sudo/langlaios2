@@ -1,8 +1,10 @@
 # Làng Lá Kage iOS
 
+Build 5 giảm iOS về zoom 2, làm mới cache ảnh một lần khi đổi zoom và đóng kèm ảnh UI zoom2. Form đăng nhập được dịch lên nếu màn hình thấp để nút Vào game cách đáy ít nhất 24 đơn vị. Kiểm tra tự động vị trí nút trên bốn màn hình ngang, gồm tỷ lệ ảnh chụp của người dùng.
+
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.
 
-Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 3 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”. Bản sửa khởi động hiển thị `build 4` trên màn hình tải.
+Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 2 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”. Bản sửa khởi động hiển thị `build 5` trên màn hình tải.
 
 Server mặc định: `160.250.128.28`; web dữ liệu/ảnh/manifest/danh sách server: `http://160.250.128.28/`. Giữ nguyên các cổng kết nối hiện có.
 
@@ -37,9 +39,9 @@ Kiểm tra hosting ngày 01/11/2026: 17 URL trong manifest trả HTTP 200 với 
 
 ## Cải trang new1–23 / langlaz
 
-Client nhận item ID `1200–1222`, ngoại hình `500–522` và dữ liệu khung qua game server (gói `-126`), rồi tải ảnh `iconChar`/`iconClient` từ `http://160.250.128.28/img/zoom3/`. SQL được game server đọc; không đóng tài khoản/mật khẩu database vào ứng dụng.
+Client nhận item ID `1200–1222`, ngoại hình `500–522` và dữ liệu khung qua game server (gói `-126`), rồi tải ảnh `iconChar`/`iconClient` từ `http://160.250.128.28/img/zoom2/`. SQL được game server đọc; không đóng tài khoản/mật khẩu database vào ứng dụng.
 
-`:ios:verifyIosContent` đối chiếu giao thức với fixture công khai lấy từ `new1-23.sql`: 23 bộ × 28 khung nguồn, ánh xạ 33 tư thế, xử lý gói lặp và zoom 3 trên bốn kích thước màn hình. File trong `ios/tests/fixtures` chỉ chứa metadata cải trang, không chứa dữ liệu tài khoản. VPS cần có các item/khung tương ứng trong `langlaz` và server gửi gói `-126`; kiểm tra client không thay thế việc đăng nhập/mặc cải trang trên thiết bị thật.
+`:ios:verifyIosContent` đối chiếu giao thức với fixture công khai lấy từ `new1-23.sql`: 23 bộ × 28 khung nguồn, ánh xạ 33 tư thế, xử lý gói lặp và zoom 2 trên bốn kích thước màn hình. File trong `ios/tests/fixtures` chỉ chứa metadata cải trang, không chứa dữ liệu tài khoản. VPS cần có các item/khung tương ứng trong `langlaz` và server gửi gói `-126`; kiểm tra client không thay thế việc đăng nhập/mặc cải trang trên thiết bị thật.
 
 ## Khởi động iOS (build 4)
 

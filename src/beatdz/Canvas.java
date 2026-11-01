@@ -71,7 +71,7 @@ public abstract class Canvas implements Screen {
 
     public void setZoomLevel() {
         if (Gdx.app.getType() == ApplicationType.iOS) {
-            Binary.prepareIosZoom3Cache();
+            Binary.prepareIosImageCache();
             DataCenter.gI().zoomLevel = AppBranding.IOS_ZOOM;
             DataCenter.gI().zoomLevelScreen = AppBranding.IOS_ZOOM;
             return;
