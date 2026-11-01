@@ -55,7 +55,6 @@ public class SettingsTab extends LangLa_fo {
         "Nhận phúc lợi",
         "Ưu tiên đánh tinh anh",
         "Ưu tiên đánh thủ lĩnh",
-        "Speed hack",
         "Hiện đường khẽ Người",
         "Hiện đường khẽ Vật Phẩm",
         "Hiện đường khẽ Npc",
@@ -67,6 +66,8 @@ public class SettingsTab extends LangLa_fo {
 //        "Đi xuyên tường",
 //        "Dịch chuyển đến quái/vật phẩm",
     };
+    // Preserve the saved option slots after removing the speed option (slot 103).
+    private static final int[] AUTO_SLOTS = {0, 1, 2, 4, 5, 6};
 
     public SettingsTab() {
         try {
@@ -333,7 +334,7 @@ public class SettingsTab extends LangLa_fo {
         for (var1 = 0; var1 < this.s[3].length; ++var1) {
 
             var10000 = this.s[3][var1];
-            var3 = this.a[var1 + 100] != -1;
+            var3 = this.a[AUTO_SLOTS[var1] + 100] != -1;
             var10000.a = var3;
         }
 
@@ -492,6 +493,7 @@ public class SettingsTab extends LangLa_fo {
                 }
             }
         }
+        this.a[103] = -1;
     }
 
     public void a(LangLa_jz var1, int var2, int var3) {
@@ -618,12 +620,11 @@ public class SettingsTab extends LangLa_fo {
 
     public void a(int var1, Object var2, LangLa_cy var3) {
         try {
-            if (var1 >= 2907) {
-                var1 -= 2907;
-                var1 += 100;
-                this.a[var1] = (byte) (this.s[3][var1 - 100].a ? 0 : -1);
+            if (var1 >= 2907 && var1 < 2907 + AUTO_SLOTS.length) {
+                int row = var1 - 2907;
+                this.a[100 + AUTO_SLOTS[row]] = (byte) (this.s[3][row].a ? 0 : -1);
                 this.z();
-                DataCenter.gI().currentScreen.showMessage((this.s[3][var1 - 100].a ? "Bật " : "Tắt ") + arrayAuto[var1 - 100], -2560);
+                DataCenter.gI().currentScreen.showMessage((this.s[3][row].a ? "Bật " : "Tắt ") + arrayAuto[row], -2560);
             } else if (var1 == 100) {
                 try {
                     Message var7;

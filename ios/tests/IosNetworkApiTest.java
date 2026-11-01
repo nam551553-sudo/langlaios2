@@ -31,6 +31,22 @@ public class IosNetworkApiTest {
             }
             if (checked < 5) throw new AssertionError("HTTP bytecode not inspected");
             System.out.println("PASS: " + checked + " compiled HTTP method calls exist in the actual RoboVM iOS runtime");
+            try (InputStream game = IosNetworkApiTest.class.getResourceAsStream("/beatdz/GameSrc.class")) {
+                ClassInfo combat = read(game);
+                int calls = 0;
+                for (int index = 1; index < combat.pool.length; index++) {
+                    if (combat.tags[index] != 10 && combat.tags[index] != 11) continue;
+                    int[] reference = (int[])combat.pool[index];
+                    String owner = combat.className(reference[0]);
+                    if (!owner.startsWith("java/util/")) continue;
+                    int[] nameType = (int[])combat.pool[reference[1]];
+                    String signature = combat.text(nameType[0]) + combat.text(nameType[1]);
+                    if (!available(runtime, owner, signature)) throw new AssertionError("Auto combat calls missing RoboVM API: " + owner + "." + signature);
+                    calls++;
+                }
+                if (calls < 10) throw new AssertionError("Auto combat bytecode not inspected");
+                System.out.println("PASS: " + calls + " compiled game collection calls exist in the actual RoboVM iOS runtime");
+            }
         }
     }
     private static boolean available(JarFile runtime, String owner, String method) throws Exception {

@@ -74,6 +74,8 @@ public class AutoPro {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                // iOS already advances movement and auto combat from the game loop.
+                if (com.badlogic.gdx.Gdx.app.getType() == com.badlogic.gdx.Application.ApplicationType.iOS) return;
                 boolean b = false;
                 while (true) {
                     long var2 = System.currentTimeMillis();
@@ -231,6 +233,7 @@ public class AutoPro {
     }
 
     public static boolean isAuto(int i) {
+        if (i == 3) return false;
         return SettingsTab.gI().a[i + 100] == 0;
     }
 

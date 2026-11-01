@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class GameSrc extends MainScreen {
 
@@ -287,31 +286,18 @@ public class GameSrc extends MainScreen {
     }
 
     public static Mob findMobWithLevelBoss(int lv) {
-        GameSrc var0 = GameSrc.gI();
-        ArrayList<Mob> listMob = new ArrayList<Mob>();
-        for (int var19 = 0; var19 < var0.vMob.size(); ++var19) {
-            Mob var24;
-            if ((var24 = (Mob) var0.vMob.elementAt(var19)).status != 4 && var24.status != 6 && var24.status != 5 && !var24.q()) {
-                if (var24.levelBoss == lv) {
-
-                }
-
-                listMob.add(var24);
-            }
+        // RoboVM's runtime has no java.util.stream. Keep target selection linear.
+        Object[] mobs = GameSrc.gI().vMob.toArray();
+        Mob nearest = null;
+        int distance = Integer.MAX_VALUE;
+        for (Object entry : mobs) {
+            if (!(entry instanceof Mob)) continue;
+            Mob mob = (Mob) entry;
+            if (mob.levelBoss != lv || mob.status == 4 || mob.status == 6 || mob.status == 5 || mob.q()) continue;
+            int range = mob.getRe();
+            if (range < distance) { nearest = mob; distance = range; }
         }
-        if (listMob.size() > 0) {
-            List<Mob> list = listMob.stream().filter(mob -> mob.levelBoss == lv).collect(Collectors.toList());
-            if (list.size() > 0) {
-                Collections.sort(list, new Comparator() {
-                    @Override
-                    public int compare(Object o1, Object o2) {
-                        return ((Mob) o1).getRe() - ((Mob) o2).getRe();
-                    }
-                });
-                return list.get(0);
-            }
-        }
-        return null;
+        return nearest;
     }
     public Vector a = new Vector();
     public Vector b = new Vector();
@@ -11771,10 +11757,6 @@ public class GameSrc extends MainScreen {
 
             var13 = true;
             var23.t();
-            int c = 100;
-            while (var23.pointMove != null && var23.pointMove.getRe() >= 20 && AutoPro.isAuto(3) && c-- > 0) {
-                var23.t();
-            }
         }
     }
 

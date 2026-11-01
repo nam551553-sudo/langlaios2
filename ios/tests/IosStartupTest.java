@@ -99,6 +99,45 @@ public class IosStartupTest {
         System.out.println("PASS: login button fits 4 landscape screen sizes at zoom2, including screenshot aspect ratio and home-indicator margin");
         System.out.println("PASS: cold iOS loading screen reaches actual username/password form without web; corrupt cache recovers; metadata and UI ready");
         verifyWorldImageQueue();
+        verifyAutoCombat();
+    }
+    private static void verifyAutoCombat() throws Exception {
+        GameSrc game = GameSrc.gI();
+        DataCenter.gI().currentScreen = game;
+        SettingsTab settings = SettingsTab.gI();
+        check(settings.a != null, "Auto settings not ready");
+        // Simulate an upgrade with speed enabled and distinct line-display choices.
+        settings.a[103]=0; settings.a[104]=0; settings.a[105]=-1; settings.a[106]=0; settings.z();
+        settings.A(); settings.e();
+        check(settings.a[103] == -1 && !AutoPro.isAuto(3), "Saved speed setting is still active");
+        check(AutoPro.isAuto(4) && !AutoPro.isAuto(5) && AutoPro.isAuto(6), "Upgrade shifted saved options");
+        Field field = SettingsTab.class.getDeclaredField("s"); field.setAccessible(true);
+        LangLa_ce[] rows = ((LangLa_ce[][])field.get(settings))[3];
+        check(rows.length == 6 && SettingsTab.arrayAuto.length == 6, "Unexpected auto option count");
+        for (String title : SettingsTab.arrayAuto) check(!title.toLowerCase().contains("speed"), "Speed menu is still visible");
+        check(rows[3].a && !rows[4].a && rows[5].a, "Visible rows use wrong saved slots");
+        rows[3].a=false; settings.a(2910,null,null);
+        check(settings.a[104] == -1 && settings.a[105] == -1 && settings.a[106] == 0 && settings.a[103] == -1, "Line toggle changed wrong slot");
+        short oldX=Char.gI().cx, oldY=Char.gI().cy;
+        Char.gI().setXY(100,100); game.mapID=17;
+        game.vMob.clear();
+        Mob far=mob(1,300,100,0), near=mob(1,120,100,0), dead=mob(1,101,100,4), other=mob(2,102,100,0);
+        game.vMob.add(far); game.vMob.add(near); game.vMob.add(dead); game.vMob.add(other);
+        for(int tick=0;tick<1000;tick++) {
+            check(GameSrc.findMobWithLevelBoss(1)==near,"Auto selected wrong elite target");
+            check(GameSrc.findMobWithLevelBoss(2)==other,"Auto selected wrong boss target");
+            check(GameSrc.findMobWithLevelBoss(9)==null,"Auto selected absent target");
+        }
+        settings.a(true);
+        check(settings.autoTrain && settings.b==17 && SettingsTab.d==100 && SettingsTab.e==100,"Treo did not capture current position");
+        settings.a(false); check(!settings.autoTrain && settings.b==-1,"Cannot stop treo");
+        game.vMob.clear(); check(GameSrc.findMobWithLevelBoss(1)==null,"Empty map target lookup failed");
+        Char.gI().setXY(oldX,oldY);
+        System.out.println("PASS: treo start/stop, 3000 target lookups, dead/wrong-level/empty-map targets; speed removed and saved line-option slots preserved");
+    }
+    private static Mob mob(int level,int x,int y,int status) {
+        Mob mob = new Mob() { @Override public boolean q() { return false; } };
+        mob.levelBoss=(byte)level; mob.status=(byte)status; mob.setXY(x,y); return mob;
     }
     private static void verifyWorldImageQueue() throws Exception {
         HttpServer web = HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);

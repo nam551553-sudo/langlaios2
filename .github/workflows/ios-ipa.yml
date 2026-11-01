@@ -48,7 +48,7 @@ jobs:
                   info = plistlib.loads(archive.read('Payload/IOSLauncher.app/Info.plist'))
                   assert info['CFBundleDisplayName'] == 'Làng Lá Kage', info['CFBundleDisplayName']
                   assert info['DeveloperName'] == 'Krin'
-                  assert info['CFBundleVersion'] == '6'
+                  assert info['CFBundleVersion'] == '7'
                   assert 'Payload/IOSLauncher.app/data/arr_data_game.beatdz' in names
                   assert 'Payload/IOSLauncher.app/data/2/client_icon_14.beatdz' in names
               output = pathlib.Path('ipa-output')
