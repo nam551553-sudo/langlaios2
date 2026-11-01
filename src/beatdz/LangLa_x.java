@@ -254,8 +254,8 @@ public class LangLa_x extends LangLa_fo {
                             var6 = true;
                             break;
                         case 17:
-                            Gdx.net.openURI("https://www.facebook.com/beatdz.miramon/");
-                            var6 = false;
+                            this.p.l(AppBranding.NAME + "\nNhà phát triển: " + AppBranding.DEVELOPER);
+                            var6 = true;
                             break;
                         case 18:
 //                            this.p.a("Nếu bạn không tìm thấy Server muốn chơi trong phiên bản, hãy liên hệ Tác Giả để thêm Server vào phiên bản nhé.", 2004, this);

@@ -33,11 +33,11 @@ jobs:
         run: |
           set -euo pipefail
           chmod +x gradlew
-          ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:verifyAssetStreams :ios:createIPA --console=plain --stacktrace 2>&1 | tee ios-build.log
+          ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:verifyAssetStreams :ios:verifyIosContent :ios:createIPA --console=plain --stacktrace 2>&1 | tee ios-build.log
       - name: Validate IPA contents
         run: |
           python3 - <<'PY'
-          import pathlib, zipfile
+          import pathlib, zipfile, plistlib, shutil
           ipas = list(pathlib.Path('ios').rglob('*.ipa'))
           assert ipas, 'RoboVM did not produce an IPA'
           for ipa in ipas:
@@ -45,13 +45,20 @@ jobs:
                   names = archive.namelist()
                   for suffix in ['/IOSLauncher', '/Info.plist', '/resource/a', '/resource/font1.ttf']:
                       assert any(n.startswith('Payload/') and n.endswith(suffix) for n in names), suffix
+                  info = plistlib.loads(archive.read('Payload/IOSLauncher.app/Info.plist'))
+                  assert info['CFBundleDisplayName'] == 'Làng Lá Kage', info['CFBundleDisplayName']
+                  assert info['DeveloperName'] == 'Krin'
+                  assert info['CFBundleVersion'] == '3'
+              output = pathlib.Path('ipa-output')
+              output.mkdir(exist_ok=True)
+              shutil.copyfile(ipa, output / 'Làng Lá Kage.ipa')
               print(ipa, ipa.stat().st_size, 'bytes')
           PY
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: LangLa-iOS-unsigned
-          path: ios/**/*.ipa
+          name: Lang-La-Kage-iOS-unsigned
+          path: ipa-output/*.ipa
           if-no-files-found: error
           retention-days: 14
       - name: Upload build log

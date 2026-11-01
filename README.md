@@ -1,12 +1,14 @@
-# Làng Lá iOS
+# Làng Lá Kage iOS
 
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.
+
+Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 3 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”.
 
 Server mặc định: `160.250.128.28`; web dữ liệu/ảnh/manifest/danh sách server: `http://160.250.128.28/`. Giữ nguyên các cổng kết nối hiện có.
 
 ## Tải IPA
 
-Mở tab **Actions → Build iOS IPA → lần chạy thành công → Artifacts → LangLa-iOS-unsigned**. Giải nén artifact để lấy `.ipa`. Đây là IPA arm64 **chưa ký**, cần ký lại bằng công cụ sideload và Apple ID/chứng chỉ của bạn trước khi cài lên iPhone. Không phải bản đã ký để phát hành App Store.
+Mở tab **Actions → Build iOS IPA → lần chạy thành công → Artifacts → Lang-La-Kage-iOS-unsigned**. Giải nén artifact để lấy `Làng Lá Kage.ipa`. Đây là IPA arm64 **chưa ký**, cần ký lại bằng công cụ sideload và Apple ID/chứng chỉ của bạn trước khi cài lên iPhone. Không phải bản đã ký để phát hành App Store.
 
 Workflow chạy khi push lên `main`, hoặc bấm **Run workflow** trong Actions. Dùng macOS 15, Xcode mặc định trên runner, JDK 17 và RoboVM 2.3.26.
 
@@ -32,3 +34,9 @@ chmod +x gradlew
 `ios/tests/AssetHttpTest.java` kiểm tra file 61 MB, phản hồi bị cắt, HTTP 404 và giới hạn retry. Kiểm tra Java/IPA không thay thế thử giao diện và đăng nhập trên iPhone thật. Tài nguyên tải thêm phụ thuộc hosting trong `src/beatdz/NetworkConfig.java`.
 
 Kiểm tra hosting ngày 01/11/2026: 17 URL trong manifest trả HTTP 200 với dung lượng đúng; giải nén 16 ZIP và giải mã thành công 3.616 ảnh ở 4 mức zoom. Công cụ kiểm tra: `ios/tests/AssetHostingAudit.java`. `:ios:verifyAssetStreams` kiểm tra đọc từng byte, stream không báo độ dài và dữ liệu nén bị cắt.
+
+## Cải trang new1–23 / langlaz
+
+Client nhận item ID `1200–1222`, ngoại hình `500–522` và dữ liệu khung qua game server (gói `-126`), rồi tải ảnh `iconChar`/`iconClient` từ `http://160.250.128.28/img/zoom3/`. SQL được game server đọc; không đóng tài khoản/mật khẩu database vào ứng dụng.
+
+`:ios:verifyIosContent` đối chiếu giao thức với fixture công khai lấy từ `new1-23.sql`: 23 bộ × 28 khung nguồn, ánh xạ 33 tư thế, xử lý gói lặp và zoom 3 trên bốn kích thước màn hình. File trong `ios/tests/fixtures` chỉ chứa metadata cải trang, không chứa dữ liệu tài khoản. VPS cần có các item/khung tương ứng trong `langlaz` và server gửi gói `-126`; kiểm tra client không thay thế việc đăng nhập/mặc cải trang trên thiết bị thật.

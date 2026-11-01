@@ -116,7 +116,7 @@ public class InputCanvas extends Canvas {
                             }
                         }
                     }
-                    String s = "Chúc bạn chơi game vui vẻ.";
+                    String s = AppBranding.WELCOME;
                     //String s = "Bạn đang sử dụng phiên bản ClientLangLa dành riêng cho các server Làng Lá Lậu - By Beatdz. Chúc bạn chơi game vui vẻ.";
                     num += 2;
                     mFont.a(var1, s, var10.width - num, var10.height - 8, 0, -1);

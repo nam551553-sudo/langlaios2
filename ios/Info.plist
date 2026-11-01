@@ -19,6 +19,12 @@
     <string>6.0</string>
     <key>CFBundleName</key>
     <string>${app.name}</string>
+    <key>CFBundleGetInfoString</key>
+    <string>Làng Lá Kage - Krin</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>© Krin</string>
+    <key>DeveloperName</key>
+    <string>Krin</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>

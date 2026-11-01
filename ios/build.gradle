@@ -29,3 +29,9 @@ tasks.register('verifyAssetStreams', JavaExec) {
     classpath = sourceSets.test.runtimeClasspath
     mainClass = 'AssetReaderTest'
 }
+
+tasks.register('verifyIosContent', JavaExec) {
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'IosContentTest'
+}

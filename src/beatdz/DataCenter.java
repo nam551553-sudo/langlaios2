@@ -1272,6 +1272,7 @@ public class DataCenter {
     }
 
     public static int a(String lowerCase) {
+        if (Gdx.app.getType() == Application.ApplicationType.iOS) return AppBranding.IOS_ZOOM - 1;
         lowerCase = lowerCase.toLowerCase();
         byte b = mConfig.gI().readByte(2);
         int n;
