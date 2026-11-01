@@ -1,0 +1,58 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 60
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Test asset downloader
+        run: |
+          mkdir -p ios/build/audit-tests
+          javac -encoding UTF-8 -d ios/build/audit-tests src/beatdz/AssetHttp.java ios/tests/AssetHttpTest.java
+          java -Xmx512m -cp ios/build/audit-tests AssetHttpTest
+      - name: Build unsigned arm64 IPA
+        run: |
+          chmod +x gradlew
+          ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:createIPA --console=plain --stacktrace 2>&1 | tee ios-build.log
+      - name: Validate IPA contents
+        run: |
+          python3 - <<'PY'
+          import pathlib, zipfile
+          ipas = list(pathlib.Path('ios').rglob('*.ipa'))
+          assert ipas, 'RoboVM did not produce an IPA'
+          for ipa in ipas:
+              with zipfile.ZipFile(ipa) as archive:
+                  names = archive.namelist()
+                  for suffix in ['/IOSLauncher', '/Info.plist', '/resource/a', '/resource/font1.ttf']:
+                      assert any(n.startswith('Payload/') and n.endswith(suffix) for n in names), suffix
+              print(ipa, ipa.stat().st_size, 'bytes')
+          PY
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: LangLa-iOS-unsigned
+          path: ios/**/*.ipa
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-log
+          path: ios-build.log
+          if-no-files-found: ignore

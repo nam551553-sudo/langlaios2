@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'robovm'
+sourceSets.main.java {
+    srcDirs = ['src', '../src']
+    exclude 'com/beatdz/langlalau/**'
+}
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+ext.mainClassName = 'com.zenovux.langla.IOSLauncher'
+dependencies {
+    implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+    implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+}
+robovm { archs = 'arm64' }
+tasks.register('syncGameAssets', Sync) {
+    from(rootProject.projectDir) { include 'resource/**', 'music/**', 'sound/**' }
+    into layout.buildDirectory.dir('game-assets')
+}
+tasks.named('classes') { dependsOn 'syncGameAssets' }

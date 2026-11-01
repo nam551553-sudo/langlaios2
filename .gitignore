@@ -1,0 +1,11 @@
+.gradle/
+**/build/
+**/robovm-build/
+.DS_Store
+local.properties
+*.class
+*.ipa
+*.p12
+*.mobileprovision
+*.keystore
+ios-build.log
