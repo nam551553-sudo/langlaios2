@@ -11757,6 +11757,10 @@ public class GameSrc extends MainScreen {
 
             var13 = true;
             var23.t();
+            int remainingSteps = 100;
+            while (var23.pointMove != null && var23.pointMove.getRe() >= 20 && AutoPro.isAuto(3) && remainingSteps-- > 0) {
+                var23.t();
+            }
         }
     }
 

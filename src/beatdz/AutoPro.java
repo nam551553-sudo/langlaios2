@@ -233,7 +233,6 @@ public class AutoPro {
     }
 
     public static boolean isAuto(int i) {
-        if (i == 3) return false;
         return SettingsTab.gI().a[i + 100] == 0;
     }
 

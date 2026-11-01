@@ -156,7 +156,7 @@ public class CheckVersionScreen extends ScreenLogin {
         }
 
         if (Gdx.app.getType() == ApplicationType.iOS) {
-            mFont.a(var1, Caption.eQ + Utlis.e(DataCenter.gI().VER2) + " / build 7", this.width - 8 - AppListener.gI().o, 8, 1, -1);
+            mFont.a(var1, Caption.eQ + Utlis.e(DataCenter.gI().VER2) + " / build 8", this.width - 8 - AppListener.gI().o, 8, 1, -1);
             if (iosStartup != null) {
                 mFont.a(var1, iosStartup.status, this.width / 2, this.height - 28, 2, -1);
             }

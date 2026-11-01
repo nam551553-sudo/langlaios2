@@ -1,5 +1,7 @@
 # Làng Lá Kage iOS
 
+Build 8 bật lại mục Speed hack và xử lý di chuyển tăng tốc có giới hạn 100 bước mỗi lượt cập nhật. Bật/tắt được lưu ở slot 103; các tùy chọn đường kẻ giữ nguyên slot 104–106. Giữ bản sửa lỗi Treo do API Stream không tồn tại trên RoboVM, tải ảnh và zoom2. Kiểm tra bật/tắt, lưu/đọc lại Speed hack và ánh xạ tùy chọn trong `verifyIosStartup`.
+
 Build 7 sửa lỗi bật Treo khi có quái: thay `ArrayList.stream()` (không có trong RoboVM) bằng duyệt một lượt tìm mục tiêu gần nhất. iOS chỉ cập nhật di chuyển/tự đánh trong vòng lặp game. Đã xóa Speed hack, bỏ vòng lặp di chuyển tăng tốc, vô hiệu hóa cấu hình cũ và giữ nguyên slot lưu của các tùy chọn đường kẻ. Kiểm tra gồm bật/tắt Treo, 3000 lần tìm mục tiêu, quái chết/sai cấp boss/map trống, nâng cấp cấu hình và toàn bộ lời gọi collection trong bytecode GameSrc với runtime RoboVM thực tế.
 
 Build 6 sửa tải ảnh trong game trên iOS: thay API `URLConnection.getContentLengthLong()` không tồn tại trong RoboVM bằng `getContentLength()`, bật đồ họa đầy đủ khi khởi động, dùng một hàng đợi đọc cache và bốn luồng HTTP độc lập. Map/nhân vật/icon tiếp tục lấy từ web zoom2. Bộ ảnh khởi động vẫn đóng kèm như build 5.
@@ -10,7 +12,7 @@ Build 5 giảm iOS về zoom 2, làm mới cache ảnh một lần khi đổi zo
 
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.
 
-Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 2 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”. Bản sửa khởi động hiển thị `build 7` trên màn hình tải.
+Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 2 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”. Bản sửa khởi động hiển thị `build 8` trên màn hình tải.
 
 Server mặc định: `160.250.128.28`; web dữ liệu/ảnh/manifest/danh sách server: `http://160.250.128.28/`. Giữ nguyên các cổng kết nối hiện có.
 

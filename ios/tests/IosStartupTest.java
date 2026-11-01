@@ -109,15 +109,20 @@ public class IosStartupTest {
         // Simulate an upgrade with speed enabled and distinct line-display choices.
         settings.a[103]=0; settings.a[104]=0; settings.a[105]=-1; settings.a[106]=0; settings.z();
         settings.A(); settings.e();
-        check(settings.a[103] == -1 && !AutoPro.isAuto(3), "Saved speed setting is still active");
+        check(settings.a[103] == 0 && AutoPro.isAuto(3), "Saved speed setting was not restored");
         check(AutoPro.isAuto(4) && !AutoPro.isAuto(5) && AutoPro.isAuto(6), "Upgrade shifted saved options");
         Field field = SettingsTab.class.getDeclaredField("s"); field.setAccessible(true);
         LangLa_ce[] rows = ((LangLa_ce[][])field.get(settings))[3];
-        check(rows.length == 6 && SettingsTab.arrayAuto.length == 6, "Unexpected auto option count");
-        for (String title : SettingsTab.arrayAuto) check(!title.toLowerCase().contains("speed"), "Speed menu is still visible");
-        check(rows[3].a && !rows[4].a && rows[5].a, "Visible rows use wrong saved slots");
+        check(rows.length == 7 && SettingsTab.arrayAuto.length == 7, "Unexpected auto option count");
+        check("Speed hack".equals(SettingsTab.arrayAuto[3]) && rows[3].a, "Speed menu missing or not selected");
+        check(rows[4].a && !rows[5].a && rows[6].a, "Visible rows use wrong saved slots");
         rows[3].a=false; settings.a(2910,null,null);
-        check(settings.a[104] == -1 && settings.a[105] == -1 && settings.a[106] == 0 && settings.a[103] == -1, "Line toggle changed wrong slot");
+        check(!AutoPro.isAuto(3) && settings.a[104] == 0, "Speed off changed wrong slot");
+        settings.A(); settings.e(); check(!rows[3].a, "Speed off was not saved");
+        rows[3].a=true; settings.a(2910,null,null);
+        settings.A(); settings.e(); check(AutoPro.isAuto(3) && rows[3].a, "Speed on was not saved");
+        rows[4].a=false; settings.a(2911,null,null);
+        check(settings.a[104] == -1 && settings.a[105] == -1 && settings.a[106] == 0 && settings.a[103] == 0, "Line toggle changed wrong slot");
         short oldX=Char.gI().cx, oldY=Char.gI().cy;
         Char.gI().setXY(100,100); game.mapID=17;
         game.vMob.clear();
@@ -133,7 +138,7 @@ public class IosStartupTest {
         settings.a(false); check(!settings.autoTrain && settings.b==-1,"Cannot stop treo");
         game.vMob.clear(); check(GameSrc.findMobWithLevelBoss(1)==null,"Empty map target lookup failed");
         Char.gI().setXY(oldX,oldY);
-        System.out.println("PASS: treo start/stop, 3000 target lookups, dead/wrong-level/empty-map targets; speed removed and saved line-option slots preserved");
+        System.out.println("PASS: treo start/stop, 3000 target lookups, dead/wrong-level/empty-map targets; speed menu restored, on/off saved and line-option slots preserved");
     }
     private static Mob mob(int level,int x,int y,int status) {
         Mob mob = new Mob() { @Override public boolean q() { return false; } };

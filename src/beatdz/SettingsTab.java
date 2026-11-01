@@ -55,6 +55,7 @@ public class SettingsTab extends LangLa_fo {
         "Nhận phúc lợi",
         "Ưu tiên đánh tinh anh",
         "Ưu tiên đánh thủ lĩnh",
+        "Speed hack",
         "Hiện đường khẽ Người",
         "Hiện đường khẽ Vật Phẩm",
         "Hiện đường khẽ Npc",
@@ -66,8 +67,7 @@ public class SettingsTab extends LangLa_fo {
 //        "Đi xuyên tường",
 //        "Dịch chuyển đến quái/vật phẩm",
     };
-    // Preserve the saved option slots after removing the speed option (slot 103).
-    private static final int[] AUTO_SLOTS = {0, 1, 2, 4, 5, 6};
+    private static final int[] AUTO_SLOTS = {0, 1, 2, 3, 4, 5, 6};
 
     public SettingsTab() {
         try {
@@ -493,7 +493,6 @@ public class SettingsTab extends LangLa_fo {
                 }
             }
         }
-        this.a[103] = -1;
     }
 
     public void a(LangLa_jz var1, int var2, int var3) {
