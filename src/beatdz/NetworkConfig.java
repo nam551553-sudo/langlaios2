@@ -1,11 +1,11 @@
 package beatdz;
 
-/** Network defaults matched to Desktop/langla/langla/Client (1). */
+/** Shared game server and resource hosting defaults. */
 public final class NetworkConfig {
     private NetworkConfig() {}
-    public static String host() { return System.getProperty("langla.host", "daichienshinibi.com"); }
+    public static String host() { return System.getProperty("langla.host", "160.250.128.28"); }
     public static int port() { return Integer.getInteger("langla.port", 6868); }
-    public static String website() { return "http://daichienshinibi.com/"; }
+    public static String website() { return "http://160.250.128.28/"; }
     public static String assets() {
         String url = System.getProperty("langla.assets", website());
         return url.endsWith("/") ? url : url + "/";

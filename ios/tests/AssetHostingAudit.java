@@ -1,4 +1,5 @@
 import beatdz.AssetHttp;
+import beatdz.NetworkConfig;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -18,7 +19,7 @@ public class AssetHostingAudit {
             String[] fields = line.split(";");
             if (fields.length < 7 || !fields[1].endsWith(".zip")) continue;
             for (int zoom = 1; zoom <= 4; zoom++) {
-                final String url = "http://daichienshinibi.com/img/zoom" + zoom + "/" + fields[1];
+                final String url = NetworkConfig.assets() + "img/zoom" + zoom + "/" + fields[1];
                 final int expected = Integer.parseInt(fields[zoom + 2]);
                 results.add(pool.submit(() -> audit(url, expected)));
             }

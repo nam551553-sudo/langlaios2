@@ -2,6 +2,8 @@
 
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.
 
+Server mặc định: `160.250.128.28`; web dữ liệu/ảnh/manifest/danh sách server: `http://160.250.128.28/`. Giữ nguyên các cổng kết nối hiện có.
+
 ## Tải IPA
 
 Mở tab **Actions → Build iOS IPA → lần chạy thành công → Artifacts → LangLa-iOS-unsigned**. Giải nén artifact để lấy `.ipa`. Đây là IPA arm64 **chưa ký**, cần ký lại bằng công cụ sideload và Apple ID/chứng chỉ của bạn trước khi cài lên iPhone. Không phải bản đã ký để phát hành App Store.
