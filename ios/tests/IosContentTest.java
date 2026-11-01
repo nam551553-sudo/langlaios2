@@ -22,7 +22,20 @@ public class IosContentTest {
                 });
         // This protocol test does not run the asynchronous render/download workers.
         mConfig.gI().writeByte(18, (byte)2);
+        Path cache = sandbox.resolve(Binary.a);
+        Files.createDirectories(cache);
+        for (String name : new String[]{"char_icon_31000.beatdz", "client_icon_31000.beatdz", "arr_check_4.beatdz", "arr_acc.beatdz", "arr_config.beatdz"}) {
+            Files.write(cache.resolve(name), new byte[]{1,2,3});
+        }
         TestCanvas canvas = new TestCanvas();
+        canvas.width = 844; canvas.height = 390; canvas.setZoomLevel();
+        check(!Files.exists(cache.resolve("char_icon_31000.beatdz")), "Old costume image cache retained");
+        check(!Files.exists(cache.resolve("client_icon_31000.beatdz")), "Old item icon cache retained");
+        check(!Files.exists(cache.resolve("arr_check_4.beatdz")), "Old ZIP installation marker retained");
+        check(Files.exists(cache.resolve("arr_acc.beatdz")) && Files.exists(cache.resolve("arr_config.beatdz")), "Player account/settings removed");
+        Files.write(cache.resolve("char_icon_31000.beatdz"), new byte[]{4,5,6});
+        canvas.setZoomLevel();
+        check(Files.exists(cache.resolve("char_icon_31000.beatdz")), "Cache migration repeated");
         for (int[] size : new int[][]{{568,320},{844,390},{1920,1080},{2732,2048}}) {
             canvas.width = size[0]; canvas.height = size[1]; canvas.setZoomLevel();
             check(DataCenter.gI().zoomLevel == 3 && DataCenter.gI().zoomLevelScreen == 3, "iOS zoom: " + Arrays.toString(size));
@@ -63,7 +76,7 @@ public class IosContentTest {
         }
         controller.a(new Message((byte)-126, bytes.toByteArray()));
         check(data.F.length == 23 && data.G.length == 23, "Repeated SQL packet duplicated parts");
-        System.out.println("PASS: iOS zoom3 on 4 screen sizes, all asset families, 23 SQL costumes / 644 source frames / 33 engine poses, repeated packet");
+        System.out.println("PASS: iOS zoom3 on 4 screen sizes, one-time image cache migration preserving account/settings, 23 SQL costumes / 644 source frames / 33 engine poses, repeated packet");
     }
     private static void check(boolean value, String message) { if (!value) throw new AssertionError(message); }
     private static class TestCanvas extends Canvas {

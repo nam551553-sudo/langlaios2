@@ -20,6 +20,24 @@ public class Binary {
     public static String a = "LangLaZ/";
 
     public static String c = "1.1.2_16";
+    /** Refresh resolution-dependent resources once when upgrading to the iOS zoom3 build. */
+    public static void prepareIosZoom3Cache() {
+        if (readInt("arr_ios_zoom3_cache") == 3) return;
+        try {
+            String[] prefixes = {"char_", "client_", "tree_", "font_", "mapmini_", "mapsmall_", "mapscale_", "arr_check_"};
+            for (FileHandle file : Utlis.external(a).list()) {
+                for (String prefix : prefixes) {
+                    if (file.name().startsWith(prefix)) {
+                        if (!file.delete()) throw new java.io.IOException("Cannot refresh " + file.name());
+                        break;
+                    }
+                }
+            }
+            writeInt("arr_ios_zoom3_cache", 3);
+        } catch (Exception failure) {
+            Utlis.println(failure);
+        }
+    }
     private static byte[] b = new byte[]{-119, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 2, 0, 0, 0, 2, 8, 6, 0, 0, 0, 114, -74, 13, 36, 0, 0, 0, 11, 73, 68, 65, 84, 120, 94, 99, 96, 64, 7, 0, 0, 18, 0, 1, 11, -69, 36, -100, 0, 0, 0, 0, 73, 69, 78, 68, -82, 66, 96, -126};
 
     public static Reader createReader(String var0) {
