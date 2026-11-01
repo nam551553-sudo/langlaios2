@@ -21,9 +21,14 @@ public class CheckVersionScreen extends ScreenLogin {
     private boolean i = true;
     private boolean j = false;
     private boolean k;
+    private IosStartup iosStartup;
+    private boolean iosLoginOpened;
+    private boolean iosErrorShown;
 
     public CheckVersionScreen() {
-        DataCenter.gI().a(Binary.readBoolan("arr_savemap"));
+        if (Gdx.app.getType() != ApplicationType.iOS) {
+            DataCenter.gI().a(Binary.readBoolan("arr_savemap"));
+        }
     }
 
     private void a() {
@@ -41,6 +46,8 @@ public class CheckVersionScreen extends ScreenLogin {
         super.a(var1, var2, var3);
         if (var1.b == 2112) {
             this.i = true;
+            this.iosStartup = null;
+            this.iosErrorShown = false;
         } else {
             if (var1.b == 2111) {
                 this.a = new LangLa_q(this);
@@ -72,6 +79,10 @@ public class CheckVersionScreen extends ScreenLogin {
 
     public void b() {
         super.b();
+        if (Gdx.app.getType() == ApplicationType.iOS) {
+            updateIosStartup();
+            return;
+        }
         if (this.a != null && !d) {
             if (!this.k) {
                 LangLa_r var10000 = this.a.a;
@@ -101,6 +112,38 @@ public class CheckVersionScreen extends ScreenLogin {
 
     }
 
+    private void updateIosStartup() {
+        if (iosStartup == null) {
+            iosStartup = new IosStartup();
+            new Thread(iosStartup, "ios-login-data").start();
+        }
+        if (iosStartup.failure != null && !iosErrorShown) {
+            iosErrorShown = true;
+            LangLa_ci dialog = new LangLa_ci(new String[]{"Không đọc được dữ liệu đăng nhập.", "Nhấn thử lại để tải lại dữ liệu."}, this, 0, 2112);
+            dialog.a = this;
+            dialog.a(Caption.eL);
+            this.a((LangLa_cx)dialog);
+        }
+        if (iosStartup.ready && !iosLoginOpened) {
+            try {
+                // Textures and screen construction must stay on the rendering thread.
+                AppListener.d = Binary2.a("b", (MainScreen)null);
+                AppListener.e = Binary2.a("c", (MainScreen)null);
+                AppListener.c();
+                AppListener.g = true;
+                ScreenLogin login = LoginPCScreen.getScreenLogin();
+                DataCenter.gI().setScreen(login);
+                mConfig.gI().writeBoolean(17, true);
+                iosLoginOpened = true;
+                new Thread(new RLoadServer(AppListener.gI()), "ios-server-list").start();
+            } catch (Exception error) {
+                iosStartup.ready = false;
+                iosStartup.failure = error;
+                Utlis.println(error);
+            }
+        }
+    }
+
     public void m() {
         if (this.e != null) this.e.a();
     }
@@ -113,7 +156,10 @@ public class CheckVersionScreen extends ScreenLogin {
         }
 
         if (Gdx.app.getType() == ApplicationType.iOS) {
-            mFont.a(var1, Caption.eQ + Utlis.e(DataCenter.gI().VER2), this.width - 8 - AppListener.gI().o, 8, 1, -1);
+            mFont.a(var1, Caption.eQ + Utlis.e(DataCenter.gI().VER2) + " / build 4", this.width - 8 - AppListener.gI().o, 8, 1, -1);
+            if (iosStartup != null) {
+                mFont.a(var1, iosStartup.status, this.width / 2, this.height - 28, 2, -1);
+            }
             if (AppListener.d != null && AppListener.e != null && this.a != null) {
                 if (!DataCenter.ar) {
                     mFont.a(var1, Caption.eP + Session.gI().d(), 8 + AppListener.gI().o, 8, 0, -1);

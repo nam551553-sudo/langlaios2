@@ -193,8 +193,8 @@ public class DataCenter {
     public String aX;
     public String aY;
     public String aZ;
-    public boolean ba;
-    public boolean bb;
+    public volatile boolean ba;
+    public volatile boolean bb;
     public boolean bc;
     public static int bd;
     public static Vector be;
@@ -568,10 +568,15 @@ public class DataCenter {
     }
 
     public void readArrDataGame(boolean b) {
+        readArrDataGame(b, true);
+    }
+
+    private void readArrDataGame(boolean b, boolean recover) {
+        this.ba = false;
         Reader reader = null;
         try {
             if ((reader = Binary.createReader("arr_data_game")) == null) {
-                return;
+                throw new java.io.IOException("Missing game metadata");
             }
             this.DataIconChar = new DataIconChar[reader.dis.readByte()];
             for (int i = 0; i < this.DataIconChar.length; ++i) {
@@ -1166,17 +1171,23 @@ public class DataCenter {
             }
             this.typeArr = reader.dis.readByte();
             System.out.println(this.typeArr);
+            this.ba = true;
         } catch (Exception ex5) {
-            byte[] c;
-            if ((c = Binary.c(gI().aU + "arr_data_game.bin")) != null) {
-                Binary.write("arr_data_game", c);
-                this.readArrDataGame(b);
+            if (recover) {
+                com.badlogic.gdx.files.FileHandle bundled = Utlis.internal("data/arr_data_game.beatdz");
+                byte[] replacement = bundled.exists() ? bundled.readBytes()
+                        : Binary.c(gI().aU + "arr_data_game.bin");
+                if (replacement != null) {
+                    Binary.write("arr_data_game", replacement);
+                    this.readArrDataGame(b, false);
+                    return;
+                }
             }
+            throw new IllegalStateException("Cannot read game metadata", ex5);
         } finally {
             if (reader != null) {
                 reader.close();
             }
-            this.ba = true;
         }
     }
 
@@ -1224,12 +1235,12 @@ public class DataCenter {
         this.aP = ap;
         if (ap.version1 >= 0) {
             this.VER1 = ap.version1;
-        } else {
+        } else if (Gdx.app.getType() != Application.ApplicationType.iOS) {
             this.VER1 = 999;
         }
         if (ap.version2 >= 0) {
             this.VER2 = ap.version2;
-        } else {
+        } else if (Gdx.app.getType() != Application.ApplicationType.iOS) {
             this.VER2 = 999;
         }
         if(ap.arrayData !=null && ap.arrayData.length>2){

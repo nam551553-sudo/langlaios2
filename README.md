@@ -2,7 +2,7 @@
 
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.
 
-Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 3 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”.
+Nhà phát triển hiển thị: **Krin**. iOS dùng zoom 3 cho giao diện và toàn bộ đường dẫn tải tài nguyên, kể cả khi đã có cấu hình độ phân giải cũ. Lời chào: “Chào Mừng Bạn Tới Làng Lá Kage Chúc Bạn Chơi Game Vui Vẽ Mob By-kirin”. Bản sửa khởi động hiển thị `build 4` trên màn hình tải.
 
 Server mặc định: `160.250.128.28`; web dữ liệu/ảnh/manifest/danh sách server: `http://160.250.128.28/`. Giữ nguyên các cổng kết nối hiện có.
 
@@ -40,3 +40,9 @@ Kiểm tra hosting ngày 01/11/2026: 17 URL trong manifest trả HTTP 200 với 
 Client nhận item ID `1200–1222`, ngoại hình `500–522` và dữ liệu khung qua game server (gói `-126`), rồi tải ảnh `iconChar`/`iconClient` từ `http://160.250.128.28/img/zoom3/`. SQL được game server đọc; không đóng tài khoản/mật khẩu database vào ứng dụng.
 
 `:ios:verifyIosContent` đối chiếu giao thức với fixture công khai lấy từ `new1-23.sql`: 23 bộ × 28 khung nguồn, ánh xạ 33 tư thế, xử lý gói lặp và zoom 3 trên bốn kích thước màn hình. File trong `ios/tests/fixtures` chỉ chứa metadata cải trang, không chứa dữ liệu tài khoản. VPS cần có các item/khung tương ứng trong `langlaz` và server gửi gói `-126`; kiểm tra client không thay thế việc đăng nhập/mặc cải trang trên thiết bị thật.
+
+## Khởi động iOS (build 4)
+
+Metadata đăng nhập và 98 ảnh UI tối thiểu được đóng kèm IPA. Màn hình đăng nhập không chờ Google/Facebook, danh sách server HTTP hoặc tải hết ZIP ảnh cải trang. Cache metadata hỏng được khôi phục từ bản đóng kèm; parser chỉ thử khôi phục một lần, báo lỗi rõ ràng nếu vẫn không đọc được. Có địa chỉ server dự phòng trước khi dựng form; danh sách web được cập nhật sau khi form xuất hiện. Ảnh map/cải trang tiếp tục dùng hàng đợi web/cache.
+
+`:ios:verifyIosStartup` chạy luồng thật từ `CheckVersionScreen` sang `LoginPCScreen` bằng native Pixmap và GL giả lập, với web cố ý không truy cập được: kiểm tra khởi động mới, mở lại, ô tài khoản/mật khẩu và cache metadata hỏng. Đây là kiểm tra lifecycle/khởi tạo widget, không phải thử đăng nhập tài khoản thật trên iPhone.

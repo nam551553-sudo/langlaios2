@@ -10,6 +10,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 ext.mainClassName = 'com.zenovux.langla.IOSLauncher'
 dependencies {
+    testRuntimeOnly "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
     implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
     implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
@@ -34,4 +35,11 @@ tasks.register('verifyIosContent', JavaExec) {
     dependsOn 'testClasses'
     classpath = sourceSets.test.runtimeClasspath
     mainClass = 'IosContentTest'
+}
+
+tasks.register('verifyIosStartup', JavaExec) {
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'IosStartupTest'
+    timeout = java.time.Duration.ofSeconds(30)
 }

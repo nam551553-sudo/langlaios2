@@ -45,6 +45,7 @@ public class AppListener extends Game {
     }
 
     public static void b() {
+            if (Gdx.app.getType() == ApplicationType.iOS) return;
             (new Thread(new LangLa_ig())).start();
     }
 
