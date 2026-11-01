@@ -80,12 +80,13 @@ public class Binary {
 
     private static byte[] a(String url, ByteArrayOutputStream ignored, byte[] unused,
                             int[] received, int[] attempts, int retries) {
-        byte[] data = AssetHttp.download(Utlis.i(url), DataCenter.ar ? 1 : retries, Utlis.timeOut);
-        if (data != null) {
-            Session.gI().countRecv += data.length;
-            Session.gI().k += data.length;
-        }
-        return data;
+        return AssetHttp.download(Utlis.i(url), DataCenter.ar ? 1 : retries, Utlis.timeOut,
+                new AssetHttp.Progress() {
+                    public void received(int bytes) {
+                        Session.gI().countRecv += bytes;
+                        Session.gI().k += bytes;
+                    }
+                });
     }
     public static String d(String var0) {
         HttpURLConnection var1 = null;

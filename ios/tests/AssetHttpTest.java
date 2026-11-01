@@ -34,7 +34,9 @@ public class AssetHttpTest {
         server.start();
         try {
             String root = "http://127.0.0.1:" + server.getAddress().getPort();
-            check(Arrays.equals(expected, AssetHttp.download(root + "/large", 0, 5000)), "61 MB download corruption");
+            AtomicInteger progress = new AtomicInteger();
+            check(Arrays.equals(expected, AssetHttp.download(root + "/large", 0, 5000, progress::addAndGet)), "61 MB download corruption");
+            check(progress.get() == expected.length, "Download progress missing");
             check(Arrays.equals(new byte[]{1,2,3,4,5,6,7,8}, AssetHttp.download(root + "/retry", 2, 1000)), "Partial bytes retained on retry");
             check(attempts.get() == 2, "Partial response was not retried");
             check(AssetHttp.download(root + "/missing", 4, 1000) == null && missing.get() == 1, "404 retried");

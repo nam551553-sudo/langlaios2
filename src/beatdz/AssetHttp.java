@@ -9,8 +9,13 @@ import java.net.URL;
 /** Downloads whole responses; failed attempts never leak partial bytes into the cache. */
 public final class AssetHttp {
     private AssetHttp() {}
+    public interface Progress { void received(int bytes); }
 
     public static byte[] download(String url, int retries, int timeout) {
+        return download(url, retries, timeout, null);
+    }
+
+    public static byte[] download(String url, int retries, int timeout, Progress progress) {
         for (int attempt = 0; attempt <= Math.max(0, retries); attempt++) {
             HttpURLConnection connection = null;
             try {
@@ -28,7 +33,10 @@ public final class AssetHttp {
                      ByteArrayOutputStream output = new ByteArrayOutputStream()) {
                     byte[] buffer = new byte[16384];
                     int count;
-                    while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+                    while ((count = input.read(buffer)) != -1) {
+                        output.write(buffer, 0, count);
+                        if (progress != null) progress.received(count);
+                    }
                     byte[] bytes = output.toByteArray();
                     long expected = connection.getContentLengthLong();
                     if (bytes.length == 0 || (expected >= 0 && expected != bytes.length)) {

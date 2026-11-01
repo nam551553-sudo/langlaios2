@@ -642,8 +642,9 @@ public class Utlis {
     public static byte[] a(byte[] var0) {
         try {
             if (var0 != null && var0.length >= 8) {
-                // Check if it's already a PNG
-                if (var0[0] == -119 && var0[1] == 80 && var0[2] == 78 && var0[3] == 71) {
+                // Some map images are JPEGs despite using a .png filename.
+                if ((var0[0] == -119 && var0[1] == 80 && var0[2] == 78 && var0[3] == 71)
+                        || (var0[0] == -1 && var0[1] == -40 && var0[2] == -1)) {
                     return var0;
                 }
                 // Check if it's already a .beatdz (starts with LangLaZ/)
