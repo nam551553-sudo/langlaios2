@@ -20,7 +20,7 @@ public class LangLa_mi extends LangLa_cs {
    }
 
    public void a(Graphics var1) {
-      if(true) return; // Tạm ẩn vẽ minimap
+      if (this.b == null) return;
       int var3;
       int var9;
       int var11;

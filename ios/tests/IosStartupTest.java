@@ -8,6 +8,11 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.nio.file.*;
 import java.util.concurrent.*;
+import java.util.Hashtable;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.net.InetSocketAddress;
+import com.sun.net.httpserver.HttpServer;
 
 /** Runs the actual loading-screen -> login transition with web access unavailable. */
 public class IosStartupTest {
@@ -64,6 +69,7 @@ public class IosStartupTest {
         LoginPCScreen login = (LoginPCScreen)data.currentScreen;
         check(login.a != null && login.b != null,"Username/password widgets missing");
         check(data.ba && data.bb,"Metadata/UI readiness not published");
+        check(mConfig.gI().readByte(18) == 0,"iOS is hiding characters/scenery");
         check("img/zoom".equals(data.aY),"Web image prefix was not initialized");
         check(data.aP != null && data.aP.ip.equals("160.250.128.28"),"Offline server selection missing");
         int itemCount = data.ItemTemplate.length;
@@ -92,6 +98,66 @@ public class IosStartupTest {
         }
         System.out.println("PASS: login button fits 4 landscape screen sizes at zoom2, including screenshot aspect ratio and home-indicator margin");
         System.out.println("PASS: cold iOS loading screen reaches actual username/password form without web; corrupt cache recovers; metadata and UI ready");
+        verifyWorldImageQueue();
+    }
+    private static void verifyWorldImageQueue() throws Exception {
+        HttpServer web = HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);
+        ExecutorService handlers = Executors.newCachedThreadPool(task -> {
+            Thread thread = new Thread(task,"asset-test-http"); thread.setDaemon(true); return thread;
+        });
+        web.setExecutor(handlers);
+        CountDownLatch slowStarted = new CountDownLatch(1);
+        Set<String> paths = ConcurrentHashMap.newKeySet();
+        AtomicInteger charRequests = new AtomicInteger();
+        byte[] png = Files.readAllBytes(Paths.get("../resource/6.png"));
+        web.createContext("/", exchange -> {
+            String path = exchange.getRequestURI().getPath(); paths.add(path);
+            if (path.contains("iconChar")) charRequests.incrementAndGet();
+            if (path.contains("iconTree")) {
+                slowStarted.countDown();
+                try { Thread.sleep(4000); } catch (InterruptedException ignored) { Thread.currentThread().interrupt(); }
+            }
+            exchange.sendResponseHeaders(200,png.length);
+            exchange.getResponseBody().write(png); exchange.close();
+        });
+        web.start();
+        try {
+            DataCenter data=DataCenter.gI();
+            data.aU="http://127.0.0.1:"+web.getAddress().getPort()+"/";
+            data.currentScreen=GameSrc.gI(); Utlis.timeOut=4000;
+            LangLa_fb tree=request((short)32063,"iconTree/32063.png","tree_32063");
+            LangLa_cz.cW.add(tree); LangLa_cz.S();
+            check(slowStarted.await(3,TimeUnit.SECONDS),"Scenery request did not reach HTTP worker");
+            // A metadata refresh must not discard the independent iOS image request.
+            data.ba=false;
+            Binary.write("char_icon_32061",new byte[]{1,2,3});
+            LangLa_fq.requestIconChar(32061); LangLa_fq.a(32062);
+            LangLa_fb map=request((short)32064,"map/32064.png","mapsmall_32064");
+            LangLa_cz.cW.add(map); LangLa_cz.S();
+            long deadline=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(2500);
+            while ((!ready(LangLa_fq.g,(short)32061) || !ready(LangLa_fq.e,(short)32062) || !ready(map.g,(short)32064)) && System.nanoTime()<deadline) Thread.sleep(10);
+            check(ready(LangLa_fq.g,(short)32061),"Character images blocked by scenery/metadata");
+            check(ready(LangLa_fq.e,(short)32062),"Item icons blocked by scenery/metadata");
+            check(ready(map.g,(short)32064),"Map images did not decode");
+            check(((mImage)LangLa_fq.g.get((short)32061)).b()!=null,"Character texture unavailable on render thread");
+            data.ba=true;
+            int requests=charRequests.get(); LangLa_fq.g.remove((short)32061);
+            LangLa_fq.requestIconChar(32061);
+            deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(2);
+            while (!ready(LangLa_fq.g,(short)32061) && System.nanoTime()<deadline) Thread.sleep(10);
+            check(ready(LangLa_fq.g,(short)32061) && charRequests.get()==requests,"Valid image cache was not reused");
+            check(paths.contains("/img/zoom2/iconChar/32061.png") && paths.contains("/img/zoom2/iconClient/32062.png") && paths.contains("/img/zoom2/map/32064.png"),"Wrong world image URLs");
+            deadline=System.nanoTime()+TimeUnit.SECONDS.toNanos(6);
+            while (!ready(tree.g,(short)32063) && System.nanoTime()<deadline) Thread.sleep(10);
+            check(ready(tree.g,(short)32063),"Scenery image did not complete");
+            System.out.println("PASS: actual iOS queue downloads/decodes character, item, scenery and map images; slow scenery does not block other images; corrupt cache repaired and valid cache reused");
+        } finally { web.stop(0); handlers.shutdownNow(); }
+    }
+    private static LangLa_fb request(short id,String path,String key) {
+        LangLa_fb request=new LangLa_fb(); request.a=id; request.d=path; request.e=key; request.g=new Hashtable(); return request;
+    }
+    private static boolean ready(Hashtable images,short id) {
+        mImage image=(mImage)images.get(id); return image!=null && image.c>1 && image.d>1;
     }
     private static void check(boolean value,String message) { if (!value) throw new AssertionError(message); }
     private static Object defaultValue(Class<?> type) {

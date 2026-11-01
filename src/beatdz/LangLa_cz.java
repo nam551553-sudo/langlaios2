@@ -19,6 +19,10 @@ public class LangLa_cz extends XYEntity {
    private int f = 10;
 
    public static void S() {
+      if (com.badlogic.gdx.Gdx.app != null && com.badlogic.gdx.Gdx.app.getType() == com.badlogic.gdx.Application.ApplicationType.iOS) {
+         IosAssetQueue.drain();
+         return;
+      }
       if (!LangLa_ep.a()) {
          if (!cY) {
             a();
@@ -48,6 +52,7 @@ public class LangLa_cz extends XYEntity {
    private static void a() {
       cY = true;
       (new Thread(new LangLa_da())).start();
+      if (com.badlogic.gdx.Gdx.app != null && com.badlogic.gdx.Gdx.app.getType() == com.badlogic.gdx.Application.ApplicationType.iOS) return;
       (new Thread(new LangLa_db())).start();
       (new Thread(new LangLa_fg())).start();
    }
@@ -374,6 +379,7 @@ public class LangLa_cz extends XYEntity {
 
          cX.add(var0);
       } catch (Exception var4) {
+         LangLa_fq.retryLater(var0);
          return;
       } finally {
          if (var1 != null) {
@@ -389,7 +395,7 @@ public class LangLa_cz extends XYEntity {
 
       try {
          DataCenter.gI();
-         if (!DataCenter.a()) {
+         if (!DataCenter.a() && com.badlogic.gdx.Gdx.app.getType() != com.badlogic.gdx.Application.ApplicationType.iOS) {
             return;
          }
 
@@ -397,22 +403,25 @@ public class LangLa_cz extends XYEntity {
          DataCenter.gI();
          byte[] var2;
          if ((var2 = Binary.b(var10000.append(DataCenter.a(var0.d) + 1).append("/").append(var0.d).toString())) != null) {
+            var1 = Binary.createImage(Utlis.a(var2.clone()));
+            if (var1 == null) return;
+            Binary.write(var0.e, var2);
             if (var0.e.startsWith("mapscale_")) {
-               Binary.write(var0.e, var2);
-               GameSrc.gI().al.a(GameSrc.gI().mapID);
+               var1.a(); var1 = null;
+               com.badlogic.gdx.Gdx.app.postRunnable(() -> {
+                  if (GameSrc.gI().mapID == var0.a) GameSrc.gI().al.a(var0.a);
+               });
                return;
             }
 
             if (var0.e.startsWith("mapsmall_") && GameSrc.gI().cE instanceof LangLa_u) {
-               Binary.write(var0.e, var2);
-               ((LangLa_u)((LangLa_u)GameSrc.gI().cE)).f();
+               var1.a(); var1 = null;
+               com.badlogic.gdx.Gdx.app.postRunnable(() -> {
+                  if (GameSrc.gI().mapID == var0.a && GameSrc.gI().cE instanceof LangLa_u) ((LangLa_u)GameSrc.gI().cE).f();
+               });
                return;
             }
 
-            // Decoding mutates encoded bytes, so validate a copy before caching the original.
-            var1 = Binary.createImage(Utlis.a(var2.clone()));
-            if (var1 == null) return;
-            Binary.write(var0.e, var2);
             var1 = TopupCostumes.finishImage(var0.a, var0.e, var1);
             var0.g.put(var0.a, var1);
             return;
@@ -431,6 +440,9 @@ public class LangLa_cz extends XYEntity {
    }
 
    public static void T() {
+      // The old bulk refresh references missing iconChar.zip and replaces live model data.
+      // iOS resolves individual assets through its independent cache/HTTP pool instead.
+      if (com.badlogic.gdx.Gdx.app.getType() == com.badlogic.gdx.Application.ApplicationType.iOS) return;
       if (!cZ && DataCenter.j()) {
          if (!cZ) {
             cZ = true;

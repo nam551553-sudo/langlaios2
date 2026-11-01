@@ -1,5 +1,9 @@
 # Làng Lá Kage iOS
 
+Build 6 sửa tải ảnh trong game trên iOS: thay API `URLConnection.getContentLengthLong()` không tồn tại trong RoboVM bằng `getContentLength()`, bật đồ họa đầy đủ khi khởi động, dùng một hàng đợi đọc cache và bốn luồng HTTP độc lập. Map/nhân vật/icon tiếp tục lấy từ web zoom2. Bộ ảnh khởi động vẫn đóng kèm như build 5.
+
+`:ios:verifyIosNetworkApi` kiểm tra các lời gọi HTTP trong bytecode client với API thực tế của JAR RoboVM. `:ios:verifyIosStartup` còn kiểm tra hàng đợi tải thật qua HTTP cục bộ: nhân vật, vật phẩm, cảnh map, ảnh bản đồ, sửa cache hỏng, dùng lại cache tốt và file cảnh chậm không chặn icon. Đã bỏ nhánh tải bulk iOS cũ trỏ tới `iconChar.zip` không tồn tại và không nạp lại model nền đè lên model server đang dùng. Minimap được bật lại khi có dữ liệu map.
+
 Build 5 giảm iOS về zoom 2, làm mới cache ảnh một lần khi đổi zoom và đóng kèm ảnh UI zoom2. Form đăng nhập được dịch lên nếu màn hình thấp để nút Vào game cách đáy ít nhất 24 đơn vị. Kiểm tra tự động vị trí nút trên bốn màn hình ngang, gồm tỷ lệ ảnh chụp của người dùng.
 
 Client Java/libGDX, build bằng RoboVM trên macOS. Mã nguồn dùng chung nằm ở `src`; launcher iOS ở `ios/src`; tài nguyên đóng gói ở `resource`, `music`, `sound`.

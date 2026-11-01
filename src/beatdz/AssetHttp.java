@@ -38,7 +38,8 @@ public final class AssetHttp {
                         if (progress != null) progress.received(count);
                     }
                     byte[] bytes = output.toByteArray();
-                    long expected = connection.getContentLengthLong();
+                    // RoboVM's libcore URLConnection does not implement getContentLengthLong().
+                    long expected = connection.getContentLength();
                     if (bytes.length == 0 || (expected >= 0 && expected != bytes.length)) {
                         throw new IOException("Incomplete response");
                     }

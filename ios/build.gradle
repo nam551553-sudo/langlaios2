@@ -43,3 +43,12 @@ tasks.register('verifyIosStartup', JavaExec) {
     mainClass = 'IosStartupTest'
     timeout = java.time.Duration.ofSeconds(30)
 }
+
+tasks.register('verifyIosNetworkApi', JavaExec) {
+    dependsOn 'testClasses'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'IosNetworkApiTest'
+    doFirst {
+        args = [configurations.runtimeClasspath.find { it.name.startsWith('robovm-rt-') }.absolutePath]
+    }
+}

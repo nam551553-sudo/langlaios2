@@ -8,6 +8,8 @@ public final class IosStartup implements Runnable {
 
     public void run() {
         try {
+            // Mode 1 hides characters/scenery; mode 2 also stops legacy image workers.
+            mConfig.gI().writeByte(18, 0);
             DataCenter data = DataCenter.gI();
             data.aY = data.aZ = "img/zoom";
             data.readArrDataGame(false);
