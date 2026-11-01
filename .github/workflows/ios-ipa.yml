@@ -22,6 +22,7 @@ jobs:
           java-version: '17'
       - name: Test asset downloader
         run: |
+          python3 ios/tools/validate-assets.py
           mkdir -p ios/build/audit-tests
           javac -encoding UTF-8 -d ios/build/audit-tests src/beatdz/AssetHttp.java ios/tests/AssetHttpTest.java
           java -Xmx512m -cp ios/build/audit-tests AssetHttpTest
