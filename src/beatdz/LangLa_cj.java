@@ -239,9 +239,6 @@ public class LangLa_cj extends LangLa_cz {
                    var6 = LangLa_fq.a((int)660);
                    Binary2.a(var2, var6.b, 25 * DataCenter.gI().zoomLevel, 25 * DataCenter.gI().zoomLevel, Blending.None);
                 }
-                Utlis.println("LangLa_cj: Adding Gift Code (1171) and VXMM (1172)");
-                var6 = LangLa_fq.a((int)1171);
-                Binary2.a(var2, var6.b, 0 * DataCenter.gI().zoomLevel, 25 * DataCenter.gI().zoomLevel, Blending.None);   
                 var6 = LangLa_fq.a((int)1172);
                 Binary2.a(var2, var6.b, 0 * DataCenter.gI().zoomLevel, 0 * DataCenter.gI().zoomLevel, Blending.None); 
                 Utlis.println("LangLa_cj: Menu image l created successfully.");

@@ -3,14 +3,51 @@ package beatdz;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 
-/** Animation rig and filtering for new1-new23 images loaded by the normal web/cache queue. */
+/** Animation rig and filtering for new1-new25 images loaded by the normal web/cache queue. */
 public final class TopupCostumes {
     private TopupCostumes() {}
 
-    public static boolean isAppearance(int id) { return id >= 500 && id < 523; }
+    // Cached catalogs may predate the installed costume pack. Populate only the
+    // pack's reserved, missing metadata after parsing; never change packet offsets.
+    public static ItemTemplate[] installItems(ItemTemplate[] source) {
+        if (source == null) return null;
+        ItemTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 1225));
+        int[] icons = {31000,31001,31002,31100,31101,31200,31201,31202,
+            31300,31400,31401,31402,31403,31700,31701,31800,31801,31802,
+            31900,31901,31902,32000,32001,32100,32200};
+        for (int i = 0; i < icons.length; i++) {
+            int id = 1200 + i;
+            ItemTemplate old = result[id];
+            if (old != null && old.name != null && !old.name.isEmpty()) continue;
+            ItemTemplate item = new ItemTemplate(id);
+            item.name = "Cải trang new" + (i + 1);
+            item.detail = "Có thể ghép, tách và chọn ngoại hình như cải trang thường.";
+            item.gioiTinh = 2; item.type = 14; item.idIcon = (short)icons[i];
+            item.levelNeed = 10; item.idChar = (short)(500 + i);
+            result[id] = item;
+        }
+        return result;
+    }
+
+    public static ItemOptionTemplate[] installOptions(ItemOptionTemplate[] source) {
+        if (source == null) return null;
+        ItemOptionTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 429));
+        for (int i = 0; i < 25; i++) {
+            int id = 404 + i;
+            ItemOptionTemplate old = result[id];
+            if (old != null && old.name != null && !old.name.isEmpty()) continue;
+            ItemOptionTemplate option = new ItemOptionTemplate(id);
+            option.name = "Cải trang new" + (i + 1);
+            option.type = 14; option.level = 10; option.strOption = "";
+            result[id] = option;
+        }
+        return result;
+    }
+
+    public static boolean isAppearance(int id) { return id >= 500 && id < 525; }
 
     public static mImage finishImage(int id, String cacheKey, mImage image) {
-        if (image == null || id < 31000 || id > 32059 ||
+        if (image == null || id < 31000 || id > 32227 ||
                 !(cacheKey.startsWith("char_") || cacheKey.startsWith("client_"))) return image;
         try {
             image.smoothScaling = true;
@@ -40,6 +77,24 @@ public final class TopupCostumes {
         13,14,10,11,15,12,10,16,17,11,12,18,19,10,24,26,27
     };
 
+    // Luffy's source sheet has 27 poses, unlike the earlier 28-pose packs:
+    // 0/1 idle, 2..7 run, 8/9 airborne, 10..25 combat, 26 seated.
+    // Native idle slots 0,1,31,32 must never select back-facing combat/seated art.
+    private static final int[] LUFFY_POSES = {
+        0,1, 2,3,4,5,6,7, 9,9,9, 9,9,9, 9,26,
+        13,14,10,11,15,12,10,16,17,11,12,18,19,10,24,0,1
+    };
+
+    // New25 sheet: idle 0/1; run 2..7; airborne 8; combat 10..25; hurt 26; seated 27.
+    private static final int[] NEW25_POSES = {
+        1,1, 2,3,4,5,6,7, 8,8,8, 8,8,8, 9,27,
+        12,16,11,12,17,13,11,16,17,12,13,18,19,11,26,1,1
+    };
+
+    static int sourceFrame(int enginePose, boolean luffy) {
+        return (luffy ? LUFFY_POSES : NATIVE_POSES)[pose(enginePose)];
+    }
+
     public static int pose(int enginePose) {
         return enginePose >= 0 && enginePose < NATIVE_POSES.length ? enginePose : 0;
     }
@@ -64,11 +119,26 @@ public final class TopupCostumes {
         return null;
     }
 
+    // Measured opaque sole edges in new25's 320px (zoom4) source canvases.
+    // Rendering anchors the canvas bottom, so transparent padding otherwise floats above ground.
+    private static final int[] NEW25_SOLE_BOTTOM = {298,296,296,296,293,293,293,299};
+
+    static boolean new25GroundPose(int pose) {
+        return (pose >= 0 && pose <= 7) || pose == 31 || pose == 32;
+    }
+
+    static int new25GroundOffset(int sourceFrame, int drawnHeight) {
+        int padding = 319 - NEW25_SOLE_BOTTOM[sourceFrame];
+        return Math.round(drawnHeight * padding / 320f);
+    }
+
     public static void prepareNativePart(LangLa_jr part, LangLa_ju[] source, LangLa_jr reference) {
         if (source == null || source.length != 28) throw new IllegalArgumentException("Expected 28 topup source poses");
+        boolean luffy = source[0] != null && source[0].a == 32100;
+        boolean new25 = source[0] != null && source[0].a == 32200;
         LangLa_ju[] poses = new LangLa_ju[NATIVE_POSES.length];
         for (int i = 0; i < poses.length; i++) {
-            LangLa_ju raw = source[sourceFrame(i)];
+            LangLa_ju raw = source[new25 ? NEW25_POSES[i] : sourceFrame(i, luffy)];
             if (raw == null) throw new IllegalArgumentException("Missing topup source pose " + sourceFrame(i));
             LangLa_ju frame = new LangLa_ju(raw.a);
             frame.b = raw.b;
@@ -76,7 +146,10 @@ public final class TopupCostumes {
             int motionX = 0, motionY = 0;
             if (reference != null && reference.d != null && reference.d.length >= poses.length) {
                 frame.c = reference.d[i].c;
-                if (i >= 2 && i <= 7) { motionX = reference.d[i].d - reference.d[2].d; motionY = reference.d[i].e - reference.d[2].e; } else if (i >= 8 && i <= 13) {
+                if (luffy && i >= 8 && i <= 14) {
+                    // Keep one airborne silhouette and a stable offset throughout flight.
+                    frame.c = reference.d[8].c;
+                } else if (i >= 2 && i <= 7) { motionX = reference.d[i].d - reference.d[2].d; motionY = reference.d[i].e - reference.d[2].e; } else if (i >= 8 && i <= 13) {
                     int start = i <= 10 ? 8 : 11;
                     motionX = reference.d[i].d - reference.d[start].d;
                     motionY = reference.d[i].e - reference.d[start].e;
@@ -88,6 +161,10 @@ public final class TopupCostumes {
             frame.height = (short)Math.max(1, frame.height - idleCompression(i));
             frame.d = (short)(raw.d + 2 + motionX);
             frame.e = (byte)(raw.e + motionY);
+            if (new25 && new25GroundPose(i)) {
+                // Grounded feet stay on the baseline while idle breathing changes body height.
+                frame.e = (byte)(raw.e + new25GroundOffset(NEW25_POSES[i], frame.height));
+            }
             poses[i] = frame;
         }
         part.b = 98;

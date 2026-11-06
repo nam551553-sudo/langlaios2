@@ -3,11 +3,11 @@ package beatdz;
 /** Shared game server and resource hosting defaults. */
 public final class NetworkConfig {
     private NetworkConfig() {}
-    public static String host() { return System.getProperty("langla.host", "160.250.128.28"); }
-    public static int port() { return Integer.getInteger("langla.port", 6868); }
-    public static String website() { return "http://160.250.128.28/"; }
+    public static String host() { return System.getProperty("langla.host", "127.0.0.1"); }
+    public static int port() { return Integer.getInteger("langla.port", 2907); }
+    public static String website() { return "http://127.0.0.1/"; }
     public static String assets() {
-        String url = System.getProperty("langla.assets", website());
+        String url = System.getProperty("langla.assets", website() + "langlaapp/");
         return url.endsWith("/") ? url : url + "/";
     }
     public static String serverList() {

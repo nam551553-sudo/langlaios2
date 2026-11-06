@@ -2,6 +2,7 @@ package beatdz;import com.tgame.model.Caption;
 import java.util.Vector;
 
 public class LangLa_ge extends LangLa_fn {
+   protected static final int CHARACTER_PANEL_WIDTH = 302;
    private LangLa_ii[] a = new LangLa_ii[4];
    public LangLa_ij[] j = new LangLa_ij[2];
    private int b;
@@ -13,7 +14,7 @@ public class LangLa_ge extends LangLa_fn {
       super(var1);
       this.t = Char.gI().arrItemBag;
       this.r = false;
-      this.a(331, 212);
+      this.a(this instanceof LangLa_kl ? CHARACTER_PANEL_WIDTH : 331, 212);
       LangLa_kd var5 = new LangLa_kd(-1000);
       int var3;
       if (var2 == null) {
@@ -41,7 +42,7 @@ public class LangLa_ge extends LangLa_fn {
       }
 
       int var7;
-      if ((var3 = var5.c.length) > 2) {
+      if ((var3 = var5.c.length) > 2 || (var3 == 2 && this instanceof LangLa_kl)) {
          var7 = (this.width - 36) / var3;
          this.a(var5, 170, var7, 4);
          this.l = 4;
@@ -94,7 +95,8 @@ public class LangLa_ge extends LangLa_fn {
 
    private void e() {
       DataCenter.gI();
-      this.j[0] = new LangLa_ij((byte)1, 7, this.a_() + 3, 320, 96, 32, Utlis.c(this.t.length, 10), 10);
+      int columns = (this.width - 11) / 32;
+      this.j[0] = new LangLa_ij((byte)1, 7, this.a_() + 3, columns * 32, 96, 32, Utlis.c(this.t.length, columns), columns);
       this.j[1] = new LangLa_ij((byte)0, 7, this.a_() + 115, 96, 64, 32, Utlis.c(Char.gI().arrItemExtend.length, 2), 2);
    }
 
@@ -326,7 +328,7 @@ public class LangLa_ge extends LangLa_fn {
 
    public void b() {
       super.b();
-      if (this.j[0].r != 10 || this.j[0].i != Utlis.c(Char.gI().arrItemBag.length, 10) || this.j[1].i * this.j[1].r != Char.gI().arrItemExtend.length) {
+      if (this.j[0].r != (this.width - 11) / 32 || this.j[0].i != Utlis.c(Char.gI().arrItemBag.length, this.j[0].r) || this.j[1].i * this.j[1].r != Char.gI().arrItemExtend.length) {
          this.a();
          this.e();
       }

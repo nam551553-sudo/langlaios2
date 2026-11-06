@@ -55,10 +55,6 @@ public class SettingsTab extends LangLa_fo {
         "Nhận phúc lợi",
         "Ưu tiên đánh tinh anh",
         "Ưu tiên đánh thủ lĩnh",
-        "Speed hack",
-        "Hiện đường khẽ Người",
-        "Hiện đường khẽ Vật Phẩm",
-        "Hiện đường khẽ Npc",
 //        "Đóng băng quái",
 //        "Tự mua HPMP",
 //        "Tự mua Thức Ăn",
@@ -67,7 +63,7 @@ public class SettingsTab extends LangLa_fo {
 //        "Đi xuyên tường",
 //        "Dịch chuyển đến quái/vật phẩm",
     };
-    private static final int[] AUTO_SLOTS = {0, 1, 2, 3, 4, 5, 6};
+
 
     public SettingsTab() {
         try {
@@ -124,14 +120,7 @@ public class SettingsTab extends LangLa_fo {
             }
             this.s[3] = new LangLa_ce[arrayAuto.length];
             for (int i = 0; i < arrayAuto.length; i++) {
-                var5 = i;
-                if (var5 <= 6) {
-                    this.s[3][i] = this.a(this.z, this.A + var5 * this.l, arrayAuto[i], this, 2907 + i);
-                } else {
-
-                    var5 -= 7;
-                    this.s[3][i] = this.a(129, this.A + var5 * this.l, arrayAuto[i], this, 2907 + i);
-                }
+                this.s[3][i] = this.a(this.z, this.A + i * this.l, arrayAuto[i], this, 2907 + i);
                 this.s[3][i].v = arrayAuto[i].contains("Auto");
                 this.B.a((LangLa_cs) this.s[3][i], 3);
             }
@@ -334,7 +323,7 @@ public class SettingsTab extends LangLa_fo {
         for (var1 = 0; var1 < this.s[3].length; ++var1) {
 
             var10000 = this.s[3][var1];
-            var3 = this.a[AUTO_SLOTS[var1] + 100] != -1;
+            var3 = this.a[100 + var1] != -1;
             var10000.a = var3;
         }
 
@@ -619,9 +608,9 @@ public class SettingsTab extends LangLa_fo {
 
     public void a(int var1, Object var2, LangLa_cy var3) {
         try {
-            if (var1 >= 2907 && var1 < 2907 + AUTO_SLOTS.length) {
+            if (var1 >= 2907 && var1 < 2907 + arrayAuto.length) {
                 int row = var1 - 2907;
-                this.a[100 + AUTO_SLOTS[row]] = (byte) (this.s[3][row].a ? 0 : -1);
+                this.a[100 + row] = (byte) (this.s[3][row].a ? 0 : -1);
                 this.z();
                 DataCenter.gI().currentScreen.showMessage((this.s[3][row].a ? "Bật " : "Tắt ") + arrayAuto[row], -2560);
             } else if (var1 == 100) {
