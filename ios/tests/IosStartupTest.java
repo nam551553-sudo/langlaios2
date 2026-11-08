@@ -71,10 +71,10 @@ public class IosStartupTest {
         check(data.ba && data.bb,"Metadata/UI readiness not published");
         check(mConfig.gI().readByte(18) == 0,"iOS is hiding characters/scenery");
         check("img/zoom".equals(data.aY),"Web image prefix was not initialized");
-        check(data.aP != null && data.aP.ip.equals("160.191.55.105") && data.aP.port == 2473,
+        check(data.aP != null && data.aP.ip.equals("160.191.55.105") && data.aP.port == 2907,
                 "Offline server selection has the wrong endpoint");
-        String hostedList = "id = Làng Lá\nDAI CHIEN KAGE = 100:160.191.55.105:2907:2908";
-        check(NetworkConfig.validServerList(hostedList).endsWith("100:160.191.55.105:2473:2908"),
+        String hostedList = "id = Làng Lá\nDAI CHIEN KAGE = 100:160.191.55.105:2473:2908";
+        check(NetworkConfig.validServerList(hostedList).endsWith("100:160.191.55.105:2907:2908"),
                 "Hosted list replaced the configured game port");
         int itemCount = data.ItemTemplate.length;
         // A damaged previous cache recovers from the packaged metadata without a web request.

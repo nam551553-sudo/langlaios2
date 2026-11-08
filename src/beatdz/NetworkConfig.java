@@ -4,7 +4,7 @@ package beatdz;
 public final class NetworkConfig {
     private NetworkConfig() {}
     public static String host() { return System.getProperty("langla.host", "160.191.55.105"); }
-    public static int port() { return Integer.getInteger("langla.port", 2473); }
+    public static int port() { return Integer.getInteger("langla.port", 2907); }
     public static String website() { return "http://160.191.55.105/"; }
     public static String assets() {
         String url = System.getProperty("langla.assets", website());
@@ -16,7 +16,7 @@ public final class NetworkConfig {
     public static String validServerList(String value) {
         if (value == null || !value.contains("id") || !value.contains("=")) return serverList();
         String normalized = value.replace("\uFEFF", "").replace("\r\n", "\n").replace('\r', '\n');
-        // The hosted list can still advertise the old endpoint for the main server.
+        // Keep the configured endpoint for the main server, including JVM overrides.
         String endpoint = java.util.regex.Matcher.quoteReplacement(host() + ":" + port());
         return normalized.replaceAll("(?im)(^[^=\\n]+=[ \\t]*100:)[^:\\n]+:[0-9]+(?=:)", "$1" + endpoint)
                 .replace("\n", "\r\n");
