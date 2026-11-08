@@ -20,6 +20,15 @@ public class ItemOption {
         return DataCenter.gI().ItemOptionTemplate[this.a[0]];
     }
 
+    public ItemTemplate mergedCostume() {
+        if (a[0] != 340 || a.length < 2) return null;
+        ItemTemplate[] items = DataCenter.gI().ItemTemplate;
+        int itemId = a[1];
+        if (items == null || itemId < 0 || itemId >= items.length) return null;
+        ItemTemplate item = items[itemId];
+        return item != null && item.type == 14 ? item : null;
+    }
+
     public String a(int var1) {
         if (this.getItemOptionTemplate().type == 54) {
             return Utlis.replaceAll(DataCenter.gI().ItemOptionTemplate[this.a[0]].name, Utlis.l(this.a[1]));

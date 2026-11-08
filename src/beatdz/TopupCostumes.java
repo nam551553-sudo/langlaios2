@@ -3,26 +3,26 @@ package beatdz;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 
-/** Animation rig and filtering for new1-new25 images loaded by the normal web/cache queue. */
+/** Animation rig and filtering for top-up costume images loaded by the web/cache queue. */
 public final class TopupCostumes {
     private TopupCostumes() {}
+    private static final int[] ICONS = {31000,31001,31002,31100,31101,31200,31201,31202,
+            31300,31400,31401,31402,31403,31700,31701,31800,31801,31802,
+            31900,31901,31902,32000,32001,32064,32100,32132,32164,32200,32232};
 
     // Cached catalogs may predate the installed costume pack. Populate only the
     // pack's reserved, missing metadata after parsing; never change packet offsets.
     public static ItemTemplate[] installItems(ItemTemplate[] source) {
         if (source == null) return null;
-        ItemTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 1225));
-        int[] icons = {31000,31001,31002,31100,31101,31200,31201,31202,
-            31300,31400,31401,31402,31403,31700,31701,31800,31801,31802,
-            31900,31901,31902,32000,32001,32100,32200};
-        for (int i = 0; i < icons.length; i++) {
+        ItemTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 1200 + ICONS.length));
+        for (int i = 0; i < ICONS.length; i++) {
             int id = 1200 + i;
             ItemTemplate old = result[id];
             if (old != null && old.name != null && !old.name.isEmpty()) continue;
             ItemTemplate item = new ItemTemplate(id);
             item.name = "Cải trang new" + (i + 1);
             item.detail = "Có thể ghép, tách và chọn ngoại hình như cải trang thường.";
-            item.gioiTinh = 2; item.type = 14; item.idIcon = (short)icons[i];
+            item.gioiTinh = 2; item.type = 14; item.idIcon = (short)ICONS[i];
             item.levelNeed = 10; item.idChar = (short)(500 + i);
             result[id] = item;
         }
@@ -31,8 +31,8 @@ public final class TopupCostumes {
 
     public static ItemOptionTemplate[] installOptions(ItemOptionTemplate[] source) {
         if (source == null) return null;
-        ItemOptionTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 429));
-        for (int i = 0; i < 25; i++) {
+        ItemOptionTemplate[] result = java.util.Arrays.copyOf(source, Math.max(source.length, 404 + ICONS.length));
+        for (int i = 0; i < ICONS.length; i++) {
             int id = 404 + i;
             ItemOptionTemplate old = result[id];
             if (old != null && old.name != null && !old.name.isEmpty()) continue;
@@ -44,10 +44,10 @@ public final class TopupCostumes {
         return result;
     }
 
-    public static boolean isAppearance(int id) { return id >= 500 && id < 525; }
+    public static boolean isAppearance(int id) { return id >= 500 && id < 500 + ICONS.length; }
 
     public static mImage finishImage(int id, String cacheKey, mImage image) {
-        if (image == null || id < 31000 || id > 32227 ||
+        if (image == null || id < 31000 || id > 32259 ||
                 !(cacheKey.startsWith("char_") || cacheKey.startsWith("client_"))) return image;
         try {
             image.smoothScaling = true;

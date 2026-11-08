@@ -21,6 +21,13 @@ public class Skill implements Cloneable {
    private int o = 0;
    public boolean myUse;
 
+   public int targetLimit(int characterLevel) {
+      if (idTemplate != 2 && idTemplate != 8 && idTemplate != 14 && idTemplate != 20 && idTemplate != 26) {
+         return maxTarget;
+      }
+      return characterLevel >= 45 && level >= 6 ? 4 : 2;
+   }
+
    public Skill cloneSkill() {
       try {
          return (Skill)super.clone();

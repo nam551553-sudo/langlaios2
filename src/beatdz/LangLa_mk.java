@@ -558,6 +558,11 @@ public class LangLa_mk extends LangLa_fm {
                boolean var6 = false;
 
                for(int var7 = 0; var7 < var45.length; ++var7) {
+                  ItemTemplate mergedCostume = var5.getItemTemplate().type == 14 ? var45[var7].mergedCostume() : null;
+                  if (mergedCostume != null) {
+                     this.h.addElement(new LangLa_gp(var1++ + ". " + mergedCostume.name, -16742145, -16777216));
+                     continue;
+                  }
                   if ((var45[var7].getItemOptionTemplate().type < 3 || var45[var7].getItemOptionTemplate().type > 7) && var45[var7].getItemOptionTemplate().type != 10 && var45[var7].getItemOptionTemplate().type != 11 && var45[var7].getItemOptionTemplate().type != 15 && var45[var7].getItemOptionTemplate().type != 16) {
                      if (var45[var7].getItemOptionTemplate().type == 2) {
                         if (!var6) {

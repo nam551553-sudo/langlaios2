@@ -64,6 +64,17 @@ public class LangLa_bt extends LangLa_kj {
                if ((var5 = this.a[0].L()) != null) {
                   label80:
                   for(int var2 = 0; var2 < var5.length; ++var2) {
+                     ItemTemplate mergedCostume = var5[var2].mergedCostume();
+                     if (mergedCostume != null) {
+                        for (int slot = 1; slot < this.b.length; slot++) {
+                           if (this.b[slot] == null) {
+                              this.b[slot] = new Item(mergedCostume.id);
+                              this.b[slot].isLock = true;
+                              break;
+                           }
+                        }
+                        continue;
+                     }
                      if (var5[var2].getItemOptionTemplate().type == 14) {
                         for(int var3 = 0; var3 < this.b.length; ++var3) {
                            if (this.b[var3] == null) {
@@ -74,7 +85,9 @@ public class LangLa_bt extends LangLa_kj {
                                     continue label80;
                                  }
 
-                                 if (DataCenter.gI().ItemTemplate[var4].name.trim().toLowerCase().equals(var5[var2].getItemOptionTemplate().name.trim().toLowerCase())) {
+                                 ItemTemplate item = DataCenter.gI().ItemTemplate[var4];
+                                 if (item != null && item.name != null && item.type == 14
+                                         && item.name.trim().equalsIgnoreCase(var5[var2].getItemOptionTemplate().name.trim())) {
                                     this.b[var3] = new Item(DataCenter.gI().ItemTemplate[var4].id);
                                     this.b[var3].isLock = true;
                                     continue label80;

@@ -17,8 +17,8 @@ public final class NetworkConfig {
         if (value == null || !value.contains("id") || !value.contains("=")) return serverList();
         String normalized = value.replace("\uFEFF", "").replace("\r\n", "\n").replace('\r', '\n');
         // Keep the configured endpoint for the main server, including JVM overrides.
-        String endpoint = java.util.regex.Matcher.quoteReplacement(host() + ":" + port());
-        return normalized.replaceAll("(?im)(^[^=\\n]+=[ \\t]*100:)[^:\\n]+:[0-9]+(?=:)", "$1" + endpoint)
+        String server = java.util.regex.Matcher.quoteReplacement(AppBranding.NAME + " = 100:" + host() + ":" + port());
+        return normalized.replaceAll("(?im)^[^=\\n]+=[ \\t]*100:[^:\\n]+:[0-9]+(?=:)", server)
                 .replace("\n", "\r\n");
     }
 }

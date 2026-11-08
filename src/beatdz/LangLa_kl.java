@@ -1516,7 +1516,7 @@ public void d() {
             var10001 = (new StringBuilder()).append(Caption.rH[9]);
             var4 = this.y.aU;
             var1.addElement(var10001.append((short)(var2.rangeNgang + var4)).toString());
-            var1.addElement(Caption.rH[10] + var2.maxTarget);
+            var1.addElement(Caption.rH[10] + var2.targetLimit(this.y.level()));
          }
       } else if (var2.idTemplate == 29) {
          var1.addElement(Caption.rH[8] + (float)var2.coolDown / 1000.0F + Caption.cU);
