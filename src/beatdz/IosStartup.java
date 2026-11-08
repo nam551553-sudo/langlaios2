@@ -38,7 +38,7 @@ public final class IosStartup implements Runnable {
         server.name = AppBranding.NAME;
         server.id = 100;
         server.ip = NetworkConfig.host();
-        server.port = 2907;
+        server.port = (short) NetworkConfig.port();
         server.portCheck = 2908;
         server.version1 = 81;
         server.version2 = 131;

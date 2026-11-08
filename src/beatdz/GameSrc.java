@@ -1245,7 +1245,6 @@ public class GameSrc extends MainScreen {
                 var28.U.b((LangLa_cs) (var28.dw = var28.a(var4, 30, "", var28, 1157, 660)));
                 var4 -= 25;
                 var28.U.b((LangLa_cs) var28.a(var4, 5, "", var28, 9997, 1172));
-                var28.U.b((LangLa_cs) var28.a(var4, 30, "", var28, 9998, 1171));
                 var28.k(mConfig.gI().readBoolean(23));
                 var28.di = var28.a(0, var28.height - 186, "", var28, 1040, 712);
                 var28.dj = var28.a(0, 0, "", var28, 7000, -16);
@@ -1433,8 +1432,6 @@ public class GameSrc extends MainScreen {
 
             this.aa = this.a(this.ab.cx, this.ab.cy - this.ab.height - var3, "", this, 1085, -15);
             this.P.b((LangLa_cs) this.aa);
-            LangLa_dz btnDeTu = this.a(this.aa.cx - 32, this.aa.cy, "Đệ", this, 1110, -12);
-            this.P.b((LangLa_cs) btnDeTu);
             this.af = this.a(this.ae.cx - this.ae.width - var3, this.ae.cy, "", this, 7004, -12);
             this.P.b((LangLa_cs) this.af);
             this.P.b((LangLa_cs) (this.dv = this.a(super.cx + 35, 50, "", this, 6009, 716)));
@@ -3620,46 +3617,6 @@ public class GameSrc extends MainScreen {
                         if (this.T != null) this.T.a(var1);
                         if (this.U != null) this.U.a(var1);
                     }
-                    Vector K = new Vector();
-                    K.addAll(vMob);
-                    K.addAll(vChar);
-                    K.addAll(vNpc);
-                    K.addAll(vItemMap);
-                    //  K.addAll(vWayPoint);
-                    for (var14 = 0; var14 < K.size(); ++var14) {
-                        Entity entity = ((Entity) K.elementAt(var14));
-                        if (entity instanceof Mob) {
-//                            if (!AutoPro.isAuto(3)) {
-                            continue;
-                            //  }
-                            //  GameM.gI().canvas.graphics.shapeRenderer.setColor(Color.YELLOW); // Red line
-                        } else if (entity instanceof Char) {
-                            if (!AutoPro.isAuto(4)) {
-                                continue;
-                            }
-                            GameM.gI().canvas.graphics.shapeRenderer.setColor(Color.BLUE); // Red line
-                        } else if (entity instanceof Npc) {
-                            if (!AutoPro.isAuto(6)) {
-                                continue;
-                            }
-                            GameM.gI().canvas.graphics.shapeRenderer.setColor(Color.RED); // Red line
-                        } else if (entity instanceof ItemMap) {
-                            if (!AutoPro.isAuto(5)) {
-                                continue;
-                            }
-                            GameM.gI().canvas.graphics.shapeRenderer.setColor(Color.BLACK); // Red line
-                        } else if (entity instanceof WayPoint) {
-                            GameM.gI().canvas.graphics.shapeRenderer.setColor(Color.WHITE); // Red line
-                        }
-                        if (!entity.j()) {
-                            GameM.gI().canvas.graphics.shapeRenderer.line(
-                                    (Char.gI().cx + var1.a) * DataCenter.gI().zoomLevel,
-                                    (Char.gI().c() + (Char.gI().height / 2) + var1.b) * DataCenter.gI().zoomLevel,
-                                    (entity.cx + var1.a) * DataCenter.gI().zoomLevel,
-                                    (entity.c() + (entity.height / 2) + var1.b) * DataCenter.gI().zoomLevel
-                            );
-                        }
-                    }
 
                 }
 
@@ -4482,17 +4439,6 @@ public class GameSrc extends MainScreen {
                         LangLa_i gift = new LangLa_i(GameSrc.gI());
                         this.a(gift);
                         break;
-                    case 9998:
-                        try {
-                            Message msg = new Message((byte) 122);
-                            msg.writeByte(101);
-                            msg.writeByte(0);
-                            msg.writeInt(0);
-                            msg.send();
-                        } catch (Exception e) {
-
-                        }
-                        break;
                     case 7004:
                         this.ac();
 
@@ -5162,6 +5108,9 @@ public class GameSrc extends MainScreen {
             int var33;
             Message var46;
             switch (var2 = var1.reader.dis.readByte()) {
+                case ShopCurrency.FISHING_BALANCE_UPDATE:
+                    var1.reader.dis.readInt(); // Compatibility field from the previous shop protocol.
+                    return;
                 case 0:
                 case 1:
                 case 2:
@@ -5178,6 +5127,7 @@ public class GameSrc extends MainScreen {
                 case 39:
                 case 40:
                 case 105:
+                case ShopCurrency.FISHING_SHOP:
                     var46 = var1;
                     var2 = var2;
                     var25 = this;
@@ -5200,7 +5150,8 @@ public class GameSrc extends MainScreen {
                             var34.vangKhoaBuy = var46.reader.dis.readInt();
                             var34.bacKhoaBuy = var46.reader.dis.readInt();
                             var34.bacBuy = var46.reader.dis.readInt();
-                            if (var2 == 105) var34.exchangeItemId = 548;
+                            if (var2 == 105) var34.exchangeItemId = ShopCurrency.LUC_DAO_CARD;
+                            if (var2 == ShopCurrency.FISHING_SHOP) var34.exchangeItemId = ShopCurrency.ANGLER_CARD;
                             var25.l.add(var34);
                             if (var2 == 39) {
                                 var44[var10] = var46.reader.dis.readBoolean();
@@ -5218,6 +5169,7 @@ public class GameSrc extends MainScreen {
                             return;
                         }
 
+                        if (var2 == ShopCurrency.FISHING_SHOP) var46.reader.dis.readInt();
                         long var55 = -1L;
                         long var51 = -1L;
                         if (var2 == 40) {
@@ -5301,6 +5253,9 @@ public class GameSrc extends MainScreen {
                                 var45 = Caption.ao;
                                 var47 = 4;
                                 break;
+                            case ShopCurrency.FISHING_SHOP:
+                                var47 = 5;
+                                break;
                             case 105:
                                 var47 = 4;
                                 break;
@@ -5311,7 +5266,7 @@ public class GameSrc extends MainScreen {
                             return;
                         }
                         LangLa_cx var36 = var25.H();
-                        if (var2 != 6 && var2 != 7 && var2 != 39 && var2 != 40 && var2 != 105) {
+                        if (var2 != 6 && var2 != 7 && var2 != 39 && var2 != 40 && var2 != 105 && var2 != ShopCurrency.FISHING_SHOP) {
                             LangLa_br var52;
                             if (var36 instanceof LangLa_br) {
                                 (var52 = (LangLa_br) var36).b(var47);
@@ -11757,10 +11712,6 @@ public class GameSrc extends MainScreen {
 
             var13 = true;
             var23.t();
-            int remainingSteps = 100;
-            while (var23.pointMove != null && var23.pointMove.getRe() >= 20 && AutoPro.isAuto(3) && remainingSteps-- > 0) {
-                var23.t();
-            }
         }
     }
 

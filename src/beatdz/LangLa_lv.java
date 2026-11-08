@@ -19,6 +19,7 @@ public class LangLa_lv extends LangLa_fo {
       this.p = var1;
       this.d = var2;
       if (var3 == 105) this.d.exchangeItemId = ShopCurrency.LUC_DAO_CARD;
+      if (var3 == ShopCurrency.FISHING_SHOP) this.d.exchangeItemId = ShopCurrency.ANGLER_CARD;
       this.r = false;
       if (var2.vangBuy > 0) {
          this.e = 2;
@@ -87,7 +88,7 @@ public class LangLa_lv extends LangLa_fo {
       this.drawCurrency(var1, 54, 5 + 90, this.i);
       if (!this.h && (this.j == 0 || this.j % 10 > 5)) {
          Item var3;
-         mFont.b(mFont.d, var1, Caption.aM + " " + (ShopCurrency.isExchange(this.d) ? "Thẻ Lục Đạo" : ((var3 = this.d).vangBuy > 0 ? Caption.rs[0] : (var3.vangKhoaBuy > 0 ? Caption.rs[1] : (var3.bacBuy > 0 ? Caption.rs[2] : (var3.bacKhoaBuy > 0 ? Caption.rs[3] : (var3.tinhThachBuy > 0 ? Caption.rs[4] : "")))))), 9, 5 + 108, 0, -65536, -16777216);
+         mFont.b(mFont.d, var1, Caption.aM + " " + (ShopCurrency.isExchange(this.d) ? ShopCurrency.name(this.d) : ((var3 = this.d).vangBuy > 0 ? Caption.rs[0] : (var3.vangKhoaBuy > 0 ? Caption.rs[1] : (var3.bacBuy > 0 ? Caption.rs[2] : (var3.bacKhoaBuy > 0 ? Caption.rs[3] : (var3.tinhThachBuy > 0 ? Caption.rs[4] : "")))))), 9, 5 + 108, 0, -65536, -16777216);
       }
 
    }

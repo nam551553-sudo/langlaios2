@@ -506,7 +506,7 @@ public class DataCenter {
                 ItemOptionTemplate[index].level = msg.readByte();
                 ItemOptionTemplate[index].strOption = msg.reader.readUTF();
             }
-            this.ItemOptionTemplate = ItemOptionTemplate;
+            this.ItemOptionTemplate = TopupCostumes.installOptions(ItemOptionTemplate);
             int numTemplates = msg.readByte() & 0xFF;
             EffectTemplate[] EffectTemplate = new EffectTemplate[Math.max(numTemplates, 108) + 10]; // Ensure at least 118 for custom templates
             for (int index = 0; index < numTemplates; ++index) {
@@ -551,7 +551,7 @@ public class DataCenter {
                 ItemTemplate[index].idChar = msg.readShort();
 //                System.out.println( ItemTemplate[index]);
             }
-            this.ItemTemplate = ItemTemplate;
+            this.ItemTemplate = TopupCostumes.installItems(ItemTemplate);
             this.a(msg.reader);
             this.b(msg.reader);
             this.c(msg.reader);
@@ -671,7 +671,7 @@ public class DataCenter {
                 w[n3].strOption = reader.readUTF();
             }
             if (this.ItemOptionTemplate == null || this.ItemOptionTemplate.length == 0) {
-                this.ItemOptionTemplate = w;
+                this.ItemOptionTemplate = TopupCostumes.installOptions(w);
             }
             EffectTemplate[] aa = new EffectTemplate[reader.readUnsignedByte()];
             for (int n4 = 0; n4 < aa.length; ++n4) {
@@ -717,7 +717,7 @@ public class DataCenter {
                 v[n5].idChar = reader.dis.readShort();
             }
             if (this.ItemTemplate == null || this.ItemTemplate.length == 0) {
-                this.ItemTemplate = v;
+                this.ItemTemplate = TopupCostumes.installItems(v);
             }
             this.MobTemplate = new MobTemplate[reader.dis.readShort()];
             for (int n6 = 0; n6 < this.MobTemplate.length; ++n6) {

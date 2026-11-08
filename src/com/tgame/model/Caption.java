@@ -2066,7 +2066,7 @@ public class Caption {
         rx = new String[]{"Ghép đá", "Cường hóa", "Nâng cấp bùa nổ", "Tách cường hóa", "Dịch chuyển trang bị", "Khảm ngọc", "Tách ngọc khảm", "Ghép cải trang", "Tách cải trang"};
         ry = new String[]{"Giá cũ: ", "Giá mới: ", "Còn: # lượt mua", "Hết hàng"};
         rz = new String[]{"- Sau khi tách cường hóa trang bị", "sẽ trở về trạng thái ban đầu"};
-        rA = new String[]{"Khu vàng", "Vàng khóa", "Khu Rank", "Khuyến mãi", "Lục Đạo"};
+        rA = new String[]{"Khu vàng", "Vàng khóa", "Khu Rank", "Khuyến mãi", "Lục Đạo", "Câu cá"};
         rB = new String[]{"Mua vào", "Bán ra"};
         rC = new String[]{"gần", "hết giờ"};
         rD = new String[]{"Số vỏ sò hiện có:", "Mức cược: ", "Bắt đầu", "vỏ sò", "Thưởng", "Vỏ sò", "Tiếp", "", "", ""};

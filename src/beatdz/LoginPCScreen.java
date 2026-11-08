@@ -225,7 +225,7 @@ public class LoginPCScreen extends ScreenLogin {
 //                mFont.b(mFont.d, var1, "[+] " + DataCenter.gI().aP.array.nameServers + " [+]", this.width / 2, this.h - 35, 2, -2560, -16742145);
 //            }
 //        }
-            mFont.a(var1, "daichienshinibi", 8 + AppListener.gI().o, 8, 0, -1);
+            mFont.a(var1, "Làng Lá Duck", 8 + AppListener.gI().o, 8, 0, -1);
         mFont.a(var1, Caption.eQ + Utlis.e(DataCenter.gI().VER2), this.width - 8 - AppListener.gI().o, 8, 1, -1);
         mFont.b(mFont.d, var1, Caption.qR[0], this.a.cx - 10, this.k + mFont.a(mFont.e) / 2 + 25, 1, -6488, -16742145);
         mFont.b(mFont.d, var1, Caption.qS[0], this.a.cx - 10, this.k + 25 + mFont.a(mFont.e) / 2 + 25, 1, -6488, -16742145);
@@ -542,8 +542,8 @@ public class LoginPCScreen extends ScreenLogin {
                 Server var4;
                 (var4 = new Server()).id = 100;
                 var4.name = "Làng Lá";
-                var4.ip = "127.0.0.1";
-                var4.port = 2907;
+                var4.ip = NetworkConfig.host();
+                var4.port = (short) NetworkConfig.port();
                 DataCenter.gI().aP = var4;
                 DataCenter.gI().ipServer = var4.ip;
                 DataCenter.gI().portServer = var4.port;

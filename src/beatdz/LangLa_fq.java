@@ -420,6 +420,9 @@ public class LangLa_fq {
             var4.e = var1 + "_icon_" + var0;
          }
 
+         // New24 uses the supplied Luffy head icon; bypass any older cached icon.
+         if (var0 == 32100 && "client".equals(var1)) var4.e = "client_icon_32100_head_v2";
+
          LangLa_cz.cW.add(var4);
          LangLa_cz.S();
       }

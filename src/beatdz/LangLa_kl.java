@@ -72,22 +72,21 @@ public class LangLa_kl extends LangLa_ge implements IKeyboard {
       int offset = this.b.c();
       int startX = offset + 10;
       this.K[0] = new LangLa_ij[12];
-      // Cá»™t chÃ­nh ngoÃ i cÃ¹ng (startX vÃ  startX + 192)
+      // Cá»™t chÃ­nh ngoÃ i cÃ¹ng (startX vÃ  startX + 160)
       this.K[0][0] = new LangLa_ij((byte)1, startX, var2, this.I, this.I * 5, this.I, 5, 1);
-      this.K[0][1] = new LangLa_ij((byte)1, startX + 192, var2, this.I, this.I * 5, this.I, 5, 1);
+      this.K[0][1] = new LangLa_ij((byte)1, startX + 160, var2, this.I, this.I * 5, this.I, 5, 1);
       
       // HÃ ng 5 (DÆ°á»›i cÃ¹ng)
       this.K[0][2] = new LangLa_ij((byte)1, startX + 32, var2 + this.I * 4, this.I, this.I, this.I, 1, 1);  // ThÃº nuÃ´i
       this.K[0][8] = new LangLa_ij((byte)1, startX + 64, var2 + this.I * 4, this.I, this.I, this.I, 1, 1);  // Ão choÃ ng
       this.K[0][9] = new LangLa_ij((byte)1, startX + 96, var2 + this.I * 4, this.I, this.I, this.I, 1, 1);  // BÃ­ kÃ­p
-      this.K[0][6] = new LangLa_ij((byte)1, startX + 128, var2 + this.I * 4, this.I, this.I, this.I, 1, 1); // CÃ¡nh
-      this.K[0][11] = new LangLa_ij((byte)1, startX + 160, var2 + this.I * 4, this.I, this.I, this.I, 1, 1); // BÃ¹a ná»•
+      this.K[0][11] = new LangLa_ij((byte)1, startX + 128, var2 + this.I * 4, this.I, this.I, this.I, 1, 1); // BÃ¹a ná»•
 
       // CÃ¡c Ã´ xáº¿p chá»“ng phÃ­a trÃªn
       this.K[0][3] = new LangLa_ij((byte)1, startX + 32, var2 + this.I * 3, this.I, this.I, this.I, 1, 1);  // Cáº£i trang (trÃªn ThÃº nuÃ´i)
-      this.K[0][4] = new LangLa_ij((byte)1, startX + 160, var2 + this.I * 3, this.I, this.I, this.I, 1, 1); // Tanto (trÃªn BÃ¹a ná»•)
-      this.K[0][5] = new LangLa_ij((byte)1, startX + 160, var2 + this.I * 2, this.I, this.I, this.I, 1, 1); // Thá» i trang (trÃªn Tanto)
-      this.K[0][7] = new LangLa_ij((byte)1, startX + 160, var2 + this.I * 1, this.I, this.I, this.I, 1, 1); // Máº¯t (trÃªn Thá» i trang)
+      this.K[0][4] = new LangLa_ij((byte)1, startX + 128, var2 + this.I * 3, this.I, this.I, this.I, 1, 1); // Tanto (trÃªn BÃ¹a ná»•)
+      this.K[0][5] = new LangLa_ij((byte)1, startX + 128, var2 + this.I * 2, this.I, this.I, this.I, 1, 1); // Thá» i trang (trÃªn Tanto)
+      this.K[0][7] = new LangLa_ij((byte)1, startX + 128, var2 + this.I * 1, this.I, this.I, this.I, 1, 1); // Máº¯t (trÃªn Thá» i trang)
       
       this.K[1] = new LangLa_ij[12];
       System.arraycopy(this.K[0], 0, this.K[1], 0, 12);
@@ -231,7 +230,7 @@ public class LangLa_kl extends LangLa_ge implements IKeyboard {
    }
 
    public LangLa_kl(MainScreen var1, Char var2, Skill[] var3) {
-      super(var1, new String[]{Caption.W, Caption.q, Caption.rb_d});
+      super(var1, new String[]{Caption.W, Caption.q});
       this.I = 32;
       this.J = 15;
       this.w = new int[17];
@@ -244,7 +243,7 @@ public class LangLa_kl extends LangLa_ge implements IKeyboard {
          this.y = var2;
          this.z = var3;
          this.r = false;
-         this.a(334, 212);
+         this.a(CHARACTER_PANEL_WIDTH, 212);
          LangLa_kd var6 = new LangLa_kd(1001);
          DataCenter.gI();
          var6.c = Caption.rb;
@@ -1114,10 +1113,6 @@ public void d() {
                                        this.a(var1.j, var1.j.k);
                                        this.cL = a(var1, this, this.y.arrItemBody[16]);
                                        var13 = false;
-                                    } else if (var1.b == 1016) {
-                                        this.a(var1.j, var1.j.k);
-                                        this.cL = a(var1, this, this.y.arrItemBody[17]);
-                                        var13 = false;
                                      } else if (var1.b == 1017) {
                                         this.a(var1.j, var1.j.k);
                                         this.cL = a(var1, this, this.y.arrItemBody[18]);
@@ -1234,10 +1229,6 @@ public void d() {
                                            this.a(var1.j, var1.j.k);
                                            this.cL = a(var1, this, this.y.arrItemBody2[16]);
                                            var13 = false;
-                                        } else if (var1.b == 1056) {
-                                           this.a(var1.j, var1.j.k);
-                                           this.cL = a(var1, this, this.y.arrItemBody2[17]);
-                                           var13 = false;
                                         } else if (var1.b == 1057) {
                                            this.a(var1.j, var1.j.k);
                                            this.cL = a(var1, this, this.y.arrItemBody2[18]);
@@ -1339,7 +1330,6 @@ public void d() {
                                           case 3: itemIdx_d = 14; break;
                                           case 4: itemIdx_d = 15; break;
                                           case 5: itemIdx_d = 16; break;
-                                          case 6: itemIdx_d = 17; break;
                                           case 7: itemIdx_d = 18; break;
                                           case 10: itemIdx_d = 19; break; // Note: 19 is dummy for book slot
                                        }
@@ -1772,8 +1762,6 @@ public void d() {
 
                   DataCenter.gI();
 
-                   int offset = var8.b.c();
-                   int startX = offset + 10;
 
                    for(var4 = 0; var4 < var8.K[var8.b.b.b][0].i; ++var4) {
                       switch(var4) {
@@ -1798,11 +1786,10 @@ public void d() {
                    }
 
                    // Row 5 (Center 5 slots)
-                   a(var2, startX + 32, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 10) ? var8.y.arrItemBody[10] : null, var8.K[var8.b.b.b][2].k == 0, Caption.qV[0]); // Pet
-                   a(var2, startX + 64, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 11) ? var8.y.arrItemBody[11] : null, var8.K[var8.b.b.b][8].k == 0, Caption.qV[1]); // Manual
-                   a(var2, startX + 96, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 12) ? var8.y.arrItemBody[12] : null, var8.K[var8.b.b.b][9].k == 0, Caption.qV[2]); // Cloak
-                   a(var2, startX + 128, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 17) ? var8.y.arrItemBody[17] : null, var8.K[var8.b.b.b][6].k == 0, Caption.rS[3]); // Wings
-                   a(var2, startX + 160, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 13) ? var8.y.arrItemBody[13] : null, var8.K[var8.b.b.b][11].k == 0, Caption.qV[3]); // BÃ¹a ná»•
+                   a(var2, var8.K[var8.b.b.b][2].cx, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 10) ? var8.y.arrItemBody[10] : null, var8.K[var8.b.b.b][2].k == 0, Caption.qV[0]); // Pet
+                   a(var2, var8.K[var8.b.b.b][8].cx, var8.K[var8.b.b.b][8].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 11) ? var8.y.arrItemBody[11] : null, var8.K[var8.b.b.b][8].k == 0, Caption.qV[1]); // Manual
+                   a(var2, var8.K[var8.b.b.b][9].cx, var8.K[var8.b.b.b][9].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 12) ? var8.y.arrItemBody[12] : null, var8.K[var8.b.b.b][9].k == 0, Caption.qV[2]); // Cloak
+                   a(var2, var8.K[var8.b.b.b][11].cx, var8.K[var8.b.b.b][11].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 13) ? var8.y.arrItemBody[13] : null, var8.K[var8.b.b.b][11].k == 0, Caption.qV[3]); // BÃ¹a ná»•
 
                    // Floating slots (Sá»­ dá»¥ng tá» a Ä‘á»™ cx, cy tá»« e())
                    a(var2, var8.K[var8.b.b.b][3].cx, var8.K[var8.b.b.b][3].cy, (var8.y.arrItemBody != null && var8.y.arrItemBody.length > 14) ? var8.y.arrItemBody[14] : null, var8.K[var8.b.b.b][3].k == 0, Caption.rS[0]); // Cáº£i trang
@@ -1816,12 +1803,12 @@ public void d() {
 
 
                    DataCenter.gI();
-                   var8.y.a(var2, offset + 110, 123, var8.y.a(var8.y.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
-                   var8.y.b(var2, offset + 110, 68);
+                   var8.y.a(var2, (var8.K[0][0].cx + 96), 123, var8.y.a(var8.y.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
+                   var8.y.b(var2, (var8.K[0][0].cx + 96), 68);
                   var10000 = mFont.b;
                   var10002 = Caption.cj;
                   DataCenter.gI();
-                  mFont.a((mFont)var10000, (Graphics)var2, var10002, offset + 110, 140, 2, -1, -10275328);
+                  mFont.a((mFont)var10000, (Graphics)var2, var10002, (var8.K[0][0].cx + 96), 140, 2, -1, -10275328);
                   var2.f(-1);
                   var2.a(170, 144, 210, 144);
                   break;
@@ -1834,8 +1821,6 @@ public void d() {
                var8 = this;
                try {
                   var9 = null;
-                  int offset1 = var8.b.c();
-                  int startX1 = offset1 + 10;
 
                   for(var4 = 0; var4 < var8.K[var8.b.b.b][0].i; ++var4) {
                      switch(var4) {
@@ -1860,11 +1845,10 @@ public void d() {
                   }
 
                   // Row 5 (Sync with Case 0)
-                  a(var2, startX1 + 32, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 10) ? var8.y.arrItemBody2[10] : null, var8.K[var8.b.b.b][2].k == 0, Caption.qV[0]);
-                  a(var2, startX1 + 64, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 11) ? var8.y.arrItemBody2[11] : null, var8.K[var8.b.b.b][8].k == 0, Caption.qV[1]);
-                  a(var2, startX1 + 96, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 12) ? var8.y.arrItemBody2[12] : null, var8.K[var8.b.b.b][9].k == 0, Caption.qV[2]);
-                  a(var2, startX1 + 128, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 17) ? var8.y.arrItemBody2[17] : null, var8.K[var8.b.b.b][6].k == 0, Caption.rS[3]);
-                  a(var2, startX1 + 160, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 13) ? var8.y.arrItemBody2[13] : null, var8.K[var8.b.b.b][11].k == 0, Caption.qV[3]);
+                  a(var2, var8.K[var8.b.b.b][2].cx, var8.K[var8.b.b.b][2].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 10) ? var8.y.arrItemBody2[10] : null, var8.K[var8.b.b.b][2].k == 0, Caption.qV[0]);
+                  a(var2, var8.K[var8.b.b.b][8].cx, var8.K[var8.b.b.b][8].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 11) ? var8.y.arrItemBody2[11] : null, var8.K[var8.b.b.b][8].k == 0, Caption.qV[1]);
+                  a(var2, var8.K[var8.b.b.b][9].cx, var8.K[var8.b.b.b][9].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 12) ? var8.y.arrItemBody2[12] : null, var8.K[var8.b.b.b][9].k == 0, Caption.qV[2]);
+                  a(var2, var8.K[var8.b.b.b][11].cx, var8.K[var8.b.b.b][11].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 13) ? var8.y.arrItemBody2[13] : null, var8.K[var8.b.b.b][11].k == 0, Caption.qV[3]);
 
                   // Floating slots (Sá»­ dá»¥ng tá» a Ä‘á»™ cx, cy tá»« e())
                   a(var2, var8.K[var8.b.b.b][3].cx, var8.K[var8.b.b.b][3].cy, (var8.y.arrItemBody2 != null && var8.y.arrItemBody2.length > 14) ? var8.y.arrItemBody2[14] : null, var8.K[var8.b.b.b][3].k == 0, Caption.rS[0]);
@@ -1876,9 +1860,9 @@ public void d() {
 
 
                   DataCenter.gI();
-                  var8.y.a(var2, offset1 + 110, 123, var8.y.a(var8.y.arrItemBody2, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
-                  var8.y.b(var2, offset1 + 110, 68);
-//                  mFont.a((mFont)mFont.b, (Graphics)var2, Caption.cj, offset1 + 110, 140, 2, -1, -10275328);
+                  var8.y.a(var2, (var8.K[1][0].cx + 96), 123, var8.y.a(var8.y.arrItemBody2, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
+                  var8.y.b(var2, (var8.K[1][0].cx + 96), 68);
+//                  mFont.a((mFont)mFont.b, (Graphics)var2, Caption.cj, (var8.K[1][0].cx + 96), 140, 2, -1, -10275328);
                } catch (Exception var7) {}
                break;
             case 2:
@@ -2009,8 +1993,6 @@ public void d() {
                           Utlis.writeLog(dbgSb.toString());
                       }
 
-                     int offset_c = var8.gx_detu.c();
-                     int startX_c = offset_c + 10;
                      Item var12_d = null;
 
                      // Left column (5 slots: 0, 2, 4, 6, 8)
@@ -2030,11 +2012,10 @@ public void d() {
                      }
 
                      // Row 5 (Center/Bottom 5 slots: 10, 11, 12, 17, 13)
-                     a(var2, startX_c + 32, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 10) ? var8.y.bh_d.arrItemBody[10] : null, var8.K[5][2].k == 0, Caption.qV[0]); // Pet
-                     a(var2, startX_c + 64, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 11) ? var8.y.bh_d.arrItemBody[11] : null, var8.K[5][8].k == 0, Caption.qV[1]); // Manual
-                     a(var2, startX_c + 96, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 12) ? var8.y.bh_d.arrItemBody[12] : null, var8.K[5][9].k == 0, Caption.qV[2]); // Cloak
-                     a(var2, startX_c + 128, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 17) ? var8.y.bh_d.arrItemBody[17] : null, var8.K[5][6].k == 0, Caption.rS[3]); // Wings
-                     a(var2, startX_c + 160, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 13) ? var8.y.bh_d.arrItemBody[13] : null, var8.K[5][11].k == 0, Caption.qV[3]); // BÃ¹a ná»•
+                     a(var2, var8.K[5][2].cx, var8.K[5][2].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 10) ? var8.y.bh_d.arrItemBody[10] : null, var8.K[5][2].k == 0, Caption.qV[0]); // Pet
+                     a(var2, var8.K[5][8].cx, var8.K[5][8].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 11) ? var8.y.bh_d.arrItemBody[11] : null, var8.K[5][8].k == 0, Caption.qV[1]); // Manual
+                     a(var2, var8.K[5][9].cx, var8.K[5][9].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 12) ? var8.y.bh_d.arrItemBody[12] : null, var8.K[5][9].k == 0, Caption.qV[2]); // Cloak
+                     a(var2, var8.K[5][11].cx, var8.K[5][11].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 13) ? var8.y.bh_d.arrItemBody[13] : null, var8.K[5][11].k == 0, Caption.qV[3]); // BÃ¹a ná»•
 
                      // Floating Top Slots (5 slots: 14, 15, 16, 18, 19)
                      a(var2, var8.K[5][3].cx, var8.K[5][3].cy, (var8.y.bh_d != null && var8.y.bh_d.arrItemBody != null && var8.y.bh_d.arrItemBody.length > 14) ? var8.y.bh_d.arrItemBody[14] : null, var8.K[5][3].k == 0, Caption.rS[0]); // Cáº£i trang
@@ -2051,17 +2032,17 @@ public void d() {
                      // Character Preview
                      DataCenter.gI();
                      if (var8.y.bh_d != null) {
-                        var8.y.bh_d.a(var2, offset_c + 110, 123, var8.y.bh_d.a(var8.y.bh_d.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.bh_d.m, false);
-                        var8.y.bh_d.b(var2, offset_c + 110, 68);
+                        var8.y.bh_d.a(var2, (var8.K[5][0].cx + 96), 123, var8.y.bh_d.a(var8.y.bh_d.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.bh_d.m, false);
+                        var8.y.bh_d.b(var2, (var8.K[5][0].cx + 96), 68);
                      } else {
-                        var8.y.a(var2, offset_c + 110, 123, var8.y.a(var8.y.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
-                        var8.y.b(var2, offset_c + 110, 68);
+                        var8.y.a(var2, (var8.K[5][0].cx + 96), 123, var8.y.a(var8.y.arrItemBody, false), DataCenter.gI().i / 8 % 2, var8.y.m, false);
+                        var8.y.b(var2, (var8.K[5][0].cx + 96), 68);
                      }
 
                      // Info Label (Underlined)
-                     mFont.a(mFont.b, var2, Caption.db, offset_c + 110, 140, 2, -1, -10275328);
+                     mFont.a(mFont.b, var2, Caption.db, (var8.K[5][0].cx + 96), 140, 2, -1, -10275328);
                      var2.f(-1);
-                     var2.a(offset_c + 110 - mFont.b(mFont.b, Caption.db) / 2, 144, offset_c + 110 + mFont.b(mFont.b, Caption.db) / 2, 144);
+                     var2.a((var8.K[5][0].cx + 96) - mFont.b(mFont.b, Caption.db) / 2, 144, (var8.K[5][0].cx + 96) + mFont.b(mFont.b, Caption.db) / 2, 144);
                   } catch (Exception var6) {
                      Utlis.println(var6);
                   }
@@ -2459,9 +2440,8 @@ public void d() {
           if (this.k() <= 1 && this.y != null && this.y.itemSach != null) {
              if (this.K[0] != null && this.K[0].length > 10 && this.K[0][10] == null) {
                 int var2 = this.a_() + 11;
-                int startX = this.b.c() + 10;
-                // Align vertically with Costume at startX + 32
-                this.K[0][10] = new LangLa_ij((byte)1, startX + 32, var2 + this.I * 2, this.I, this.I, this.I, 1, 1);
+                // Align vertically with the costume slot.
+                this.K[0][10] = new LangLa_ij((byte)1, this.K[0][3].cx, var2 + this.I * 2, this.I, this.I, this.I, 1, 1);
                 if (this.K[1] != null && this.K[1].length > 10) this.K[1][10] = this.K[0][10];
              }
           } else if (this.K[0] != null && this.K[0].length > 10) {
@@ -2474,9 +2454,8 @@ public void d() {
              if (this.K[5] != null && this.K[5].length > 10 && this.K[5][10] == null) {
                 int var2 = this.a_() + 11;
                 int offset_d = (this.gx_detu != null) ? this.gx_detu.c() : this.b.c();
-                int startX = offset_d + 10;
-                // Align vertically with Costume at startX + 32 (X = offset + 42)
-                this.K[5][10] = new LangLa_ij((byte)1, startX + 32, var2 + this.I * 2, this.I, this.I, this.I, 1, 1);
+                // Align vertically with the costume slot.
+                this.K[5][10] = new LangLa_ij((byte)1, this.K[5][3].cx, var2 + this.I * 2, this.I, this.I, this.I, 1, 1);
              }
           } else if (this.K[5] != null && this.K[5].length > 10) {
              this.K[5][10] = null;

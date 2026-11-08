@@ -372,7 +372,7 @@ public class Item implements Cloneable {
     }
 
     public int e() {
-        if (exchangeItemId >= 0) return DataCenter.gI().ItemTemplate[exchangeItemId].idIcon;
+        if (ShopCurrency.isExchange(this)) return ShopCurrency.icon(this);
         if (this.vangBuy > 0) {
             return -3;
         } else if (this.vangKhoaBuy > 0) {
@@ -387,7 +387,7 @@ public class Item implements Cloneable {
     }
 
     public String f() {
-        if (exchangeItemId >= 0) return Utlis.numberFormat(d()) + " " + DataCenter.gI().ItemTemplate[exchangeItemId].name;
+        if (ShopCurrency.isExchange(this)) return Utlis.numberFormat(d()) + " " + ShopCurrency.name(this);
         //rs = new String[]{"vàng", "vàng khóa", "bạc", "bạc khóa", "tinh thạch"};
         if (this.vangBuy > 0) {
             return Utlis.numberFormat(this.vangBuy) + " " + Caption.rs[0];

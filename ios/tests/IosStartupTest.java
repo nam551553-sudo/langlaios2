@@ -71,7 +71,11 @@ public class IosStartupTest {
         check(data.ba && data.bb,"Metadata/UI readiness not published");
         check(mConfig.gI().readByte(18) == 0,"iOS is hiding characters/scenery");
         check("img/zoom".equals(data.aY),"Web image prefix was not initialized");
-        check(data.aP != null && data.aP.ip.equals("160.250.128.28"),"Offline server selection missing");
+        check(data.aP != null && data.aP.ip.equals("160.191.55.105") && data.aP.port == 2473,
+                "Offline server selection has the wrong endpoint");
+        String hostedList = "id = Làng Lá\nDAI CHIEN KAGE = 100:160.191.55.105:2907:2908";
+        check(NetworkConfig.validServerList(hostedList).endsWith("100:160.191.55.105:2473:2908"),
+                "Hosted list replaced the configured game port");
         int itemCount = data.ItemTemplate.length;
         // A damaged previous cache recovers from the packaged metadata without a web request.
         Binary.write("arr_data_game",new byte[]{1,2,3});
@@ -106,23 +110,21 @@ public class IosStartupTest {
         DataCenter.gI().currentScreen = game;
         SettingsTab settings = SettingsTab.gI();
         check(settings.a != null, "Auto settings not ready");
-        // Simulate an upgrade with speed enabled and distinct line-display choices.
+        // Simulate an upgrade with distinct visible options and saved legacy slots.
+        settings.a[100]=0; settings.a[101]=-1; settings.a[102]=0;
         settings.a[103]=0; settings.a[104]=0; settings.a[105]=-1; settings.a[106]=0; settings.z();
         settings.A(); settings.e();
         check(settings.a[103] == 0 && AutoPro.isAuto(3), "Saved speed setting was not restored");
         check(AutoPro.isAuto(4) && !AutoPro.isAuto(5) && AutoPro.isAuto(6), "Upgrade shifted saved options");
         Field field = SettingsTab.class.getDeclaredField("s"); field.setAccessible(true);
         LangLa_ce[] rows = ((LangLa_ce[][])field.get(settings))[3];
-        check(rows.length == 7 && SettingsTab.arrayAuto.length == 7, "Unexpected auto option count");
-        check("Speed hack".equals(SettingsTab.arrayAuto[3]) && rows[3].a, "Speed menu missing or not selected");
-        check(rows[4].a && !rows[5].a && rows[6].a, "Visible rows use wrong saved slots");
-        rows[3].a=false; settings.a(2910,null,null);
-        check(!AutoPro.isAuto(3) && settings.a[104] == 0, "Speed off changed wrong slot");
-        settings.A(); settings.e(); check(!rows[3].a, "Speed off was not saved");
-        rows[3].a=true; settings.a(2910,null,null);
-        settings.A(); settings.e(); check(AutoPro.isAuto(3) && rows[3].a, "Speed on was not saved");
-        rows[4].a=false; settings.a(2911,null,null);
-        check(settings.a[104] == -1 && settings.a[105] == -1 && settings.a[106] == 0 && settings.a[103] == 0, "Line toggle changed wrong slot");
+        check(rows.length == 3 && SettingsTab.arrayAuto.length == 3, "Unexpected auto option count");
+        check(rows[0].a && !rows[1].a && rows[2].a, "Visible rows use wrong saved slots");
+        rows[1].a=true; settings.a(2908,null,null);
+        settings.A(); settings.e();
+        check(AutoPro.isAuto(1) && rows[1].a, "Elite priority toggle was not saved");
+        check(settings.a[103] == 0 && settings.a[104] == 0 && settings.a[105] == -1 && settings.a[106] == 0,
+                "Visible toggle changed a legacy slot");
         short oldX=Char.gI().cx, oldY=Char.gI().cy;
         Char.gI().setXY(100,100); game.mapID=17;
         game.vMob.clear();
@@ -138,7 +140,7 @@ public class IosStartupTest {
         settings.a(false); check(!settings.autoTrain && settings.b==-1,"Cannot stop treo");
         game.vMob.clear(); check(GameSrc.findMobWithLevelBoss(1)==null,"Empty map target lookup failed");
         Char.gI().setXY(oldX,oldY);
-        System.out.println("PASS: treo start/stop, 3000 target lookups, dead/wrong-level/empty-map targets; speed menu restored, on/off saved and line-option slots preserved");
+        System.out.println("PASS: treo start/stop, 3000 target lookups, visible auto options and legacy slots preserved");
     }
     private static Mob mob(int level,int x,int y,int status) {
         Mob mob = new Mob() { @Override public boolean q() { return false; } };

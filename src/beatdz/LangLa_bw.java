@@ -31,7 +31,7 @@ public class LangLa_bw extends LangLa_fo {
       this.r = false;
       this.a(323, 220);
       this.l = super.width - 8 - 5;
-      this.a = new LangLa_lf(new LangLa_kd(1001, Caption.rA), 4, this.a_(), super.width - 8, 23, 62, this);
+      this.a = new LangLa_lf(new LangLa_kd(1001, Caption.rA), 4, this.a_(), super.width - 8, 23, 51, this);
       this.b = new Item[this.a.b.c.length][];
       this.i = new LangLa_dz[this.a.b.c.length][];
       this.h = new LangLa_ii[this.a.b.c.length][];
@@ -44,7 +44,7 @@ public class LangLa_bw extends LangLa_fo {
    }
 
    public void a(int var1, Item[][] var2, boolean[] var3) {
-      if (this.b[this.a.b.b] == null) {
+      if (this.b[var1] == null) {
          this.t[var1] = false;
          this.b[var1] = new Item[GameSrc.gI().l.size()];
          int var4 = this.j;
@@ -147,6 +147,9 @@ public class LangLa_bw extends LangLa_fo {
             return;
          case 4:
             GameSrc.openFunc(105);
+            return;
+         case 5:
+            GameSrc.openFunc(ShopCurrency.FISHING_SHOP);
             return;
          }
       }
@@ -454,6 +457,8 @@ public class LangLa_bw extends LangLa_fo {
                }
             } else if (this.a.b.b == 4) {
                this.p.a(new LangLa_lv(this.p, this.b[this.a.b.b][this.o], (byte)105));
+            } else if (this.a.b.b == 5) {
+               this.p.a(new LangLa_lv(this.p, this.b[this.a.b.b][this.o], ShopCurrency.FISHING_SHOP));
             } else if (this.a.b.b == 3) {
                this.p.a((LangLa_cx)(new LangLa_lv(this.p, this.b[this.a.b.b][this.o], (byte)40)));
             } else {
