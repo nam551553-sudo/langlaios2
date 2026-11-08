@@ -2,7 +2,7 @@ name: Build iOS IPA
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'build/ios-16019155105-2473']
   workflow_dispatch:
 
 permissions:
