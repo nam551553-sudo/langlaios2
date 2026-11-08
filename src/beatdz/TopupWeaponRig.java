@@ -11,6 +11,7 @@ public final class TopupWeaponRig {
     /** H[400] references missing 16000 and unrelated creature artwork 16001/16003/16004. */
     public static boolean missingHeldArtwork(int appearance) { return appearance == 400; }
     private static final Map<LangLa_ju[], Map<LangLa_ju[], LangLa_ju[]>> FITTED = new WeakHashMap<LangLa_ju[], Map<LangLa_ju[], LangLa_ju[]>>();
+    private static final Map<LangLa_ju[], Map<LangLa_ju[], LangLa_ju[]>> FITTED_TANTO = new WeakHashMap<>();
 
     // Original Quyền Năng Trượng, costume variant H[23][9].
     // Image variant, transform, X, Y. Source grip landmarks are on the shaft.
@@ -22,12 +23,26 @@ public final class TopupWeaponRig {
         {0,0,0,0},{0,0,-3,14},{0,0,-3,15}
     };
     private static final int[][] REFERENCE_IMAGES = {{65,37,20,9},{41,63,13,20},{68,32,33,13}};
+    private static final int[] TANTO_IMAGE_BASES = {58, 130, 135, 140, 145, 2940, 3034};
+    // Source grip in game pixels for the three sprites in each five-frame set.
+    private static final int[][] TANTO_GRIPS = {
+            {12, 7, 8, 13, 49, 21},   // Candy cane
+            {31, 14, 16, 27, 37, 17}, // Pumpkin lantern
+            {31, 14, 16, 27, 37, 17}, // Red lantern
+            {31, 14, 16, 27, 37, 17}, // Lotus lantern
+            {31, 14, 16, 27, 37, 17}, // Diamond lantern
+            {15, 8, 10, 16, 48, 22}, // Magic staff
+            {14, 9, 10, 17, 49, 24}  // Longevity staff
+    };
 
     /** Grip position of the native shared costume weapon skeleton, facing right. */
     public static float[] nativeGrip(int pose) {
         int[] f = REFERENCE[TopupCostumes.pose(pose)], image = REFERENCE_IMAGES[f[0]];
-        float w=image[0],h=image[1],u=image[2],v=image[3],x=f[2],y=f[3];
-        switch (f[1]) {
+        return transformedGrip(f[1], f[2], f[3], image[0], image[1], image[2], image[3]);
+    }
+
+    private static float[] transformedGrip(int transform, float x, float y, float w, float h, float u, float v) {
+        switch (transform) {
             case 1: return new float[]{x-w/2+u,y-v}; // mirror X, rotate 180
             case 2: return new float[]{x-h/2+v,y-w+u};
             case 3: return new float[]{x+h/2-v,y-u};
@@ -37,6 +52,19 @@ public final class TopupWeaponRig {
             case 7: return new float[]{x+w/2-u,y-h+v};
             default: return new float[]{x-w/2+u,y-h+v};
         }
+    }
+
+    static float[] tantoGrip(LangLa_ju frame, int pose) {
+        for (int i = 0; i < TANTO_IMAGE_BASES.length; i++) {
+            int offset = frame.a - TANTO_IMAGE_BASES[i];
+            if (offset < 0 || offset >= 5) continue;
+            int sprite = offset % 3;
+            int[] size = REFERENCE_IMAGES[sprite];
+            int[] grip = TANTO_GRIPS[i];
+            return transformedGrip(frame.b, frame.d, frame.e, size[0], size[1],
+                    grip[2 * sprite], grip[2 * sprite + 1]);
+        }
+        return nativeGrip(pose);
     }
 
     /** Exact source-hand landmark transformed by the currently drawn body frame. */
@@ -62,17 +90,27 @@ public final class TopupWeaponRig {
     }
 
     public static LangLa_ju[] fitFrames(LangLa_ju[] body,LangLa_ju[] source) {
+        return fitFrames(body, source, false);
+    }
+
+    public static void markTantoParts(Vector parts, int start) {
+        markWeaponParts(parts, start);
+        for (int i = start; i < parts.size(); i++) ((LangLa_jr) parts.elementAt(i)).heldTanto = true;
+    }
+
+    static LangLa_ju[] fitFrames(LangLa_ju[] body, LangLa_ju[] source, boolean tanto) {
         // Custom held items (e.g. the power hammer) have 128 entries; engine poses use 0..32.
         if(body==null || body.length!=33 || source==null || source.length<33)return source;
-        synchronized(FITTED) {
-            Map<LangLa_ju[],LangLa_ju[]> weapons=FITTED.get(body);
-            if(weapons==null){weapons=new IdentityHashMap<LangLa_ju[],LangLa_ju[]>();FITTED.put(body,weapons);}
+        Map<LangLa_ju[], Map<LangLa_ju[], LangLa_ju[]>> cache = tanto ? FITTED_TANTO : FITTED;
+        synchronized(cache) {
+            Map<LangLa_ju[],LangLa_ju[]> weapons=cache.get(body);
+            if(weapons==null){weapons=new IdentityHashMap<LangLa_ju[],LangLa_ju[]>();cache.put(body,weapons);}
             LangLa_ju[] ready=weapons.get(source);if(ready!=null)return ready;
             ready=new LangLa_ju[33];
             for(int pose=0;pose<33;pose++) {
                 LangLa_ju original=source[pose],copy=new LangLa_ju(original.a);
                 copy.b=original.b;copy.c=original.c;copy.width=original.width;copy.height=original.height;
-                float[] target=hand(body[pose]),nativeHand=nativeGrip(pose);
+                float[] target=hand(body[pose]),nativeHand=tanto ? tantoGrip(original, pose) : nativeGrip(pose);
                 int dx=pose==30?0:Math.round(target[0]-nativeHand[0]);
                 int dy=pose==30?0:Math.round(target[1]-nativeHand[1]);
                 copy.d=(short)(original.d+dx);
@@ -88,7 +126,7 @@ public final class TopupWeaponRig {
         for(int i=0;i<parts.size();i++) {
             LangLa_jr part=(LangLa_jr)parts.elementAt(i);if(!part.heldWeapon)continue;
             if(part.weaponSourceFrames==null)part.weaponSourceFrames=part.d;
-            part.d=fitFrames(body.d,part.weaponSourceFrames);
+            part.d=fitFrames(body.d,part.weaponSourceFrames,part.heldTanto);
         }
     }
 

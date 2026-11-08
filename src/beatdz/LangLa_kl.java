@@ -1527,7 +1527,11 @@ public void d() {
 
       for(var4 = 0; var4 < var3; ++var4) {
          String var5;
-         if ((var5 = var6[var4].a(this.y.idClass)) != null && var5.length() > 0) {
+         ItemOption option = var6[var4];
+         var5 = var2.idTemplate == 25 && option.d() == 273
+                 ? "Tăng sát thương tấn công: +" + option.a[1] + " (duy trì 10 giây)"
+                 : option.a(this.y.idClass);
+         if (var5 != null && var5.length() > 0) {
             var1.addElement(var5);
          }
       }

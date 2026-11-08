@@ -6,6 +6,7 @@ public class LangLa_jr {
    public int c = 0;
    public LangLa_ju[] d;
    public boolean heldWeapon;
+   public boolean heldTanto;
    public LangLa_ju[] weaponSourceFrames;
    public boolean wornCape;
    public LangLa_ju[] capeSourceFrames;
@@ -17,6 +18,7 @@ public class LangLa_jr {
       var1.c = this.c;
       var1.d = this.d;
       var1.heldWeapon = this.heldWeapon;
+      var1.heldTanto = this.heldTanto;
       var1.weaponSourceFrames = this.weaponSourceFrames;
       var1.wornCape = this.wornCape;
       var1.capeSourceFrames = this.capeSourceFrames;

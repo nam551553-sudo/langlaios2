@@ -8,13 +8,13 @@ public class LangLa_g extends LangLa_fo {
    private LangLa_dz d;
    private int e = -1;
    private int f = 0;
+   private boolean vip;
 
    public LangLa_g(MainScreen var1, Message var2) {
       try {
          this.p = var1;
          this.a(208, 200);
          this.r = false;
-         this.c = this.c(Caption.od, 100);
          this.d = this.b(Caption.oS, 101);
          this.d.a(true);
          this.a = new Item[var2.reader.dis.readShort()];
@@ -25,6 +25,8 @@ public class LangLa_g extends LangLa_fo {
             var5.index = var3;
             this.a[var5.index] = var5;
          }
+         this.vip = var2.reader.dis.available() > 0 && var2.reader.dis.readBoolean();
+         this.c = this.c(vip ? "1 vé VIP" : Caption.od, 100);
 
          this.b = new LangLa_ij((byte)1, 9, this.a_() + 5, 192, 128, 32, 6, 4);
       } catch (Exception var4) {
@@ -45,7 +47,7 @@ public class LangLa_g extends LangLa_fo {
    }
 
    public void a(Graphics var1) {
-      this.a(var1, this.cx, this.cy, this.width, this.height, Caption.eR, (byte)2, this.r);
+      this.a(var1, this.cx, this.cy, this.width, this.height, vip ? "Thử vận may VIP" : Caption.eR, (byte)2, this.r);
       this.a(var1, this.b);
       int var2 = 0;
       boolean var3 = false;
@@ -58,7 +60,7 @@ public class LangLa_g extends LangLa_fo {
                a(var1, var5 * this.b.h, var4 * this.b.h, (Item)null, var4 * this.b.i + var5 == this.b.k, 0);
             }
 
-            if (!var3 && this.a[var2].id == this.e && this.a[var2].getAmount() == this.f && DataCenter.gI().i % 10 > 5) {
+            if (var2 < this.a.length && !var3 && this.a[var2].id == this.e && this.a[var2].getAmount() == this.f && DataCenter.gI().i % 10 > 5) {
                var3 = true;
                var1.f(-2560);
                var1.b(var5 * this.b.h, var4 * this.b.h, 28, 28);

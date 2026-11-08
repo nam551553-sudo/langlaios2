@@ -25,7 +25,7 @@ public class Skill implements Cloneable {
       if (idTemplate != 2 && idTemplate != 8 && idTemplate != 14 && idTemplate != 20 && idTemplate != 26) {
          return maxTarget;
       }
-      return characterLevel >= 45 && level >= 6 ? 4 : 2;
+      return characterLevel >= 45 && level >= 6 ? 3 : 1;
    }
 
    public Skill cloneSkill() {

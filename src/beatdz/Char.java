@@ -3674,7 +3674,7 @@ public class Char extends Entity {
                 }
             }
 
-            TopupWeaponRig.markWeaponParts(var3, heldTantoStart);
+            TopupWeaponRig.markTantoParts(var3, heldTantoStart);
             TopupWeaponRig.fitHeldWeapons(var3);
             TopupCapeRig.fitCapes(var3);
             return var3;

@@ -513,6 +513,7 @@ public class DataCenter {
                 EffectTemplate[index] = new EffectTemplate(index);
                 EffectTemplate[index].name = msg.reader.readUTF();
                 EffectTemplate[index].detail = msg.reader.readUTF();
+                if (index == 74) EffectTemplate[index].detail = "Tăng sát thương tấn công";
                 EffectTemplate[index].type = msg.reader.readUnsignedByte();
                 EffectTemplate[index].idIcon = msg.readShort();
                 EffectTemplate[index].idMob = msg.readShort();
@@ -678,6 +679,7 @@ public class DataCenter {
                 aa[n4] = new EffectTemplate(n4);
                 aa[n4].name = reader.readUTF();
                 aa[n4].detail = reader.readUTF();
+                if (n4 == 74) aa[n4].detail = "Tăng sát thương tấn công";
                 aa[n4].type = reader.readUnsignedByte();
                 aa[n4].idIcon = reader.dis.readShort();
                 aa[n4].idMob = reader.dis.readShort();
@@ -764,6 +766,8 @@ public class DataCenter {
                 this.SkillTemplate[n10] = new SkillTemplate(n10);
                 this.SkillTemplate[n10].name = reader.readUTF();
                 this.SkillTemplate[n10].detail = reader.readUTF();
+                if (n10 == 25) this.SkillTemplate[n10].detail =
+                        "Mượn Chakra của Cửu Vĩ để tăng sát thương tấn công trong 10 giây.";
                 this.SkillTemplate[n10].levelNeed = reader.dis.readShort();
                 this.SkillTemplate[n10].idChar = reader.dis.readByte();
                 this.SkillTemplate[n10].levelMax = reader.dis.readByte();
