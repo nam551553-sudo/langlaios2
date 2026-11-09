@@ -1,0 +1,692 @@
+[
+  {
+    "path": "src/beatdz/AppBranding.java",
+    "sha": "ca62ae0035e51eec52e0c6c255de5e4c2de164bb",
+    "size": 358
+  },
+  {
+    "path": "src/beatdz/Canvas.java",
+    "sha": "8bb1707a6cd4c07ba5df979a0ad646811ecdd0f4",
+    "size": 13298
+  },
+  {
+    "path": "src/beatdz/Char.java",
+    "sha": "9bbac5c944fe92948b82d1292953166c0e243c54",
+    "size": 161604
+  },
+  {
+    "path": "src/beatdz/Controller.java",
+    "sha": "a6a515e1851e53eefd5aed1dc0dfbff8cfb34796",
+    "size": 93750
+  },
+  {
+    "path": "src/beatdz/CostumeSusano.java",
+    "sha": "1f7a700085d30ca2b1a0ec7daa08b95f69be1da1",
+    "size": 3573
+  },
+  {
+    "path": "src/beatdz/DataCenter.java",
+    "sha": "e6f2c496eb934950a4bb48e49300f278a617cebd",
+    "size": 62818
+  },
+  {
+    "path": "src/beatdz/Effect.java",
+    "sha": "8a2356177d08cd39b5aa5a9e89fa4c48ee6b91dc",
+    "size": 8072
+  },
+  {
+    "path": "src/beatdz/GameSrc.java",
+    "sha": "2361501c14009e3a19c01e3528b0e63a48207c90",
+    "size": 469315
+  },
+  {
+    "path": "src/beatdz/IosStartup.java",
+    "sha": "3ed976eeb4d55eb0b9e213ab96d893e5c4ed1b57",
+    "size": 1864
+  },
+  {
+    "path": "src/beatdz/Item.java",
+    "sha": "dd36e2872a2673ccd98ef6e2e046e2e31fde9746",
+    "size": 39032
+  },
+  {
+    "path": "src/beatdz/ItemOption.java",
+    "sha": "07c21ad40017c496eb4ba6393fbd9ee348aac266",
+    "size": 5800
+  },
+  {
+    "path": "src/beatdz/KonohaScenery.java",
+    "sha": "491cc13fb594a2dbbef417707d09680f53763212",
+    "size": 1274
+  },
+  {
+    "path": "src/beatdz/LangLa_am.java",
+    "sha": "9d6d6cbccc23084ae16b8a5959eb56161f64a19d",
+    "size": 9825
+  },
+  {
+    "path": "src/beatdz/LangLa_bk.java",
+    "sha": "92c2be535b99233dca54ce712ad221e21fa6e831",
+    "size": 25676
+  },
+  {
+    "path": "src/beatdz/LangLa_bt.java",
+    "sha": "7e00454dc47b65b52c215d02f2815f05bdc7952e",
+    "size": 8405
+  },
+  {
+    "path": "src/beatdz/LangLa_bw.java",
+    "sha": "06c7c9d1cc4f61b3645dd483ab12d48bef89431a",
+    "size": 18977
+  },
+  {
+    "path": "src/beatdz/LangLa_cj.java",
+    "sha": "c264db49a972ab34d722deac6a534eb8f6823e16",
+    "size": 22263
+  },
+  {
+    "path": "src/beatdz/LangLa_em.java",
+    "sha": "df766e58865b7eec2dd5a7ad26fe559f0022bf4a",
+    "size": 6133
+  },
+  {
+    "path": "src/beatdz/LangLa_fq.java",
+    "sha": "e1fb948c041e1f96dd7c399904eea3cd756b4af6",
+    "size": 16438
+  },
+  {
+    "path": "src/beatdz/LangLa_g.java",
+    "sha": "68fbf016756df45172cbdc42000d9a607338301b",
+    "size": 3811
+  },
+  {
+    "path": "src/beatdz/LangLa_ge.java",
+    "sha": "b332f0577e5424cfd602e7202fdaf3441903dbd5",
+    "size": 12031
+  },
+  {
+    "path": "src/beatdz/LangLa_jr.java",
+    "sha": "53b5ac28b91ec32122e654ede569891bb9255b01",
+    "size": 1096
+  },
+  {
+    "path": "src/beatdz/LangLa_jw.java",
+    "sha": "5625c5e2a741b17ae90b6c41ab8485c7c11c89e8",
+    "size": 7531
+  },
+  {
+    "path": "src/beatdz/LangLa_kl.java",
+    "sha": "ad9c5950dfb521ec2137699f85bdf35100612802",
+    "size": 152178
+  },
+  {
+    "path": "src/beatdz/LangLa_lv.java",
+    "sha": "88151d175e77e62243872704f482f3ebff2907f7",
+    "size": 6522
+  },
+  {
+    "path": "src/beatdz/LangLa_mk.java",
+    "sha": "97d0fcbb2cabde46bc2a37a47bc804fab7f56150",
+    "size": 98745
+  },
+  {
+    "path": "src/beatdz/LoginPCScreen.java",
+    "sha": "156db6a1b7d4414ebc7377dd5392c449f186ccb8",
+    "size": 19605
+  },
+  {
+    "path": "src/beatdz/LucDaoGourd.java",
+    "sha": "91316bafcce39f8180a264f978b0baf4e960bbe9",
+    "size": 689
+  },
+  {
+    "path": "src/beatdz/NetworkConfig.java",
+    "sha": "30553834f378fab4c62a9e40e8c1e75914ba34c8",
+    "size": 1302
+  },
+  {
+    "path": "src/beatdz/NewMount.java",
+    "sha": "48238ff7aa03f9da989e834b59f3e5518c6169be",
+    "size": 4342
+  },
+  {
+    "path": "src/beatdz/SettingsTab.java",
+    "sha": "5a2d28b2311fd3edd6920e49e1ff0380f071c92c",
+    "size": 32000
+  },
+  {
+    "path": "src/beatdz/ShopCurrency.java",
+    "sha": "89aff534946f6ca941922f33b84ff8b0cca18ab0",
+    "size": 1072
+  },
+  {
+    "path": "src/beatdz/Skill.java",
+    "sha": "e1743390ff18dcb11e67bb8e6bc0c4e6aaa27ab2",
+    "size": 3327
+  },
+  {
+    "path": "src/beatdz/TopupAttachmentAnchors.java",
+    "sha": "0a858a0f67f44c9283a3e27828de9e82ebb80e13",
+    "size": 16202
+  },
+  {
+    "path": "src/beatdz/TopupCostumes.java",
+    "sha": "1a5927bd2554107f898823d77631135e33da9364",
+    "size": 8913
+  },
+  {
+    "path": "src/beatdz/TopUpDialog.java",
+    "sha": "ee9801152698658f96d8b36fd5c4bcf4b8a72428",
+    "size": 2146
+  },
+  {
+    "path": "src/beatdz/TopupGripAnchors.java",
+    "sha": "0eaea5451d49271d135aa29fcbeadfe92f2265c6",
+    "size": 7538
+  },
+  {
+    "path": "src/beatdz/TopUpMenu.java",
+    "sha": "f73a1f2fb5bb17ebaf33bced117fe3a7ba2a37f8",
+    "size": 826
+  },
+  {
+    "path": "src/beatdz/TopupWeaponRig.java",
+    "sha": "c036c6ae249530c166e21806b3dc4a3cb6d1e6f0",
+    "size": 7909
+  },
+  {
+    "path": "src/com/tgame/model/Caption.java",
+    "sha": "55943980bc1e560d7dcfc0af787631a7b32aa3c6",
+    "size": 106185
+  },
+  {
+    "path": "resource/konoha-winter/panorama.png",
+    "sha": "10bf802eaefcadee6ee35f5cc84de050efa25668",
+    "size": 3360403
+  },
+  {
+    "path": "resource/payment/top-up-qr.png",
+    "sha": "bb873576a70fc5ec9dcf023c2b37c58492f58fe0",
+    "size": 83605
+  },
+  {
+    "path": "resource/konoha-winter/zoom1/167.jpg",
+    "sha": "b2442cda66f51bc25fcaf9d92175f969d83d43ed",
+    "size": 223257
+  },
+  {
+    "path": "resource/konoha-winter/zoom1/168.jpg",
+    "sha": "4848287f3ee958e7f3585c4e7910075dbc395721",
+    "size": 208897
+  },
+  {
+    "path": "resource/konoha-winter/zoom1/169.jpg",
+    "sha": "12008abcb64e90a3a21d6f655510a58e57d15358",
+    "size": 207487
+  },
+  {
+    "path": "resource/konoha-winter/zoom2/167.jpg",
+    "sha": "84ff216744ef8accb0807e7b74362f5ad6b79ef0",
+    "size": 640258
+  },
+  {
+    "path": "resource/konoha-winter/zoom2/168.jpg",
+    "sha": "bd9cc9ddc32ea139352e583a1cac212f88448059",
+    "size": 615386
+  },
+  {
+    "path": "resource/konoha-winter/zoom2/169.jpg",
+    "sha": "37c013bfc295254b51afbdca2e0b6115ebcf5e8a",
+    "size": 592409
+  },
+  {
+    "path": "resource/konoha-winter/zoom3/167.jpg",
+    "sha": "21a444f0fc5363a014311ce5cd20408f138b399e",
+    "size": 1099880
+  },
+  {
+    "path": "resource/konoha-winter/zoom3/168.jpg",
+    "sha": "eb15e172d998acd4ab2b520a29803bb518d74a70",
+    "size": 1058868
+  },
+  {
+    "path": "resource/konoha-winter/zoom3/169.jpg",
+    "sha": "c861fedaf38eadf79124159095b39e67e8a68faa",
+    "size": 1027094
+  },
+  {
+    "path": "resource/konoha-winter/zoom4/167.jpg",
+    "sha": "e7821137bd1cd23cac46ddc6a25ada249d19d191",
+    "size": 1620446
+  },
+  {
+    "path": "resource/konoha-winter/zoom4/168.jpg",
+    "sha": "1a203964686d933f485516c1b42f9b34aa06ce38",
+    "size": 1563473
+  },
+  {
+    "path": "resource/konoha-winter/zoom4/169.jpg",
+    "sha": "dde7ac95f0eddaf52b7a00e94841ee3fd9444291",
+    "size": 1523776
+  },
+  {
+    "path": "resource/susano1304/zoom1/32670.png",
+    "sha": "06e7fad757c3c7e31fc9ea25e0239552e40eb5c3",
+    "size": 4462
+  },
+  {
+    "path": "resource/susano1304/zoom1/32671.png",
+    "sha": "98c4e5f5bb26116953a923a9438fc94af5d38c5d",
+    "size": 7428
+  },
+  {
+    "path": "resource/susano1304/zoom1/32672.png",
+    "sha": "ce46ad2f8400106f7e5dabb6400b9c6439b49d4a",
+    "size": 9617
+  },
+  {
+    "path": "resource/susano1304/zoom1/32673.png",
+    "sha": "11933cd7e80aa05c5f3e80acd936c79ddbdf39fe",
+    "size": 13386
+  },
+  {
+    "path": "resource/susano1304/zoom1/32674.png",
+    "sha": "2aea275720c73cd8a7fdfe77c47424f62bf695b8",
+    "size": 16513
+  },
+  {
+    "path": "resource/susano1304/zoom1/32675.png",
+    "sha": "0ea1a2edfd110eaff3463d018f0672ab8a655408",
+    "size": 18975
+  },
+  {
+    "path": "resource/susano1304/zoom1/32676.png",
+    "sha": "f87916c834445f1b18c08515d05e18963da78436",
+    "size": 20429
+  },
+  {
+    "path": "resource/susano1304/zoom1/32677.png",
+    "sha": "8ad6c8c5a203e89a0899aa59eb15030be2418aff",
+    "size": 24018
+  },
+  {
+    "path": "resource/susano1304/zoom1/32678.png",
+    "sha": "b3c623f97df7af9b84eaffb61de02047494364af",
+    "size": 34652
+  },
+  {
+    "path": "resource/susano1304/zoom1/32679.png",
+    "sha": "ed1b97355a1f86ef5d01d1aba4784772721f97a1",
+    "size": 40327
+  },
+  {
+    "path": "resource/susano1304/zoom2/32670.png",
+    "sha": "715ce7439eb39decbcbd5ab2bc3ebd9266bdc43a",
+    "size": 14542
+  },
+  {
+    "path": "resource/susano1304/zoom2/32671.png",
+    "sha": "e4071fe2dc60681b1f971812f6b27f71f18d5f1e",
+    "size": 24995
+  },
+  {
+    "path": "resource/susano1304/zoom2/32672.png",
+    "sha": "3b4a1539139e45320c128ae1a01c0b10e1e55619",
+    "size": 32651
+  },
+  {
+    "path": "resource/susano1304/zoom2/32673.png",
+    "sha": "c24822c82b69b7690530024224daf55e19dacb5b",
+    "size": 45278
+  },
+  {
+    "path": "resource/susano1304/zoom2/32674.png",
+    "sha": "26a68bb1ecfff3a1b29d32f72bab885f35aaf4a2",
+    "size": 55949
+  },
+  {
+    "path": "resource/susano1304/zoom2/32675.png",
+    "sha": "6615fadd2c6c1e41ccbc6ea4d2977521cafdcc76",
+    "size": 64727
+  },
+  {
+    "path": "resource/susano1304/zoom2/32676.png",
+    "sha": "7394b87917225a1f0428f3dc5082c837d8a7d7d9",
+    "size": 70125
+  },
+  {
+    "path": "resource/susano1304/zoom2/32677.png",
+    "sha": "eeb3c8a56f48ecf8db319e109c2c7eb463334e76",
+    "size": 83129
+  },
+  {
+    "path": "resource/susano1304/zoom2/32678.png",
+    "sha": "2197b926a626439728ea82490dc432745049a143",
+    "size": 119964
+  },
+  {
+    "path": "resource/susano1304/zoom2/32679.png",
+    "sha": "90a77020f986054b2a561503d42600dbf07854ca",
+    "size": 141117
+  },
+  {
+    "path": "resource/susano1304/zoom3/32670.png",
+    "sha": "efef493fa93d1ffcf897a26da412c7490ead2ad7",
+    "size": 29530
+  },
+  {
+    "path": "resource/susano1304/zoom3/32671.png",
+    "sha": "b8366246bdcc5fd42eb15ffd1f7a45eb7d8f951f",
+    "size": 50472
+  },
+  {
+    "path": "resource/susano1304/zoom3/32672.png",
+    "sha": "b3a41e6c2fd53b3f32865aa5c278b64df814a99b",
+    "size": 65687
+  },
+  {
+    "path": "resource/susano1304/zoom3/32673.png",
+    "sha": "99015b42ec67e6f215f15c8cd8e7586748bf07a8",
+    "size": 92182
+  },
+  {
+    "path": "resource/susano1304/zoom3/32674.png",
+    "sha": "f64368bcc84b588f64da15272f290139732bf4c0",
+    "size": 113734
+  },
+  {
+    "path": "resource/susano1304/zoom3/32675.png",
+    "sha": "3f62b2458b71d6f851ad6f8522ecea5e40a69098",
+    "size": 131921
+  },
+  {
+    "path": "resource/susano1304/zoom3/32676.png",
+    "sha": "70a3d2da5ee15b11cea3244402d94baac9dc3997",
+    "size": 143548
+  },
+  {
+    "path": "resource/susano1304/zoom3/32677.png",
+    "sha": "50c387c17a50889fe4d67fad60f23590617d6024",
+    "size": 170513
+  },
+  {
+    "path": "resource/susano1304/zoom3/32678.png",
+    "sha": "4caa45c7877c927551f3c7ab0cf5ce3b8acbd512",
+    "size": 246409
+  },
+  {
+    "path": "resource/susano1304/zoom3/32679.png",
+    "sha": "639a7fc613748786afc0c41ce3e94c4e1ccd0ab7",
+    "size": 290197
+  },
+  {
+    "path": "resource/susano1304/zoom4/32670.png",
+    "sha": "bc3125a4aeb652771696ec221851cb8d0e7e4eed",
+    "size": 47991
+  },
+  {
+    "path": "resource/susano1304/zoom4/32671.png",
+    "sha": "be3d5ccebf275f5bcb2bec323915ffb981d436df",
+    "size": 82929
+  },
+  {
+    "path": "resource/susano1304/zoom4/32672.png",
+    "sha": "80afd24ae742a1e997b1c87cf5079b748e5716e5",
+    "size": 108390
+  },
+  {
+    "path": "resource/susano1304/zoom4/32673.png",
+    "sha": "ed24bb828c7869a8857e6231b4baba5ec2741fe5",
+    "size": 152190
+  },
+  {
+    "path": "resource/susano1304/zoom4/32674.png",
+    "sha": "739d87c23f0efdcefca20f04a9d867085874041c",
+    "size": 187873
+  },
+  {
+    "path": "resource/susano1304/zoom4/32675.png",
+    "sha": "5637eb07004ad612b6ccee0a0db6f18b4269a0fa",
+    "size": 218103
+  },
+  {
+    "path": "resource/susano1304/zoom4/32676.png",
+    "sha": "75963a9db466aee033d8d39258f5a6a88e60d5e8",
+    "size": 237366
+  },
+  {
+    "path": "resource/susano1304/zoom4/32677.png",
+    "sha": "28e88d3ee0174ffb9c312cda9afbfea85e89ae2c",
+    "size": 282495
+  },
+  {
+    "path": "resource/susano1304/zoom4/32678.png",
+    "sha": "07563322a00f57156891dd410d216d29d4923efb",
+    "size": 408592
+  },
+  {
+    "path": "resource/susano1304/zoom4/32679.png",
+    "sha": "e3d7dfdda6ed56d6232ba8fe7ebfe04e25084119",
+    "size": 480987
+  },
+  {
+    "path": "resource/susano1318/zoom1/32710.png",
+    "sha": "3237d1323618d530c9ba8f7c513e343b526da9cc",
+    "size": 22226
+  },
+  {
+    "path": "resource/susano1318/zoom1/32711.png",
+    "sha": "909d5fafdb7f518090513847c15d3161985a7643",
+    "size": 23937
+  },
+  {
+    "path": "resource/susano1318/zoom1/32712.png",
+    "sha": "15f52124eb63c40dd74f53598fce8fa662cac09d",
+    "size": 26927
+  },
+  {
+    "path": "resource/susano1318/zoom1/32713.png",
+    "sha": "e70d7745688c124fa667e68e1bce3bbeb3f05c1a",
+    "size": 24787
+  },
+  {
+    "path": "resource/susano1318/zoom2/32710.png",
+    "sha": "b7dcf291c74a360b5f0a8c6934acb5cb4ae85800",
+    "size": 75758
+  },
+  {
+    "path": "resource/susano1318/zoom2/32711.png",
+    "sha": "acccff28244bbe157d7d1e134c3369bfc805fc6b",
+    "size": 81525
+  },
+  {
+    "path": "resource/susano1318/zoom2/32712.png",
+    "sha": "1a572dbb364e9c3695db18b6e15d6887ea28ba25",
+    "size": 92907
+  },
+  {
+    "path": "resource/susano1318/zoom2/32713.png",
+    "sha": "09091a8c8bc03cf35a7b7061123fcb554fa5286c",
+    "size": 85056
+  },
+  {
+    "path": "resource/susano1318/zoom3/32710.png",
+    "sha": "2b35922656a04db515cd0701d3519e9c55ccd40e",
+    "size": 156683
+  },
+  {
+    "path": "resource/susano1318/zoom3/32711.png",
+    "sha": "a97be5638b2679b8494f34edc4663e3a4b751055",
+    "size": 168404
+  },
+  {
+    "path": "resource/susano1318/zoom3/32712.png",
+    "sha": "5af7d9cdaee08d67918e9b66ddbb7b7093eaef1c",
+    "size": 192872
+  },
+  {
+    "path": "resource/susano1318/zoom3/32713.png",
+    "sha": "d3a853a6183433f74e77efd8fd53b86dac054146",
+    "size": 176434
+  },
+  {
+    "path": "resource/susano1318/zoom4/32710.png",
+    "sha": "de0f4665d3f32bdaf2d0f1298b389446d006b7a2",
+    "size": 261061
+  },
+  {
+    "path": "resource/susano1318/zoom4/32711.png",
+    "sha": "071fffe58cda16929ee67568b378c1a83d177701",
+    "size": 281134
+  },
+  {
+    "path": "resource/susano1318/zoom4/32712.png",
+    "sha": "e93fc6bd45c947d79485dfc6a8b572b338c97b74",
+    "size": 321056
+  },
+  {
+    "path": "resource/susano1318/zoom4/32713.png",
+    "sha": "b5d23f918286984e726093f335993bef3d089a2c",
+    "size": 294110
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32700.png",
+    "sha": "d07c129d557d3a6f34be539db235b95cf2dc32e6",
+    "size": 18024
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32701.png",
+    "sha": "e3bad4f54bcf4acab9f732fc54ddf7c27a2ee321",
+    "size": 19760
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32702.png",
+    "sha": "1fcec34becc41ea29ff611e1dbe8a16d19b44dd9",
+    "size": 18249
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32703.png",
+    "sha": "8b0ba570521f3e028329efb8fd92873e81523e21",
+    "size": 18461
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32704.png",
+    "sha": "8040684520ff2cba905f7a854db00020a7f0b721",
+    "size": 16581
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconChar/32705.png",
+    "sha": "2d5157d31cadb4e44d3617dd4ef1773ca3b25c8f",
+    "size": 19355
+  },
+  {
+    "path": "resource/thucuoi3/zoom1/iconClient/32700.png",
+    "sha": "008fdd64e5d94833a47e2fa73420daa2b4166e25",
+    "size": 1693
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32700.png",
+    "sha": "db9d7b7f1b385cf24935e36397af5054bf46a288",
+    "size": 62257
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32701.png",
+    "sha": "7e5cfb779eb70a1cbc454cd1ec26d3f60cbebe8a",
+    "size": 68576
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32702.png",
+    "sha": "8b58a576b96e91f945e50ddc9617369fd406e751",
+    "size": 62714
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32703.png",
+    "sha": "d66de13e6dede51bd6d62da9d75398b6d394f31c",
+    "size": 64721
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32704.png",
+    "sha": "869c19e3f8b9a2f9cb57bb6312a027fb249275d1",
+    "size": 57211
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconChar/32705.png",
+    "sha": "5fc7d845e7180a0da90f3243e84699df44fb718a",
+    "size": 67425
+  },
+  {
+    "path": "resource/thucuoi3/zoom2/iconClient/32700.png",
+    "sha": "8b9c88e1381613bc48250bbfcda1e6eb00c21881",
+    "size": 5275
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32700.png",
+    "sha": "7f6c01e539d386a149afcf4fc507b33f11ef8a83",
+    "size": 127790
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32701.png",
+    "sha": "c20c383f24d7d3c358ce3ceac6a1da90093e9b74",
+    "size": 141566
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32702.png",
+    "sha": "666547bed5332f1ea37bd7cb17304fb876bcea4e",
+    "size": 129979
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32703.png",
+    "sha": "759dc19b80f08ca8464efc4e1f504031d55e8f75",
+    "size": 133934
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32704.png",
+    "sha": "b16575dc6e9b1db8f8b1c0687d6e65595045b5ce",
+    "size": 117618
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconChar/32705.png",
+    "sha": "a7ff02955ffcd3a4ea8a6cbb0ee116d76d8043c9",
+    "size": 139206
+  },
+  {
+    "path": "resource/thucuoi3/zoom3/iconClient/32700.png",
+    "sha": "9c82ae1f8dbc7e4ec5831b86c4be7019709f4d2f",
+    "size": 10373
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32700.png",
+    "sha": "8d71b33a80c13c69e0a442c9a14aaa01624a1b5c",
+    "size": 209093
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32701.png",
+    "sha": "4336c6c6e1cb29acc003acf5771fb180c73ebb27",
+    "size": 230697
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32702.png",
+    "sha": "6392fff531cc11ccb9b24a637253e5fa5b00d966",
+    "size": 211573
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32703.png",
+    "sha": "56a59e5ce2f790cf3ddc5120a4a94635aabbb0c9",
+    "size": 218936
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32704.png",
+    "sha": "293b8fac8edb6918d46e217fee9dcad70134b576",
+    "size": 192018
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconChar/32705.png",
+    "sha": "5d366aca302187d8a99b9006f17ccdbdd47c515a",
+    "size": 227021
+  },
+  {
+    "path": "resource/thucuoi3/zoom4/iconClient/32700.png",
+    "sha": "0e89e5a0e4b55285e8e05584b90b98ca2f748e05",
+    "size": 16903
+  }
+]
