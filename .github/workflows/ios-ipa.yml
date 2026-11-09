@@ -21,7 +21,7 @@ jobs:
       - name: Apply prepared visual fixes
         run: |
           python3 - <<'PY'
-          import pathlib, hashlib, zipfile
+          import pathlib, hashlib, zipfile, shutil
           parts = sorted(pathlib.Path('build-inputs/visual-fixes-parts').glob('*.part'))
           assert len(parts) == 34, len(parts)
           data = b''.join(p.read_bytes() for p in parts)
@@ -30,6 +30,8 @@ jobs:
           target.write_bytes(data)
           with zipfile.ZipFile(target) as archive:
               archive.extractall('.')
+          for source in pathlib.Path('build-inputs/visual-tuning').glob('*.java'):
+              shutil.copyfile(source, pathlib.Path('src/beatdz') / source.name)
           PY
       - name: Test asset downloader
         run: |
@@ -83,5 +85,4 @@ jobs:
           name: ios-build-log
           path: ios-build.log
           if-no-files-found: ignore
-
 
