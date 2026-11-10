@@ -2,7 +2,7 @@ name: Build iOS IPA
 
 on:
   push:
-    branches: [main, codex/visual-fixes-20261110]
+    branches: [main, codex/wheel-map-20261111]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +32,17 @@ jobs:
               archive.extractall('.')
           for source in pathlib.Path('build-inputs/visual-tuning').glob('*.java'):
               shutil.copyfile(source, pathlib.Path('src/beatdz') / source.name)
+          PY
+      - name: Apply wheel and map fixes
+        run: |
+          python3 - <<'PY'
+          import pathlib, hashlib, zipfile, io
+          parts = sorted(pathlib.Path('build-inputs/wheel-map-parts').glob('*.part'))
+          assert len(parts) == 32, len(parts)
+          data = b''.join(p.read_bytes() for p in parts)
+          assert hashlib.sha256(data).hexdigest() == '000a67f4c74268faac3805de227f919fcd11bdb962f4cdca2a42225af03267f5'
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              archive.extractall('.')
           PY
       - name: Test asset downloader
         run: |
@@ -85,4 +96,5 @@ jobs:
           name: ios-build-log
           path: ios-build.log
           if-no-files-found: ignore
+
 
