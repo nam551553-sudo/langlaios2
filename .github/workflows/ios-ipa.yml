@@ -66,6 +66,17 @@ jobs:
           with zipfile.ZipFile(io.BytesIO(data)) as archive:
               archive.extractall('.')
           PY
+      - name: Apply Sasuke Susano
+        run: |
+          python3 - <<'PY'
+          import hashlib, io, pathlib, zipfile
+          parts = sorted(pathlib.Path('build-inputs/susano1327-parts').glob('*.part'))
+          assert len(parts) == 3
+          data = b''.join(part.read_bytes() for part in parts)
+          assert hashlib.sha256(data).hexdigest() == 'e1780341653596e213f11ed581d04da0fbc54a99e60efc0e94a511d06aeb8ade'
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              archive.extractall('.')
+          PY
       - name: Test asset downloader
         run: |
           python3 ios/tools/validate-assets.py
