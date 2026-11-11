@@ -2,7 +2,7 @@ name: Build iOS IPA
 
 on:
   push:
-    branches: [main, codex/wheel-map-20261111]
+    branches: [main, codex/wheel-map-20261111, codex/konoha-hud-20261111]
   workflow_dispatch:
 
 permissions:
@@ -77,6 +77,8 @@ jobs:
           with zipfile.ZipFile(io.BytesIO(data)) as archive:
               archive.extractall('.')
           PY
+      - name: Apply Konoha HUD and equipment fixes
+        run: cp build-inputs/konoha-hud/*.java src/beatdz/
       - name: Test asset downloader
         run: |
           python3 ios/tools/validate-assets.py
