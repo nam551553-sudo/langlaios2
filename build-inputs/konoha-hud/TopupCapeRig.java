@@ -21,8 +21,15 @@ public final class TopupCapeRig {
     // Full-sprite bodies need the fastening behind the torso rather than at the front hand.
     private static final int[][] SHOULDER_OFFSETS={{10,-48},{12,-34},{-45,-40},{48,-32},{-37,-24},{8,-34},{-4,-56}};
     public static float[] shoulder(LangLa_ju body) {
-        int[] offset=SHOULDER_OFFSETS[sourceCategory(body.a)];
-        float x=TopupGripAnchors.x(body.a)+offset[0],y=TopupGripAnchors.y(body.a)+offset[1];
+        int category = sourceCategory(body.a);
+        int[] offset = SHOULDER_OFFSETS[category];
+        float x = TopupGripAnchors.x(body.a) + offset[0];
+        float y = TopupGripAnchors.y(body.a) + offset[1];
+        int index = TopupGripAnchors.index(body.a);
+        if (index >= 29 && body.a - TopupGripAnchors.BASES[index] <= 8) {
+            x = 121 + (category == 1 ? 3 : 0);
+            y = 133;
+        }
         return new float[]{body.d+(x/256f-0.5f)*body.width,body.e+(y/256f-1f)*body.height};
     }
 
@@ -76,7 +83,9 @@ public final class TopupCapeRig {
             ready=new LangLa_ju[33];
             for(int pose=0;pose<33;pose++) {
                 LangLa_ju original=source[pose],copy=new LangLa_ju(original.a);
-                copy.b=original.b;copy.c=original.c;copy.width=original.width;copy.height=original.height;
+                copy.b=original.b;
+                copy.c=(short)Math.min(original.c, body[pose].c - 1);
+                copy.width=original.width;copy.height=original.height;
                 float[] target=shoulder(body[pose]),nativeAnchor=nativeShoulder(pose);
                 int dx=pose==30?0:Math.round(target[0]-nativeAnchor[0]);
                 int dy=pose==30?0:Math.round(target[1]-nativeAnchor[1]);

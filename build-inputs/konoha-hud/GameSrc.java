@@ -1224,17 +1224,17 @@ public class GameSrc extends MainScreen {
                 var28.ah.a = var38;
                 var28.ah.b(true);
                 var28.ah.p = var28.ah.q = true;
-                int hudLeft = DataCenter.gI().widthScreen - 84;
-                LangLa_dz menuToggle = var28.a(hudLeft - 16, 54, "", var28, 1100, 715);
+                int hudLeft = DataCenter.gI().widthScreen - 86;
+                LangLa_dz menuToggle = var28.a(hudLeft - 18, 17, "", var28, 1100, 715);
                 menuToggle.e = 180;
                 var28.U.b(menuToggle);
                 int[] commands = {9997, 1156, 1154, 1152, 1150, 1157, 1155, 1153, 1151};
                 int[] icons = {1172, 81, 49, 36, 687, 660, 647, 648, 82};
                 for (int buttonIndex = 0; buttonIndex < commands.length; buttonIndex++) {
-                    int x = hudLeft + 16 * (buttonIndex < 5 ? buttonIndex : buttonIndex - 4);
-                    int y = buttonIndex < 5 ? 18 : 43;
+                    int x = hudLeft + (buttonIndex < 5 ? 1 + 17 * buttonIndex : 4 + 20 * (buttonIndex - 5));
+                    int y = buttonIndex < 5 ? 17 : 37;
                     LangLa_dz button = var28.a(x, y, "", var28, commands[buttonIndex], icons[buttonIndex]);
-                    button.setSize(16, 20);
+                    button.setSize(buttonIndex < 5 ? 16 : 18, 18);
                     if (button.b == 1154) var28.dt = button;
                     if (button.b == 1156) var28.ds = button;
                     if (button.b == 1157) var28.dw = button;
@@ -2018,13 +2018,7 @@ public class GameSrc extends MainScreen {
             var13 = true;
             Item var17;
             Char var23 = Char.gI();
-            if (this.dJ != null) {
-                if ((var17 = (var23).arrItemBody[14]) == null || var17.id != 788 && (var17.strOptions == null || !var17.strOptions.contains(";333,0"))) {
-                    this.dJ.v = true;
-                } else {
-                    this.dJ.v = false;
-                }
-            }
+            if (this.dJ != null) this.dJ.v = !CostumeSusano.canCast(var23.arrItemBody[14]);
 
             if (!Graphics.m()) {
                 updateMove();
@@ -2150,7 +2144,7 @@ public class GameSrc extends MainScreen {
                         continue;
                     }
 
-                    this.M.add(var36);
+                    if (this.isTrainingDummyInReach(var36)) this.M.add(var36);
                 }
 
                 for (int var32 = 0; var32 < var36.h.size(); ++var32) {
@@ -3011,7 +3005,7 @@ public class GameSrc extends MainScreen {
 
             for (int var4 = 0; var4 < this.M.size(); ++var4) {
                 Entity var9 = (Entity) this.M.elementAt(var4);
-                if (!this.a((XYEntity) var9)) {
+                if (this.isTrainingDummyInReach(var9) && !this.a((XYEntity) var9)) {
                     if (!var1) {
                         if (var9 instanceof Npc) {
                             continue;
@@ -4328,7 +4322,7 @@ public class GameSrc extends MainScreen {
                         gI().a((LangLa_cx) (new LangLa_ca(gI())));
                         break;
                     case 1090:
-                        i(14);
+                        if (CostumeSusano.canCast(Char.gI().arrItemBody[14])) i(14);
                         break;
                     case 1100:
                         this.k(!this.U.c());
@@ -4977,10 +4971,19 @@ public class GameSrc extends MainScreen {
     }
 
     boolean isHudTargetVisible(Entity target) {
-        if (!(target instanceof Mob) || ((Mob) target).id != 30) return true;
-        return this.vMob.contains(target) && ((Mob) target).x()
-                && Utlis.inRange(target.a(), target.c(), target.b(), target.d(),
-                DataCenter.gI().j, DataCenter.gI().k, DataCenter.gI().l, DataCenter.gI().m);
+        return !isTrainingDummy(target) || this.vMob.contains(target)
+                && ((Mob) target).x() && this.isTrainingDummyInReach(target);
+    }
+
+    private boolean isTrainingDummy(Entity target) {
+        return this.mapID == 86 && target instanceof Mob
+                && (((Mob) target).id == 30 || "Bù nhìn luyện tập".equalsIgnoreCase(target.f()));
+    }
+
+    private boolean isTrainingDummyInReach(Entity target) {
+        if (!isTrainingDummy(target)) return true;
+        Char player = Char.gI();
+        return Math.abs(player.cx - target.cx) <= 32 && Math.abs(player.cy - target.cy) <= 16;
     }
 
     private boolean isSchoolChiTon(Entity entity) {
@@ -11494,20 +11497,8 @@ public class GameSrc extends MainScreen {
 
     private void k(boolean var1) {
         mConfig.gI().writeBoolean(23, var1);
-        this.U.a(!mConfig.gI().readBoolean(23));
-        LangLa_dz var10000;
-        if (!var1) {
-            this.U.a(this.U.a().cx, 54, false);
-            this.U.e();
-            var10000 = (LangLa_dz) this.U.a();
-            byte var3 = 0;
-            var10000.e = var3;
-        } else {
-            this.U.a(this.U.a().cx, 106, true);
-            var10000 = (LangLa_dz) this.U.a();
-            short var2 = 180;
-            var10000.e = var2;
-        }
+        this.U.a(var1);
+        ((LangLa_dz) this.U.a()).e = var1 ? 180 : 0;
     }
 
     public static void bR(Message var0) {

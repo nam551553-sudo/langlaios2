@@ -109,7 +109,7 @@ public class LangLa_fq {
             image = Binary.createImage(Utlis.internal("resource/konoha-winter/zoom" + DataCenter.gI().zoomLevel + "/" + id + ".jpg").readBytes());
          } catch (Exception ignored) {
          }
-         if (image != null) image.smoothScaling = true;
+         if (image != null) image = KonohaScenery.featherSkyEdges(image);
          else image = a;
          f.put(key, image);
       }

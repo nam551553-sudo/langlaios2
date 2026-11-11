@@ -1763,9 +1763,14 @@ public class Char extends Entity {
     }
 
     private void drawRider(Graphics var1, int var2, int var3, Vector var4, int var5, int var6, boolean var7, boolean seated) {
+        LangLa_jr topupBody = TopupWeaponRig.findBody(var4);
         boolean fixedIdle = false;
         if (!seated && this.status == 0 && this.ah == 0 && this.hp > 0
                 && !this.x && var5 != 15) {
+            if (topupBody != null || this.arrItemBody[14] != null) {
+                int idleStep = (DataCenter.gI().i / 8) & 3;
+                var3 -= idleStep == 2 ? 2 : idleStep == 0 ? 0 : 1;
+            }
             for (int i = 0; i < var4.size(); i++) {
                 if (((LangLa_jr) var4.elementAt(i)).fixedCostumeIdle) {
                     fixedIdle = true;
@@ -1776,7 +1781,6 @@ public class Char extends Entity {
             }
         }
         a(var4, var5);
-        LangLa_jr topupBody = TopupWeaponRig.findBody(var4);
         int var10 = Integer.MIN_VALUE;
         boolean var9 = false;
 
