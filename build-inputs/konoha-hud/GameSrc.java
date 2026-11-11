@@ -2267,7 +2267,7 @@ public class GameSrc extends MainScreen {
             }
             if (this.dq != null) {
                 for (var3 = 0; var3 < this.dq.length; ++var3) {
-                    if (this.dq[var3] != null) {
+                    if (this.dq[var3] != null && (this.mapID != 86 || !this.dq[var3].isBackgroundWater())) {
                         this.dq[var3].o();
                         if (this.dq[var3] != null && Utlis.inRange(this.dq[var3].a() - 50, this.dq[var3].c() - 50, this.dq[var3].b() + 50, this.dq[var3].d() + 50, DataCenter.gI().j, DataCenter.gI().k, DataCenter.gI().l, DataCenter.gI().m)) {
                             this.K.add(this.dq[var3]);
@@ -3625,7 +3625,7 @@ public class GameSrc extends MainScreen {
         int width = DataCenter.gI().widthScreen;
         int height = DataCenter.gI().heightScreen;
         if (width <= 0 || height <= 0) return;
-        for (int i = 0; i < 72; i++) {
+        for (int i = 0; i < 90; i++) {
             int y = (int) ((i * 97 + time / (23 + i % 5 * 9)) % height);
             int drift = (int) (Math.sin(time / 960.0 + i) * 10);
             int x = Math.floorMod(i * 173 + drift, width);

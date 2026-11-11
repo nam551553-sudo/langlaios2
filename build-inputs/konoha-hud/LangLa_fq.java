@@ -111,7 +111,7 @@ public class LangLa_fq {
          }
          if (image == null) image = a;
          else {
-            softenWinterSky(image);
+            image = softenWinterSky(image);
             image.smoothScaling = true;
          }
          f.put(key, image);
@@ -119,11 +119,14 @@ public class LangLa_fq {
       return image == a ? null : image;
    }
 
-   private static void softenWinterSky(mImage image) {
-      com.badlogic.gdx.graphics.Pixmap pixmap = image.b;
+   private static mImage softenWinterSky(mImage image) {
+      mImage blended = mImage.a(image.c, image.d);
+      if (blended == null) return image;
+      com.badlogic.gdx.graphics.Pixmap pixmap = blended.b;
       pixmap.setBlending(com.badlogic.gdx.graphics.Pixmap.Blending.None);
-      int side = Math.max(1, image.c / 14);
-      int top = Math.max(1, image.d / 9);
+      pixmap.drawPixmap(image.b, 0, 0);
+      int side = Math.max(1, image.c / 10);
+      int top = Math.max(1, image.d / 7);
       for (int y = 0; y < image.d; y++) {
          for (int x = 0; x < image.c; x++) {
             float weight = Math.min(y / (float) top, Math.min(x, image.c - 1 - x) / (float) side);
@@ -135,6 +138,8 @@ public class LangLa_fq {
             pixmap.drawPixel(x, y, (rgba & 0xffffff00) | alpha);
          }
       }
+      image.a();
+      return blended;
    }
 
    public static short[] b(Graphics var0, int var1, int var2, int var3, int var4, int var5) {

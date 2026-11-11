@@ -14,7 +14,7 @@ public class DanhHieu {
             this.data = new Char.DanhHieuByBeatdz(32580, 32581, 32582, 32583, 32584, 32585);
             this.data.y = -42;
             this.data.timeMS = 180;
-            this.data.size = 72;
+            this.data.size = 78;
             this.isNew = true;
             return;
          } catch (Exception ignored) {

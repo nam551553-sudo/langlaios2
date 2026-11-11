@@ -741,7 +741,12 @@ public class LangLa_bg extends LangLa_fn {
                     mFont.a((mFont) mFont.b, (Graphics) var1, var5.b, this.y + this.w / 2, this.z + 9, 2, -1, -10275328);
                     b(var1, this.y + 9, this.z + 16, var5.d, this.A == var2);
                     if (var5.d != null && var5.d.isLock) {
-                        Binary2.a(var1, 44, 0, this.y + 28, this.z + 17, 6, 7);
+                        int lockX = this.y + 27, lockY = this.z + 17;
+                        var1.f(0xff29190d);
+                        var1.c(lockX, lockY + 4, 10, 7);
+                        var1.f(0xffffd26c);
+                        var1.b(lockX + 2, lockY, 5, 5);
+                        var1.c(lockX + 1, lockY + 5, 8, 5);
                     }
                     int var3 = var1.a;
                     int var4 = var1.b;
