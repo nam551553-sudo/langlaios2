@@ -12,9 +12,9 @@ public class DanhHieu {
       if ("danhhieu3".equalsIgnoreCase(this.a) || "Thống Lĩnh LangLaDuck".equalsIgnoreCase(this.a)) {
          try {
             this.data = new Char.DanhHieuByBeatdz(32580, 32581, 32582, 32583, 32584, 32585);
-            this.data.y = -42;
+            this.data.y = -35;
             this.data.timeMS = 180;
-            this.data.size = 78;
+            this.data.size = 86;
             this.isNew = true;
             return;
          } catch (Exception ignored) {
