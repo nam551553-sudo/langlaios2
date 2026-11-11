@@ -48,6 +48,18 @@ final class SasukeSusanoMotion {
                 arc(batch, centerX, centerY, (8 + 50 * pulse) * scale, pulse * 2,
                         6.28f, 3 * scale, (1 - pulse) * .65f);
             }
+            for (int i = 0; i < 15; i++) {
+                float life = ((elapsed + i * 113) % 850) / 850f;
+                float dx = (i - 7) * 5 + (float) Math.sin(i + life * 4) * 4;
+                float rise = life * (19 + i % 4 * 5);
+                float tipX = centerX + dx * scale;
+                float tipY = centerY + (24 - rise) * scale;
+                float alpha = (1 - life) * Math.min(1, life * 8);
+                batch.setColor(.60f, .12f, 1f, alpha * .64f);
+                segment(batch, tipX, tipY + 10 * scale, tipX + side * 3 * scale, tipY, (4 - 2 * life) * scale);
+                batch.setColor(.92f, .50f, 1f, alpha * .78f);
+                segment(batch, tipX, tipY + 6 * scale, tipX + side * 2 * scale, tipY, scale);
+            }
             sparks(batch, centerX, centerY, scale, elapsed);
         } finally {
             batch.setPackedColor(previousColor);

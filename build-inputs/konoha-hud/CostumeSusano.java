@@ -8,6 +8,23 @@ enum CostumeSusano {
     SASUKE(1327, 32714, 1, 92, 84, 0);
 
     private static final int EFFECT_ID = 101;
+    private static final long COOLDOWN_MS = 120000;
+    private static long nextCastAt;
+
+    static int cooldownSeconds() {
+        long remaining = nextCastAt - Utlis.time();
+        for (Object value : Char.gI().vEffect) {
+            Effect effect = (Effect) value;
+            if (effect.id == EFFECT_ID) {
+                remaining = Math.max(remaining, effect.timeStart + COOLDOWN_MS - Utlis.time());
+            }
+        }
+        return (int) Math.max(0, (remaining + 999) / 1000);
+    }
+
+    static void startCooldown() {
+        nextCastAt = Utlis.time() + COOLDOWN_MS;
+    }
     private static final int NARUTO_FRAME_MS = 90;
     private static final int NARUTO_INTRO_MS = 10 * NARUTO_FRAME_MS;
     private static final int ITACHI_FRAME_MS = 100;

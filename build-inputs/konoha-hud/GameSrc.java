@@ -3543,6 +3543,7 @@ public class GameSrc extends MainScreen {
                     var18 = var1.b;
                     this.a(var1, 0, 0);
                     if (!this.bb) {
+                        if (this.mapID == 86 && !mConfig.gI().readBoolean(18)) drawKonohaSnow(var1);
                         if (dB != null) var1.a(dB, 0, 0);
                         // Vẽ text zoom level label trực tiếp lên live HUD (Graphics.a=0), luôn cập nhật mỗi frame
                         if (this.btnPlus != null) mFont.b(mFont.e, var1, "+", this.btnPlus.cx + this.btnPlus.width / 2, this.btnPlus.cy + this.btnPlus.height / 2, 2, -1, -16777216);
@@ -3615,6 +3616,21 @@ public class GameSrc extends MainScreen {
 
         } catch (Exception var13) {
             Utlis.println(var13);
+        }
+    }
+
+    private void drawKonohaSnow(Graphics graphics) {
+        long time = Utlis.time() % 3600000L;
+        int width = DataCenter.gI().widthScreen;
+        int height = DataCenter.gI().heightScreen;
+        if (width <= 0 || height <= 0) return;
+        for (int i = 0; i < 50; i++) {
+            int y = (int) ((i * 97 + time / (23 + i % 5 * 9)) % height);
+            int drift = (int) (Math.sin(time / 960.0 + i) * 10);
+            int x = Math.floorMod(i * 173 + drift, width);
+            int size = i % 7 == 0 ? 2 : 1;
+            graphics.f(i % 3 == 0 ? 0xffd7ebff : 0xfff5fbff);
+            graphics.c(x, y, size, size);
         }
     }
 
@@ -11519,10 +11535,13 @@ public class GameSrc extends MainScreen {
     }
 
     public static void i(int var0) {
+        if (var0 == 14 && (!CostumeSusano.canCast(Char.gI().arrItemBody[14])
+                || CostumeSusano.cooldownSeconds() > 0)) return;
         try {
             Message var1;
             (var1 = Message.c((byte) -19)).writeByte(var0);
             var1.send();
+            if (var0 == 14) CostumeSusano.startCooldown();
         } catch (Exception var2) {
         }
     }

@@ -84,7 +84,8 @@ public class LangLa_fq {
    public static short[] a(Graphics var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       try {
          Short var9 = Short.valueOf((short)var1);
-         mImage var10 = (mImage)f.get(var9);
+         mImage var10 = winterTile(var1);
+         if (var10 == null) var10 = (mImage)f.get(var9);
          if (var10 != null) {
             var0.a(var10, 0, 0, var10.c, var10.d, var2, var3 - var5 / 2, var4 - var6, var5 * DataCenter.gI().zoomLevel, var6 * DataCenter.gI().zoomLevel, 20);
          } else {
@@ -95,6 +96,23 @@ public class LangLa_fq {
       } catch (Exception var8) {
          return new short[]{0, 0};
       }
+   }
+
+   private static mImage winterTile(int id) {
+      if (id < 167 || id > 169 || GameSrc.gI().mapID != 86 || mConfig.gI().readBoolean(18)) return null;
+      int zoom = DataCenter.gI().zoomLevel;
+      short key = (short) (-id - 1000 * zoom);
+      mImage image = (mImage) f.get(key);
+      if (image == null) {
+         try {
+            image = Binary.createImage(Utlis.internal("resource/konoha-winter/zoom" + zoom + "/" + id + ".jpg").readBytes());
+         } catch (Exception ignored) {
+         }
+         if (image == null) image = a;
+         else image.smoothScaling = true;
+         f.put(key, image);
+      }
+      return image == a ? null : image;
    }
 
    public static short[] b(Graphics var0, int var1, int var2, int var3, int var4, int var5) {

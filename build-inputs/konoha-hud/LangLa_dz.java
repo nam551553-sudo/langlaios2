@@ -340,6 +340,10 @@ public class LangLa_dz extends LangLa_cs {
                     var1.b(0, 0, this.width - 1, this.height - 1);
                     mFont.b(mFont.d, var1, "S", this.width / 2, 3, 2, -1, -16777216);
                 }
+                int seconds = CostumeSusano.cooldownSeconds();
+                if (seconds > 0) {
+                    mFont.b(mFont.b, var1, seconds + "s", this.width / 2, 4, 2, -1, -16777216);
+                }
             }
             return;
         }

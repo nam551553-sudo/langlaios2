@@ -146,7 +146,11 @@ public abstract class Canvas implements Screen {
             this.update();
             if (var1) {
                 if (!Graphics.m()) {
-                    Gdx.gl.glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
+                    if (GameSrc.gI().mapID == 86 && DataCenter.gI().currentScreen instanceof GameSrc && !mConfig.gI().readBoolean(18)) {
+                        Gdx.gl.glClearColor(0.39F, 0.64F, 0.90F, 1.0F);
+                    } else {
+                        Gdx.gl.glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
+                    }
                     Gdx.gl.glClear(16384);
                     Gdx.gl.glEnable(3042);
                     Gdx.gl20.glLineWidth((float) DataCenter.gI().zoomLevel);
