@@ -1917,6 +1917,7 @@ public class GameSrc extends MainScreen {
                         if (var24.o().idEff != 152 && var24.o().idEff != 162 && var24.o().idEff != 163 && var24.o().idEff != 164 && var24.o().idEff != 165 && var24.o().idEff != 166 && var24.o().idEff != 167 && var24.o().idEff != 168 && var24.o().idEff != 169 && var24.o().idEff != 268) {
                             if (var24.o().idEff >= 0 && var24.n == null) {
                                 if (var24.o().idEff == 181) {
+                                    if (this.mapID == 86) continue;
                                     if (Utlis.nextInt((int) 100) == 0) {
                                         var19 = var24.cx + Utlis.nextInt(-100, 100);
                                         var21 = var24.cy + Utlis.nextInt(-10, 10);
@@ -2275,7 +2276,7 @@ public class GameSrc extends MainScreen {
                 }
             }
 
-            if (this.dr != null) {
+            if (this.dr != null && this.mapID != 86) {
                 for (var3 = 0; var3 < this.dr.length; ++var3) {
                     if (this.dr[var3] != null) {
                         this.dr[var3].o();
@@ -3624,7 +3625,7 @@ public class GameSrc extends MainScreen {
         int width = DataCenter.gI().widthScreen;
         int height = DataCenter.gI().heightScreen;
         if (width <= 0 || height <= 0) return;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 72; i++) {
             int y = (int) ((i * 97 + time / (23 + i % 5 * 9)) % height);
             int drift = (int) (Math.sin(time / 960.0 + i) * 10);
             int x = Math.floorMod(i * 173 + drift, width);

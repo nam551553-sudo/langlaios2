@@ -83,6 +83,7 @@ public class LangLa_fq {
 
    public static short[] a(Graphics var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       try {
+         if (var1 == 222 && winterTile(169) != null) return new short[]{0, 0};
          Short var9 = Short.valueOf((short)var1);
          mImage var10 = winterTile(var1);
          if (var10 == null) var10 = (mImage)f.get(var9);
@@ -109,10 +110,31 @@ public class LangLa_fq {
          } catch (Exception ignored) {
          }
          if (image == null) image = a;
-         else image.smoothScaling = true;
+         else {
+            softenWinterSky(image);
+            image.smoothScaling = true;
+         }
          f.put(key, image);
       }
       return image == a ? null : image;
+   }
+
+   private static void softenWinterSky(mImage image) {
+      com.badlogic.gdx.graphics.Pixmap pixmap = image.b;
+      pixmap.setBlending(com.badlogic.gdx.graphics.Pixmap.Blending.None);
+      int side = Math.max(1, image.c / 14);
+      int top = Math.max(1, image.d / 9);
+      for (int y = 0; y < image.d; y++) {
+         for (int x = 0; x < image.c; x++) {
+            float weight = Math.min(y / (float) top, Math.min(x, image.c - 1 - x) / (float) side);
+            if (weight >= 1) continue;
+            int rgba = pixmap.getPixel(x, y);
+            int r = rgba >>> 24, g = rgba >>> 16 & 255, b = rgba >>> 8 & 255;
+            if (b <= r + 12 || b <= g + 5) continue;
+            int alpha = Math.round(255 * weight * weight * (3 - 2 * weight));
+            pixmap.drawPixel(x, y, (rgba & 0xffffff00) | alpha);
+         }
+      }
    }
 
    public static short[] b(Graphics var0, int var1, int var2, int var3, int var4, int var5) {
