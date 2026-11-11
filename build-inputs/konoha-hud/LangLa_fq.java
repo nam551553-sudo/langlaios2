@@ -33,8 +33,9 @@ public class LangLa_fq {
       mImage var1;
       if ((var1 = (mImage)e.get((short)var0)) == null) {
          a(var0, "client", e);
-         var1 = a;
+         var1 = (mImage)e.get((short)var0);
       }
+      if (var1 == null) var1 = a;
 
       return var1;
    }
@@ -82,13 +83,10 @@ public class LangLa_fq {
 
    public static short[] a(Graphics var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       try {
-         if (var1 == 222 && schoolScenery(169) != null) return new short[]{0, 0};
          Short var9 = Short.valueOf((short)var1);
-         mImage var10 = schoolScenery(var1);
-         int width = var10 != null && var1 == 169 ? var5 + 44 : var5;
-         if (var10 == null) var10 = (mImage)f.get(var9);
+         mImage var10 = (mImage)f.get(var9);
          if (var10 != null) {
-            var0.a(var10, 0, 0, var10.c, var10.d, var2, var3 - var5 / 2, var4 - var6, width * DataCenter.gI().zoomLevel, var6 * DataCenter.gI().zoomLevel, 20);
+            var0.a(var10, 0, 0, var10.c, var10.d, var2, var3 - var5 / 2, var4 - var6, var5 * DataCenter.gI().zoomLevel, var6 * DataCenter.gI().zoomLevel, 20);
          } else {
             a(var1, "tree", f);
          }
@@ -97,23 +95,6 @@ public class LangLa_fq {
       } catch (Exception var8) {
          return new short[]{0, 0};
       }
-   }
-
-   private static mImage schoolScenery(int id) {
-      if (id < 167 || id > 169 || GameSrc.gI().mapID != 86 || mConfig.gI().readBoolean(18)) return null;
-      // Use a separate key so a downloaded tree archive cannot replace the bundled scene.
-      Short key = Short.valueOf((short)(-id - 1000 * DataCenter.gI().zoomLevel));
-      mImage image = (mImage)f.get(key);
-      if (image == null) {
-         try {
-            image = Binary.createImage(Utlis.internal("resource/konoha-winter/zoom" + DataCenter.gI().zoomLevel + "/" + id + ".jpg").readBytes());
-         } catch (Exception ignored) {
-         }
-         if (image != null) image = KonohaScenery.featherSkyEdges(image);
-         else image = a;
-         f.put(key, image);
-      }
-      return image == a ? null : image;
    }
 
    public static short[] b(Graphics var0, int var1, int var2, int var3, int var4, int var5) {
@@ -421,6 +402,18 @@ public class LangLa_fq {
    }
 
    private static void a(int var0, String var1, Hashtable var2) {
+      if ("client".equals(var1) && var0 >= 32580 && var0 <= 32586) {
+         try {
+            mImage title = Binary.createImage(Utlis.internal("resource/danhhieu3/zoom"
+                    + DataCenter.gI().zoomLevel + "/" + var0 + ".png").readBytes());
+            if (title != null && title.c > 1) {
+               title.smoothScaling = true;
+               var2.put((short) var0, title);
+               return;
+            }
+         } catch (Exception ignored) {
+         }
+      }
       if (((var0 >= 31524 && var0 <= 31554) || (var0 >= 31560 && var0 <= 31590)) && ("char".equals(var1) || "client".equals(var1))) {
          try {
             mImage image = Binary.createImage(Utlis.internal("resource/raikage-obito/zoom"

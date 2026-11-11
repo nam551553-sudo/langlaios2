@@ -1480,6 +1480,7 @@ public class GameSrc extends MainScreen {
             }
 
             int numSlots = gI().aE.size();
+            LangLa_dz lastMainSlot = null;
             for (int var5 = 0; var5 < numSlots; ++var5) {
                 int cx, cy;
                 boolean isDiscipleSlot = var5 >= maxMainSlots;
@@ -1498,15 +1499,14 @@ public class GameSrc extends MainScreen {
                     var9.setXY(cx + (maxMainSlots % 2 == 0 ? 18 : 0), var9.cy);
                 }
 
+                if (!isDiscipleSlot) lastMainSlot = var9;
                 this.P.b((LangLa_cs) var9);
                 var2.addElement(var9);
             }
 
-            if (DataCenter.gI().widthScreen <= 400 && maxMainSlots >= 6) {
-                this.dJ = this.a(var10 - 20 - 14 + 100, DataCenter.gI().heightScreen - 65, "", this, 1090, 620);
-            } else {
-                this.dJ = this.a(var10 - 45 - 10 + 100, DataCenter.gI().heightScreen - 55, "", this, 1090, 620);
-            }
+            int susanoX = Math.min(DataCenter.gI().widthScreen - 18, lastMainSlot.cx + 19);
+            this.dJ = this.a(susanoX, lastMainSlot.cy, "", this, 1090, 620);
+            this.dJ.v = !CostumeSusano.canCast(Char.gI().arrItemBody[14]);
 
             this.P.b((LangLa_cs) this.dJ);
             var2.addElement(this.dJ);

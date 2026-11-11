@@ -1718,6 +1718,7 @@ public class Char extends Entity {
                     }
                     CostumeSusano.draw(var2, var8, riderX, riderY);
                     var8.drawRider(var2, riderX, riderY, var8.aE, var3, var8.m, var8.i(), seated);
+                    CostumeSusano.drawForeground(var2, var8, riderX, riderY);
                     if (var4 == 0 && var8.aO > 0) {
                         if (var8.ag == 2) {
                             if (var8.aO < 95) {

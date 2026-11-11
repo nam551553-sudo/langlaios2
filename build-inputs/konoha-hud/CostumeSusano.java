@@ -78,6 +78,20 @@ enum CostumeSusano {
         }
     }
 
+    static void drawForeground(Graphics graphics, Char character, int x, int y) {
+        if (character.hp <= 0 || character.aQ || character.arrItemBody[14] == null
+                || character.arrItemBody[14].id != SASUKE.itemId) return;
+        for (Object value : character.vEffect) {
+            Effect effect = (Effect) value;
+            if (effect.id != EFFECT_ID) continue;
+            long elapsed = Math.max(0, Utlis.time() - effect.timeStart);
+            if (effect.maintain < 0 || elapsed < effect.maintain) {
+                SasukeSusanoMotion.draw(graphics, x, y, character.i(), elapsed);
+            }
+            return;
+        }
+    }
+
     int frameAt(long elapsed) {
         if (this == SASUKE) return 0;
         if (this == ITACHI) return ITACHI_CYCLE[(int) ((elapsed / ITACHI_FRAME_MS) % ITACHI_CYCLE.length)];
