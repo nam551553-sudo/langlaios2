@@ -17,6 +17,7 @@ jobs:
           cat input/part-* > source.zip
           unzip -q source.zip
           unzip -oq overlay.zip
+          cp SeasonalEventDialog.java src/beatdz/
           chmod +x gradlew
           ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:createIPA -x :ios:test --console=plain
       - uses: actions/upload-artifact@v4
