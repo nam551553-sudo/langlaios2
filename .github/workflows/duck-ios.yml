@@ -18,7 +18,14 @@ jobs:
           unzip -q source.zip
           unzip -oq overlay.zip
           cp SeasonalEventDialog.java src/beatdz/
-          sed -i '' -e 's/pixels \* size \* 90/pixels * size * 97/' -e 's/120.0 \* zoom \/ width, 38.0/130.0 * zoom \/ width, 41.0/' src/beatdz/Char.java
+          cp cape/*.java src/beatdz/
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('src/beatdz/Char.java')
+          s = p.read_text()
+          assert 'pixels * size * 90 / 10000' in s
+          p.write_text(s.replace('pixels * size * 90 / 10000', 'pixels * size * 99 / 10000').replace('120.0 * zoom / width, 38.0 * zoom / height', '132.0 * zoom / width, 41.8 * zoom / height'))
+          PY
           chmod +x gradlew
           ./gradlew -PwithIos -PiosOnly -Probovm.iosSkipSigning=true -Probovm.archs=arm64 :ios:createIPA -x :ios:test --console=plain
       - uses: actions/upload-artifact@v4
